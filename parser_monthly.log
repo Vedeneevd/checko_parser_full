@@ -4725,3 +4725,500 @@ Stacktrace:
 	RtlGetAppContainerNamedObjectPath [0x0x776b809e+286]
 	RtlGetAppContainerNamedObjectPath [0x0x776b806e+238]
 
+2025-06-05 16:54:22,147 - INFO - ====== WebDriver manager ======
+2025-06-05 16:54:24,625 - INFO - Get LATEST chromedriver version for google-chrome
+2025-06-05 16:54:25,325 - INFO - Get LATEST chromedriver version for google-chrome
+2025-06-05 16:54:26,185 - INFO - Driver [C:\Users\User\.wdm\drivers\chromedriver\win64\137.0.7151.68\chromedriver-win32/chromedriver.exe] found in cache
+2025-06-05 16:54:28,150 - INFO - 
+Начинаем обработку месяца: may 2025
+2025-06-05 16:54:36,573 - INFO - Применение фильтров: 2025-05-01 - 2025-05-31
+2025-06-05 16:54:38,904 - ERROR - Ошибка при применении фильтров: Message: element click intercepted: Element <button type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse-1" aria-expanded="false" aria-controls="flush-collapse-1" class="accordion-button collapsed">...</button> is not clickable at point (83, 472). Other element would receive the click: <div style="position: absolute; left: 0; bottom: 0; width: 360px; z-index: 1; background: #ffe3aa; color: #111; padding: 0.35rem 0.75rem 1rem 1rem; font-size: 14px;">...</div>
+  (Session info: chrome=137.0.7151.56)
+Stacktrace:
+	GetHandleVerifier [0x0xd13763+63299]
+	GetHandleVerifier [0x0xd137a4+63364]
+	(No symbol) [0x0xb41113]
+	(No symbol) [0x0xb8fbb0]
+	(No symbol) [0x0xb8df6a]
+	(No symbol) [0x0xb8bad7]
+	(No symbol) [0x0xb8ada7]
+	(No symbol) [0x0xb7f445]
+	(No symbol) [0x0xbae57c]
+	(No symbol) [0x0xb7eed4]
+	(No symbol) [0x0xbae7f4]
+	(No symbol) [0x0xbcfa4a]
+	(No symbol) [0x0xbae376]
+	(No symbol) [0x0xb7d6e0]
+	(No symbol) [0x0xb7e544]
+	GetHandleVerifier [0x0xf6e033+2531347]
+	GetHandleVerifier [0x0xf69332+2511634]
+	GetHandleVerifier [0x0xd39eda+220858]
+	GetHandleVerifier [0x0xd2a528+156936]
+	GetHandleVerifier [0x0xd30c5d+183357]
+	GetHandleVerifier [0x0xd1b6c8+95912]
+	GetHandleVerifier [0x0xd1b870+96336]
+	GetHandleVerifier [0x0xd0664a+9770]
+	BaseThreadInitThunk [0x0x760dfcc9+25]
+	RtlGetAppContainerNamedObjectPath [0x0x776b809e+286]
+	RtlGetAppContainerNamedObjectPath [0x0x776b806e+238]
+
+2025-06-05 16:54:44,155 - INFO - Применение фильтров: 2025-05-01 - 2025-05-31
+2025-06-05 16:54:57,011 - INFO - Обработка страницы 1
+2025-06-05 16:54:59,122 - INFO - Добавлено 25 новых ссылок (Всего: 25)
+2025-06-05 16:54:59,122 - INFO - Обработка страницы 2
+2025-06-05 16:55:03,895 - INFO - Добавлено 25 новых ссылок (Всего: 50)
+2025-06-05 16:55:03,895 - INFO - Обработка страницы 3
+2025-06-05 16:55:08,654 - INFO - Добавлено 25 новых ссылок (Всего: 75)
+2025-06-05 16:55:08,654 - INFO - Обработка страницы 4
+2025-06-05 16:55:13,317 - INFO - Добавлено 25 новых ссылок (Всего: 100)
+2025-06-05 16:55:13,317 - INFO - Обработка страницы 5
+2025-06-05 16:55:18,360 - INFO - Добавлено 25 новых ссылок (Всего: 125)
+2025-06-05 16:55:18,360 - INFO - Обработка страницы 6
+2025-06-05 16:55:23,054 - INFO - Добавлено 25 новых ссылок (Всего: 150)
+2025-06-05 16:55:23,054 - INFO - Обработка страницы 7
+2025-06-05 16:55:27,812 - INFO - Добавлено 25 новых ссылок (Всего: 175)
+2025-06-05 16:55:27,812 - INFO - Обработка страницы 8
+2025-06-05 16:55:32,512 - INFO - Добавлено 25 новых ссылок (Всего: 200)
+2025-06-05 16:55:32,512 - INFO - Обработка страницы 9
+2025-06-05 16:55:37,290 - INFO - Добавлено 25 новых ссылок (Всего: 225)
+2025-06-05 16:55:37,290 - INFO - Обработка страницы 10
+2025-06-05 16:55:42,032 - INFO - Добавлено 25 новых ссылок (Всего: 250)
+2025-06-05 16:55:42,032 - INFO - Обработка страницы 11
+2025-06-05 16:55:47,117 - INFO - Добавлено 25 новых ссылок (Всего: 275)
+2025-06-05 16:55:47,117 - INFO - Обработка страницы 12
+2025-06-05 16:55:51,789 - INFO - Добавлено 25 новых ссылок (Всего: 300)
+2025-06-05 16:55:51,789 - INFO - Обработка страницы 13
+2025-06-05 16:55:56,506 - INFO - Добавлено 25 новых ссылок (Всего: 325)
+2025-06-05 16:55:56,506 - INFO - Обработка страницы 14
+2025-06-05 16:56:01,251 - INFO - Добавлено 25 новых ссылок (Всего: 350)
+2025-06-05 16:56:01,251 - INFO - Обработка страницы 15
+2025-06-05 16:56:05,955 - INFO - Добавлено 25 новых ссылок (Всего: 375)
+2025-06-05 16:56:05,955 - INFO - Обработка страницы 16
+2025-06-05 16:56:10,662 - INFO - Добавлено 25 новых ссылок (Всего: 400)
+2025-06-05 16:56:10,662 - INFO - Обработка страницы 17
+2025-06-05 16:56:15,353 - INFO - Добавлено 25 новых ссылок (Всего: 425)
+2025-06-05 16:56:15,353 - INFO - Обработка страницы 18
+2025-06-05 16:56:20,124 - INFO - Добавлено 25 новых ссылок (Всего: 450)
+2025-06-05 16:56:20,124 - INFO - Обработка страницы 19
+2025-06-05 16:56:24,824 - INFO - Добавлено 25 новых ссылок (Всего: 475)
+2025-06-05 16:56:24,824 - INFO - Обработка страницы 20
+2025-06-05 16:56:29,650 - INFO - Добавлено 25 новых ссылок (Всего: 500)
+2025-06-05 16:56:29,650 - INFO - Обработка страницы 21
+2025-06-05 16:56:34,354 - INFO - Добавлено 25 новых ссылок (Всего: 525)
+2025-06-05 16:56:34,354 - INFO - Обработка страницы 22
+2025-06-05 16:56:39,221 - INFO - Добавлено 25 новых ссылок (Всего: 550)
+2025-06-05 16:56:39,221 - INFO - Обработка страницы 23
+2025-06-05 16:56:43,880 - INFO - Добавлено 25 новых ссылок (Всего: 575)
+2025-06-05 16:56:43,880 - INFO - Обработка страницы 24
+2025-06-05 16:56:48,581 - INFO - Добавлено 25 новых ссылок (Всего: 600)
+2025-06-05 16:56:48,581 - INFO - Обработка страницы 25
+2025-06-05 16:56:53,285 - INFO - Добавлено 25 новых ссылок (Всего: 625)
+2025-06-05 16:56:53,285 - INFO - Обработка страницы 26
+2025-06-05 16:56:58,070 - INFO - Добавлено 25 новых ссылок (Всего: 650)
+2025-06-05 16:56:58,070 - INFO - Обработка страницы 27
+2025-06-05 16:57:02,763 - INFO - Добавлено 25 новых ссылок (Всего: 675)
+2025-06-05 16:57:02,763 - INFO - Обработка страницы 28
+2025-06-05 16:57:07,502 - INFO - Добавлено 25 новых ссылок (Всего: 700)
+2025-06-05 16:57:07,502 - INFO - Обработка страницы 29
+2025-06-05 16:57:12,205 - INFO - Добавлено 25 новых ссылок (Всего: 725)
+2025-06-05 16:57:12,206 - INFO - Обработка страницы 30
+2025-06-05 16:57:17,022 - INFO - Добавлено 25 новых ссылок (Всего: 750)
+2025-06-05 16:57:17,022 - INFO - Обработка страницы 31
+2025-06-05 16:57:21,701 - INFO - Добавлено 25 новых ссылок (Всего: 775)
+2025-06-05 16:57:21,701 - INFO - Обработка страницы 32
+2025-06-05 16:57:26,445 - INFO - Добавлено 25 новых ссылок (Всего: 800)
+2025-06-05 16:57:26,445 - INFO - Обработка страницы 33
+2025-06-05 16:57:31,146 - INFO - Добавлено 25 новых ссылок (Всего: 825)
+2025-06-05 16:57:31,147 - INFO - Обработка страницы 34
+2025-06-05 16:57:36,009 - INFO - Добавлено 25 новых ссылок (Всего: 850)
+2025-06-05 16:57:36,009 - INFO - Обработка страницы 35
+2025-06-05 16:57:40,975 - INFO - Добавлено 25 новых ссылок (Всего: 875)
+2025-06-05 16:57:40,975 - INFO - Обработка страницы 36
+2025-06-05 16:57:45,834 - INFO - Добавлено 25 новых ссылок (Всего: 900)
+2025-06-05 16:57:45,835 - INFO - Обработка страницы 37
+2025-06-05 16:57:50,658 - INFO - Добавлено 25 новых ссылок (Всего: 925)
+2025-06-05 16:57:50,658 - INFO - Обработка страницы 38
+2025-06-05 16:57:55,269 - INFO - Добавлено 25 новых ссылок (Всего: 950)
+2025-06-05 16:57:55,269 - INFO - Обработка страницы 39
+2025-06-05 16:57:59,942 - INFO - Добавлено 25 новых ссылок (Всего: 975)
+2025-06-05 16:57:59,942 - INFO - Обработка страницы 40
+2025-06-05 16:58:04,588 - INFO - Добавлено 25 новых ссылок (Всего: 1000)
+2025-06-05 16:58:04,588 - INFO - Обработка страницы 41
+2025-06-05 16:58:09,218 - INFO - Добавлено 25 новых ссылок (Всего: 1025)
+2025-06-05 16:58:09,219 - INFO - Обработка страницы 42
+2025-06-05 16:58:13,923 - INFO - Добавлено 25 новых ссылок (Всего: 1050)
+2025-06-05 16:58:13,924 - INFO - Обработка страницы 43
+2025-06-05 16:58:18,635 - INFO - Добавлено 25 новых ссылок (Всего: 1075)
+2025-06-05 16:58:18,635 - INFO - Обработка страницы 44
+2025-06-05 16:58:23,376 - INFO - Добавлено 25 новых ссылок (Всего: 1100)
+2025-06-05 16:58:23,377 - INFO - Обработка страницы 45
+2025-06-05 16:58:28,214 - INFO - Добавлено 25 новых ссылок (Всего: 1125)
+2025-06-05 16:58:28,214 - INFO - Обработка страницы 46
+2025-06-05 16:58:33,067 - INFO - Добавлено 25 новых ссылок (Всего: 1150)
+2025-06-05 16:58:33,068 - INFO - Обработка страницы 47
+2025-06-05 16:58:37,527 - INFO - Добавлено 25 новых ссылок (Всего: 1175)
+2025-06-05 16:58:37,527 - INFO - Обработка страницы 48
+2025-06-05 16:58:43,493 - INFO - Добавлено 25 новых ссылок (Всего: 1200)
+2025-06-05 16:58:43,493 - INFO - Обработка страницы 49
+2025-06-05 16:58:48,250 - INFO - Добавлено 25 новых ссылок (Всего: 1225)
+2025-06-05 16:58:48,250 - INFO - Обработка страницы 50
+2025-06-05 16:58:53,811 - INFO - Добавлено 25 новых ссылок (Всего: 1250)
+2025-06-05 16:58:53,811 - INFO - Обработка страницы 51
+2025-06-05 16:58:58,819 - INFO - Добавлено 25 новых ссылок (Всего: 1275)
+2025-06-05 16:58:58,819 - INFO - Обработка страницы 52
+2025-06-05 16:59:06,610 - INFO - Добавлено 25 новых ссылок (Всего: 1300)
+2025-06-05 16:59:06,611 - INFO - Обработка страницы 53
+2025-06-05 16:59:14,214 - INFO - Добавлено 25 новых ссылок (Всего: 1325)
+2025-06-05 16:59:14,215 - INFO - Обработка страницы 54
+2025-06-05 16:59:21,905 - INFO - Добавлено 25 новых ссылок (Всего: 1350)
+2025-06-05 16:59:21,905 - INFO - Обработка страницы 55
+2025-06-05 16:59:26,629 - INFO - Добавлено 25 новых ссылок (Всего: 1375)
+2025-06-05 16:59:26,629 - INFO - Обработка страницы 56
+2025-06-05 16:59:34,184 - INFO - Добавлено 25 новых ссылок (Всего: 1400)
+2025-06-05 16:59:34,184 - INFO - Обработка страницы 57
+2025-06-05 16:59:42,259 - INFO - Добавлено 25 новых ссылок (Всего: 1425)
+2025-06-05 16:59:42,259 - INFO - Обработка страницы 58
+2025-06-05 16:59:50,046 - INFO - Добавлено 25 новых ссылок (Всего: 1450)
+2025-06-05 16:59:50,046 - INFO - Обработка страницы 59
+2025-06-05 16:59:58,017 - INFO - Добавлено 25 новых ссылок (Всего: 1475)
+2025-06-05 16:59:58,019 - INFO - Обработка страницы 60
+2025-06-05 17:00:05,533 - INFO - Добавлено 25 новых ссылок (Всего: 1500)
+2025-06-05 17:00:05,533 - INFO - Обработка страницы 61
+2025-06-05 17:00:13,208 - INFO - Добавлено 25 новых ссылок (Всего: 1525)
+2025-06-05 17:00:13,208 - INFO - Обработка страницы 62
+2025-06-05 17:00:21,161 - INFO - Добавлено 25 новых ссылок (Всего: 1550)
+2025-06-05 17:00:21,162 - INFO - Обработка страницы 63
+2025-06-05 17:01:04,068 - INFO - ====== WebDriver manager ======
+2025-06-05 17:01:05,572 - INFO - Get LATEST chromedriver version for google-chrome
+2025-06-05 17:01:06,094 - INFO - Get LATEST chromedriver version for google-chrome
+2025-06-05 17:01:06,553 - INFO - Driver [C:\Users\User\.wdm\drivers\chromedriver\win64\137.0.7151.68\chromedriver-win32/chromedriver.exe] found in cache
+2025-06-05 17:01:08,119 - INFO - 
+Начинаем обработку месяца: may 2025
+2025-06-05 17:01:15,392 - INFO - Применение фильтров: 2025-05-01 - 2025-05-31
+2025-06-05 17:01:17,575 - ERROR - Ошибка при применении фильтров: Message: element click intercepted: Element <button type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse-1" aria-expanded="false" aria-controls="flush-collapse-1" class="accordion-button collapsed">...</button> is not clickable at point (83, 462). Other element would receive the click: <div style="position: absolute; left: 0; bottom: 0; width: 360px; z-index: 1; background: #ffe3aa; color: #111; padding: 0.35rem 0.75rem 1rem 1rem; font-size: 14px;">...</div>
+  (Session info: chrome=137.0.7151.56)
+Stacktrace:
+	GetHandleVerifier [0x0xd13763+63299]
+	GetHandleVerifier [0x0xd137a4+63364]
+	(No symbol) [0x0xb41113]
+	(No symbol) [0x0xb8fbb0]
+	(No symbol) [0x0xb8df6a]
+	(No symbol) [0x0xb8bad7]
+	(No symbol) [0x0xb8ada7]
+	(No symbol) [0x0xb7f445]
+	(No symbol) [0x0xbae57c]
+	(No symbol) [0x0xb7eed4]
+	(No symbol) [0x0xbae7f4]
+	(No symbol) [0x0xbcfa4a]
+	(No symbol) [0x0xbae376]
+	(No symbol) [0x0xb7d6e0]
+	(No symbol) [0x0xb7e544]
+	GetHandleVerifier [0x0xf6e033+2531347]
+	GetHandleVerifier [0x0xf69332+2511634]
+	GetHandleVerifier [0x0xd39eda+220858]
+	GetHandleVerifier [0x0xd2a528+156936]
+	GetHandleVerifier [0x0xd30c5d+183357]
+	GetHandleVerifier [0x0xd1b6c8+95912]
+	GetHandleVerifier [0x0xd1b870+96336]
+	GetHandleVerifier [0x0xd0664a+9770]
+	BaseThreadInitThunk [0x0x760dfcc9+25]
+	RtlGetAppContainerNamedObjectPath [0x0x776b809e+286]
+	RtlGetAppContainerNamedObjectPath [0x0x776b806e+238]
+
+2025-06-05 17:01:23,619 - INFO - Применение фильтров: 2025-05-01 - 2025-05-31
+2025-06-05 17:01:36,483 - INFO - Обработка страницы 555
+2025-06-05 17:01:41,261 - INFO - Добавлено 25 новых ссылок (Всего: 25)
+2025-06-05 17:01:41,261 - INFO - Обработка страницы 556
+2025-06-05 17:01:46,004 - INFO - Добавлено 25 новых ссылок (Всего: 50)
+2025-06-05 17:01:46,005 - INFO - Обработка страницы 557
+2025-06-05 17:01:53,600 - INFO - Добавлено 25 новых ссылок (Всего: 75)
+2025-06-05 17:01:53,600 - INFO - Обработка страницы 558
+2025-06-05 17:01:58,265 - INFO - Добавлено 7 новых ссылок (Всего: 82)
+2025-06-05 17:01:58,266 - INFO - Обработка страницы 559
+2025-06-05 17:02:04,199 - INFO - Не найдено ни одного юридического лица на последней странице.
+2025-06-05 17:02:04,199 - INFO - Сбор завершен. Всего ссылок: 82
+2025-06-05 17:02:04,199 - INFO - Найдено 82 компаний за may 2025
+2025-06-05 17:02:04,199 - INFO - Обработка компании: https://checko.ru/company/tsn-soyuzny-1256600020160
+2025-06-05 17:02:06,173 - INFO - Обработка компании: https://checko.ru/company/rfsoo-fvvs-1256600022359
+2025-06-05 17:02:09,132 - INFO - Обработка компании: https://checko.ru/company/radm-1250300002864
+2025-06-05 17:02:11,741 - INFO - Обработка компании: https://checko.ru/company/ano-siyanie-rosta-1251300001490
+2025-06-05 17:02:15,076 - INFO - Обработка компании: https://checko.ru/company/opbf-vozrozhdenie-1251300001589
+2025-06-05 17:02:17,549 - INFO - Обработка компании: https://checko.ru/company/snt-rassvet-1251400004371
+2025-06-05 17:02:20,933 - INFO - Обработка компании: https://checko.ru/company/sro-kmns-kk-bongachar-1252400011511
+2025-06-05 17:02:23,711 - INFO - Обработка компании: https://checko.ru/company/kfh-svetly-les-1253300004088
+2025-06-05 17:02:25,984 - INFO - Обработка компании: https://checko.ru/company/ano-moda-na-chistotu-1255400015243
+2025-06-05 17:02:28,968 - INFO - Обработка компании: https://checko.ru/company/mrommrttroo-1255500006607
+2025-06-05 17:02:29,379 - INFO - Обработано 10/82 компаний за may 2025
+2025-06-05 17:02:30,638 - INFO - Обработка компании: https://checko.ru/company/tsn-belokamenny-1256100011463
+2025-06-05 17:02:33,776 - INFO - Обработка компании: https://checko.ru/company/ano-crs-magnitny-poyas-1257400012000
+2025-06-05 17:02:36,688 - INFO - Обработка компании: https://checko.ru/company/fond-lera-1257700225892
+2025-06-05 17:02:38,721 - INFO - Обработка компании: https://checko.ru/company/ano-semena-dobra-1257700230810
+2025-06-05 17:02:40,753 - INFO - Обработка компании: https://checko.ru/company/kfh-mindaliya-1259100006934
+2025-06-05 17:02:42,317 - INFO - Обработка компании: https://checko.ru/company/sevastopolskoe-gorodskoe-ro-fgdr-1259200002060
+2025-06-05 17:02:45,011 - INFO - Обработка компании: https://checko.ru/company/ano-platforma-start-1259200002170
+2025-06-05 17:02:47,989 - INFO - Обработка компании: https://checko.ru/company/ano-sodruzhestvo-innovacionnyh-proektov-1259300005040
+2025-06-05 17:02:49,529 - INFO - Обработка компании: https://checko.ru/company/lichny-fond-potrebitelsky-1250200014679
+2025-06-05 17:02:52,545 - INFO - Обработка компании: https://checko.ru/company/rfsoo-fshri-1250600001618
+2025-06-05 17:02:52,949 - INFO - Обработано 20/82 компаний за may 2025
+2025-06-05 17:02:55,505 - INFO - Обработка компании: https://checko.ru/company/ano-cskp-iskra-1252300024899
+2025-06-05 17:02:58,003 - INFO - Обработка компании: https://checko.ru/company/ano-nashi-tovary-1254200005729
+2025-06-05 17:03:00,052 - INFO - Обработка компании: https://checko.ru/company/mau-blagoustroystvo-goroda-lgova-1254600001897
+2025-06-05 17:03:01,490 - INFO - Обработка компании: https://checko.ru/company/mydskv2-1254700007286
+2025-06-05 17:03:02,991 - INFO - Обработка компании: https://checko.ru/company/ano-puls-budushchego-1254800003336
+2025-06-05 17:03:05,223 - INFO - Обработка компании: https://checko.ru/company/ano-futbolnaya-akademiya-pushkino-1255000044694
+2025-06-05 17:03:07,811 - INFO - Обработка компании: https://checko.ru/company/bpirbszbb-1255000049831
+2025-06-05 17:03:11,237 - INFO - Обработка компании: https://checko.ru/company/ano-nehkst-profi-hakaton-1255200013166
+2025-06-05 17:03:13,662 - INFO - Обработка компании: https://checko.ru/company/ano-yuzhnaya-semya-1257700217576
+2025-06-05 17:03:16,099 - INFO - Обработка компании: https://checko.ru/company/avmispik-1257700220843
+2025-06-05 17:03:16,560 - INFO - Обработано 30/82 компаний за may 2025
+2025-06-05 17:03:19,100 - INFO - Обработка компании: https://checko.ru/company/lichny-fond-sibir-1257700235187
+2025-06-05 17:03:21,725 - INFO - Обработка компании: https://checko.ru/company/rooanrrsy-1251400004130
+2025-06-05 17:03:23,890 - INFO - Обработка компании: https://checko.ru/company/sppssk-hayat-1251600020000
+2025-06-05 17:03:27,195 - INFO - Обработка компании: https://checko.ru/company/amnik-1251900001539
+2025-06-05 17:03:30,439 - INFO - Обработка компании: https://checko.ru/company/mbu-ppms-centr-1252400010950
+2025-06-05 17:03:33,458 - INFO - Обработка компании: https://checko.ru/company/mbudo-nyuksenskaya-ssh-1253500005461
+2025-06-05 17:03:36,327 - INFO - Обработка компании: https://checko.ru/company/tpsrnoio-1253800008296
+2025-06-05 17:03:38,504 - INFO - Обработка компании: https://checko.ru/company/tos-marshal-pobedy-1253800009011
+2025-06-05 17:03:40,369 - INFO - Обработка компании: https://checko.ru/company/rsoo-fgsisoo-1255600004770
+2025-06-05 17:03:42,323 - INFO - Обработка компании: https://checko.ru/company/tsn-tekhnopark-lokomotiv-1256600021809
+2025-06-05 17:03:42,740 - INFO - Обработано 40/82 компаний за may 2025
+2025-06-05 17:03:44,525 - INFO - Обработка компании: https://checko.ru/company/arivz-1259300004710
+2025-06-05 17:03:46,811 - INFO - Обработка компании: https://checko.ru/company/gdcozd-1259300005095
+2025-06-05 17:03:50,066 - INFO - Обработка компании: https://checko.ru/company/bf-kombat-1255000052537
+2025-06-05 17:03:52,880 - INFO - Обработка компании: https://checko.ru/company/mroppcvckibmsksmonolerpcmp-1255200011439
+2025-06-05 17:03:56,013 - INFO - Обработка компании: https://checko.ru/company/aliioo-1255600004956
+2025-06-05 17:03:57,544 - INFO - Обработка компании: https://checko.ru/company/ano-dpo-avtoshkola-avtoklassika-1255600005066
+2025-06-05 17:04:00,982 - INFO - Обработка компании: https://checko.ru/company/rfsoo-fshro-1256100011584
+2025-06-05 17:04:02,920 - INFO - Обработка компании: https://checko.ru/company/snt-posyolok-prostorny-1256600022755
+2025-06-05 17:04:05,579 - INFO - Обработка компании: https://checko.ru/company/acrdrpipi-1257200008185
+2025-06-05 17:04:08,314 - INFO - Обработка компании: https://checko.ru/company/lf-ldl-1257700209524
+2025-06-05 17:04:08,738 - INFO - Обработано 50/82 компаний за may 2025
+2025-06-05 17:04:10,275 - INFO - Обработка компании: https://checko.ru/company/kfh-almaz-1259100007704
+2025-06-05 17:04:13,609 - INFO - Обработка компании: https://checko.ru/company/spok-nuhhalu-1250500009396
+2025-06-05 17:04:15,628 - INFO - Обработка компании: https://checko.ru/company/kodssl-1250800004510
+2025-06-05 17:04:17,817 - INFO - Обработка компании: https://checko.ru/company/ano-territoriya-tvorchestva-1251100001833
+2025-06-05 17:04:20,108 - INFO - Обработка компании: https://checko.ru/company/mtsdgy-1251400004020
+2025-06-05 17:04:22,162 - INFO - Обработка компании: https://checko.ru/company/ano-solnechny-dom-1251600019604
+2025-06-05 17:04:24,951 - INFO - Обработка компании: https://checko.ru/company/anspo-varyag-1252300024041
+2025-06-05 17:04:27,874 - INFO - Обработка компании: https://checko.ru/company/iavsio-1253700003810
+2025-06-05 17:04:30,454 - INFO - Обработка компании: https://checko.ru/company/ano-stk-moto-drayv-1253700003875
+2025-06-05 17:04:32,762 - INFO - Обработка компании: https://checko.ru/company/tpkd8-1255100002013
+2025-06-05 17:04:33,339 - INFO - Обработано 60/82 компаний за may 2025
+2025-06-05 17:04:36,012 - INFO - Обработка компании: https://checko.ru/company/ano-brass-1255200012088
+2025-06-05 17:04:39,079 - INFO - Обработка компании: https://checko.ru/company/mbu-centr-garmoniya-1255400014429
+2025-06-05 17:04:41,104 - INFO - Обработка компании: https://checko.ru/company/mau-apmu-1255800003293
+2025-06-05 17:04:43,430 - INFO - Обработка компании: https://checko.ru/company/mropphvcsmkiissbspspmrkoerpcmp-1256300011351
+2025-06-05 17:04:46,574 - INFO - Обработка компании: https://checko.ru/company/tsn-gsk-treugolnik-b-1256600022051
+2025-06-05 17:04:48,959 - INFO - Обработка компании: https://checko.ru/company/ano-cprk-prostranstvo-1257700207995
+2025-06-05 17:04:52,044 - INFO - Обработка компании: https://checko.ru/company/admtv-1257700230083
+2025-06-05 17:04:54,070 - INFO - Обработка компании: https://checko.ru/company/ka-alyans-1257800041840
+2025-06-05 17:04:55,593 - INFO - Обработка компании: https://checko.ru/company/treska-1-1252700006855
+2025-06-05 17:04:57,999 - INFO - Обработка компании: https://checko.ru/company/sibcentrlayn-1255400016596
+2025-06-05 17:04:58,288 - INFO - Обработано 70/82 компаний за may 2025
+2025-06-05 17:05:00,178 - INFO - Обработка компании: https://checko.ru/company/gbuzgmf2i5gbuzgmgp1dzgm-1257700228037
+2025-06-05 17:05:02,704 - INFO - Обработка компании: https://checko.ru/company/mnogotoplivnaya-kompaniya-olimp-plyus-1255400016520
+2025-06-05 17:05:04,938 - INFO - Обработка компании: https://checko.ru/company/saturn-plyus-1255400016574
+2025-06-05 17:05:06,477 - INFO - Обработка компании: https://checko.ru/company/gauzyssmp-1254200005916
+2025-06-05 17:05:08,544 - INFO - Обработка компании: https://checko.ru/company/rk-2-1257700230920
+2025-06-05 17:05:12,457 - INFO - Обработка компании: https://checko.ru/company/titul-plyus-1255400016541
+2025-06-05 17:05:14,813 - INFO - Обработка компании: https://checko.ru/company/tomsknaftagrupp-plyus-1255400016563
+2025-06-05 17:05:17,661 - INFO - Обработка компании: https://checko.ru/company/gbuzgmf1gbuzgmgp1dzgm-1257700226926
+2025-06-05 17:05:19,521 - INFO - Обработка компании: https://checko.ru/company/grand-plyus-1255400016585
+2025-06-05 17:05:21,367 - INFO - Обработка компании: https://checko.ru/company/inkom-plyus-1255400016530
+2025-06-05 17:05:21,715 - INFO - Обработано 80/82 компаний за may 2025
+2025-06-05 17:05:23,913 - INFO - Обработка компании: https://checko.ru/company/lyurson-plyus-1255400016552
+2025-06-05 17:05:27,131 - INFO - Обработка компании: https://checko.ru/company/paltus-1-1252700006844
+2025-06-05 17:05:30,233 - ERROR - Попытка 2 не удалась: No module named 'openpyxl'
+2025-06-05 17:05:53,882 - INFO - Применение фильтров: 2025-05-01 - 2025-05-31
+2025-06-05 17:06:07,446 - ERROR - Ошибка при применении фильтров: Message: 
+
+2025-06-05 17:06:07,578 - ERROR - Не удалось обработать месяц may 2025 после 3 попыток
+2025-06-05 17:06:07,578 - INFO - 
+Начинаем обработку месяца: april 2025
+2025-06-05 17:06:11,357 - INFO - Применение фильтров: 2025-04-01 - 2025-04-30
+2025-06-05 17:06:24,846 - ERROR - Ошибка при применении фильтров: Message: 
+
+2025-06-05 17:06:28,631 - INFO - Применение фильтров: 2025-04-01 - 2025-04-30
+2025-06-05 17:06:41,919 - ERROR - Ошибка при применении фильтров: Message: 
+
+2025-06-05 17:06:45,790 - INFO - Применение фильтров: 2025-04-01 - 2025-04-30
+2025-06-05 17:06:58,988 - ERROR - Ошибка при применении фильтров: Message: 
+
+2025-06-05 17:06:59,107 - ERROR - Не удалось обработать месяц april 2025 после 3 попыток
+2025-06-05 17:06:59,108 - INFO - 
+Начинаем обработку месяца: march 2025
+2025-06-05 17:07:02,742 - INFO - Применение фильтров: 2025-03-01 - 2025-03-31
+2025-06-05 17:07:15,963 - ERROR - Ошибка при применении фильтров: Message: 
+
+2025-06-05 17:07:19,864 - INFO - Применение фильтров: 2025-03-01 - 2025-03-31
+2025-06-05 17:07:33,094 - ERROR - Ошибка при применении фильтров: Message: 
+
+2025-06-05 17:07:37,347 - INFO - Применение фильтров: 2025-03-01 - 2025-03-31
+2025-06-05 17:07:50,564 - ERROR - Ошибка при применении фильтров: Message: 
+
+2025-06-05 17:07:50,692 - ERROR - Не удалось обработать месяц march 2025 после 3 попыток
+2025-06-05 17:07:50,692 - INFO - 
+Начинаем обработку месяца: february 2025
+2025-06-05 17:07:54,366 - INFO - Применение фильтров: 2025-02-01 - 2025-02-28
+2025-06-05 17:08:07,619 - ERROR - Ошибка при применении фильтров: Message: 
+
+2025-06-05 17:08:11,436 - INFO - Применение фильтров: 2025-02-01 - 2025-02-28
+2025-06-05 17:08:24,687 - ERROR - Ошибка при применении фильтров: Message: 
+
+2025-06-05 17:08:28,418 - INFO - Применение фильтров: 2025-02-01 - 2025-02-28
+2025-06-05 17:08:42,114 - ERROR - Ошибка при применении фильтров: Message: 
+
+2025-06-05 17:08:42,252 - ERROR - Не удалось обработать месяц february 2025 после 3 попыток
+2025-06-05 17:08:42,253 - INFO - 
+Начинаем обработку месяца: january 2025
+2025-06-05 17:08:46,710 - INFO - Применение фильтров: 2025-01-01 - 2025-01-31
+2025-06-05 17:09:06,737 - INFO - ====== WebDriver manager ======
+2025-06-05 17:09:08,130 - INFO - Get LATEST chromedriver version for google-chrome
+2025-06-05 17:09:08,542 - INFO - Get LATEST chromedriver version for google-chrome
+2025-06-05 17:09:08,976 - INFO - Driver [C:\Users\User\.wdm\drivers\chromedriver\win64\137.0.7151.68\chromedriver-win32/chromedriver.exe] found in cache
+2025-06-05 17:09:10,399 - INFO - 
+Начинаем обработку месяца: may 2025
+2025-06-05 17:09:18,277 - INFO - Применение фильтров: 2025-05-01 - 2025-05-31
+2025-06-05 17:09:20,464 - ERROR - Ошибка при применении фильтров: Message: element click intercepted: Element <button type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse-1" aria-expanded="false" aria-controls="flush-collapse-1" class="accordion-button collapsed">...</button> is not clickable at point (83, 462). Other element would receive the click: <div style="position: absolute; left: 0; bottom: 0; width: 360px; z-index: 1; background: #ffe3aa; color: #111; padding: 0.35rem 0.75rem 1rem 1rem; font-size: 14px;">...</div>
+  (Session info: chrome=137.0.7151.56)
+Stacktrace:
+	GetHandleVerifier [0x0xd13763+63299]
+	GetHandleVerifier [0x0xd137a4+63364]
+	(No symbol) [0x0xb41113]
+	(No symbol) [0x0xb8fbb0]
+	(No symbol) [0x0xb8df6a]
+	(No symbol) [0x0xb8bad7]
+	(No symbol) [0x0xb8ada7]
+	(No symbol) [0x0xb7f445]
+	(No symbol) [0x0xbae57c]
+	(No symbol) [0x0xb7eed4]
+	(No symbol) [0x0xbae7f4]
+	(No symbol) [0x0xbcfa4a]
+	(No symbol) [0x0xbae376]
+	(No symbol) [0x0xb7d6e0]
+	(No symbol) [0x0xb7e544]
+	GetHandleVerifier [0x0xf6e033+2531347]
+	GetHandleVerifier [0x0xf69332+2511634]
+	GetHandleVerifier [0x0xd39eda+220858]
+	GetHandleVerifier [0x0xd2a528+156936]
+	GetHandleVerifier [0x0xd30c5d+183357]
+	GetHandleVerifier [0x0xd1b6c8+95912]
+	GetHandleVerifier [0x0xd1b870+96336]
+	GetHandleVerifier [0x0xd0664a+9770]
+	BaseThreadInitThunk [0x0x760dfcc9+25]
+	RtlGetAppContainerNamedObjectPath [0x0x776b809e+286]
+	RtlGetAppContainerNamedObjectPath [0x0x776b806e+238]
+
+2025-06-05 17:09:26,066 - INFO - Применение фильтров: 2025-05-01 - 2025-05-31
+2025-06-05 17:09:38,861 - INFO - Обработка страницы 558
+2025-06-05 17:09:43,485 - INFO - Добавлено 7 новых ссылок (Всего: 7)
+2025-06-05 17:09:43,485 - INFO - Обработка страницы 559
+2025-06-05 17:09:49,265 - INFO - Не найдено ни одного юридического лица на последней странице.
+2025-06-05 17:09:49,265 - INFO - Сбор завершен. Всего ссылок: 7
+2025-06-05 17:09:49,265 - INFO - Найдено 7 компаний за may 2025
+2025-06-05 17:09:49,265 - INFO - Обработка компании: https://checko.ru/company/titul-plyus-1255400016541
+2025-06-05 17:09:52,881 - INFO - Обработка компании: https://checko.ru/company/tomsknaftagrupp-plyus-1255400016563
+2025-06-05 17:09:55,376 - INFO - Обработка компании: https://checko.ru/company/gbuzgmf1gbuzgmgp1dzgm-1257700226926
+2025-06-05 17:09:57,392 - INFO - Обработка компании: https://checko.ru/company/grand-plyus-1255400016585
+2025-06-05 17:09:59,215 - INFO - Обработка компании: https://checko.ru/company/inkom-plyus-1255400016530
+2025-06-05 17:10:01,130 - INFO - Обработка компании: https://checko.ru/company/lyurson-plyus-1255400016552
+2025-06-05 17:10:04,273 - INFO - Обработка компании: https://checko.ru/company/paltus-1-1252700006844
+2025-06-05 17:10:06,543 - INFO - Нет новых компаний для сохранения за may 2025
+2025-06-05 17:10:06,543 - INFO - 
+Начинаем обработку месяца: april 2025
+2025-06-05 17:10:10,252 - INFO - Применение фильтров: 2025-04-01 - 2025-04-30
+2025-06-05 17:10:23,602 - ERROR - Ошибка при применении фильтров: Message: 
+
+2025-06-05 17:10:27,786 - INFO - Применение фильтров: 2025-04-01 - 2025-04-30
+2025-06-05 17:29:45,368 - INFO - ====== WebDriver manager ======
+2025-06-05 17:29:46,496 - INFO - Get LATEST chromedriver version for google-chrome
+2025-06-05 17:29:46,917 - INFO - Get LATEST chromedriver version for google-chrome
+2025-06-05 17:29:47,287 - INFO - Driver [C:\Users\User\.wdm\drivers\chromedriver\win64\137.0.7151.68\chromedriver-win32/chromedriver.exe] found in cache
+2025-06-05 17:29:49,969 - INFO - 
+Начинаем обработку месяца: may 2025
+2025-06-05 17:29:56,452 - INFO - Применение фильтров: 2025-05-01 - 2025-05-31
+2025-06-05 17:30:09,260 - INFO - Обработка страницы 558
+2025-06-05 17:30:13,816 - INFO - Добавлено 7 новых ссылок (Всего: 7)
+2025-06-05 17:30:13,816 - INFO - Обработка страницы 559
+2025-06-05 17:30:20,280 - INFO - Не найдено ни одного юридического лица на последней странице.
+2025-06-05 17:30:20,280 - INFO - Сбор завершен. Всего ссылок: 7
+2025-06-05 17:30:20,280 - INFO - Найдено 7 компаний за may 2025
+2025-06-05 17:30:36,839 - INFO - Нет новых компаний для сохранения за may 2025
+2025-06-05 17:30:36,839 - ERROR - Попытка 1 не удалась: 'bool' object is not iterable
+2025-06-05 17:30:50,563 - INFO - Применение фильтров: 2025-05-01 - 2025-05-31
+2025-06-05 17:31:03,788 - ERROR - Ошибка при применении фильтров: Message: 
+
+2025-06-05 17:31:03,950 - INFO - Завершена обработка месяца may 2025. Переход на начальную страницу.
+2025-06-05 17:31:07,661 - INFO - 
+Начинаем обработку месяца: april 2025
+2025-06-05 17:31:11,265 - INFO - Применение фильтров: 2025-04-01 - 2025-04-30
+2025-06-05 17:31:24,690 - ERROR - Ошибка при применении фильтров: Message: 
+
+2025-06-05 17:31:24,822 - INFO - Завершена обработка месяца april 2025. Переход на начальную страницу.
+2025-06-05 17:31:29,235 - INFO - 
+Начинаем обработку месяца: march 2025
+2025-06-05 17:31:32,809 - INFO - Применение фильтров: 2025-03-01 - 2025-03-31
+2025-06-05 17:35:08,297 - INFO - ====== WebDriver manager ======
+2025-06-05 17:35:09,422 - INFO - Get LATEST chromedriver version for google-chrome
+2025-06-05 17:35:09,812 - INFO - Get LATEST chromedriver version for google-chrome
+2025-06-05 17:35:10,191 - INFO - Driver [C:\Users\User\.wdm\drivers\chromedriver\win64\137.0.7151.68\chromedriver-win32/chromedriver.exe] found in cache
+2025-06-05 17:35:11,405 - INFO - 
+Начинаем обработку месяца: may 2025
+2025-06-05 17:35:17,847 - INFO - Применение фильтров: 2025-05-01 - 2025-05-31
+2025-06-05 17:35:30,609 - INFO - Обработка страницы 558
+2025-06-05 17:35:35,179 - INFO - Добавлено 7 новых ссылок (Всего: 7)
+2025-06-05 17:35:35,179 - INFO - Обработка страницы 559
+2025-06-05 17:35:40,801 - INFO - Не найдено ни одного юридического лица на последней странице.
+2025-06-05 17:35:40,801 - INFO - Сбор завершен. Всего ссылок: 7
+2025-06-05 17:35:40,801 - INFO - Найдено 7 компаний за may 2025
+2025-06-05 17:40:22,390 - INFO - ====== WebDriver manager ======
+2025-06-05 17:40:23,933 - INFO - Get LATEST chromedriver version for google-chrome
+2025-06-05 17:40:24,651 - INFO - Get LATEST chromedriver version for google-chrome
+2025-06-05 17:40:25,030 - INFO - Driver [C:\Users\User\.wdm\drivers\chromedriver\win64\137.0.7151.68\chromedriver-win32/chromedriver.exe] found in cache
+2025-06-05 17:40:26,464 - INFO - 
+Начинаем обработку месяца: may 2025
+2025-06-05 17:40:33,588 - INFO - Применение фильтров: 2025-05-01 - 2025-05-31
+2025-06-05 17:40:35,755 - ERROR - Ошибка при применении фильтров: Message: element click intercepted: Element <button type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse-1" aria-expanded="false" aria-controls="flush-collapse-1" class="accordion-button collapsed">...</button> is not clickable at point (83, 472). Other element would receive the click: <div style="position: absolute; left: 0; bottom: 0; width: 360px; z-index: 1; background: #ffe3aa; color: #111; padding: 0.35rem 0.75rem 1rem 1rem; font-size: 14px;">...</div>
+  (Session info: chrome=137.0.7151.56)
+Stacktrace:
+	GetHandleVerifier [0x0xe03763+63299]
+	GetHandleVerifier [0x0xe037a4+63364]
+	(No symbol) [0x0xc31113]
+	(No symbol) [0x0xc7fbb0]
+	(No symbol) [0x0xc7df6a]
+	(No symbol) [0x0xc7bad7]
+	(No symbol) [0x0xc7ada7]
+	(No symbol) [0x0xc6f445]
+	(No symbol) [0x0xc9e57c]
+	(No symbol) [0x0xc6eed4]
+	(No symbol) [0x0xc9e7f4]
+	(No symbol) [0x0xcbfa4a]
+	(No symbol) [0x0xc9e376]
+	(No symbol) [0x0xc6d6e0]
+	(No symbol) [0x0xc6e544]
+	GetHandleVerifier [0x0x105e033+2531347]
+	GetHandleVerifier [0x0x1059332+2511634]
+	GetHandleVerifier [0x0xe29eda+220858]
+	GetHandleVerifier [0x0xe1a528+156936]
+	GetHandleVerifier [0x0xe20c5d+183357]
+	GetHandleVerifier [0x0xe0b6c8+95912]
+	GetHandleVerifier [0x0xe0b870+96336]
+	GetHandleVerifier [0x0xdf664a+9770]
+	BaseThreadInitThunk [0x0x760dfcc9+25]
+	RtlGetAppContainerNamedObjectPath [0x0x776b809e+286]
+	RtlGetAppContainerNamedObjectPath [0x0x776b806e+238]
+
+2025-06-05 17:40:35,887 - INFO - Завершена обработка месяца may 2025. Переход на начальную страницу.
+2025-06-05 17:40:40,768 - INFO - 
+Начинаем обработку месяца: april 2025
+2025-06-05 17:40:45,484 - INFO - Применение фильтров: 2025-04-01 - 2025-04-30
+2025-06-05 17:40:58,293 - INFO - Обработка страницы 558
+2025-06-05 17:41:05,857 - INFO - Добавлено 25 новых ссылок (Всего: 25)
+2025-06-05 17:41:05,857 - INFO - Обработка страницы 559
+2025-06-05 17:41:13,902 - INFO - Добавлено 25 новых ссылок (Всего: 50)
+2025-06-05 17:41:13,902 - INFO - Обработка страницы 560
+2025-06-05 17:41:21,101 - INFO - Добавлено 25 новых ссылок (Всего: 75)
+2025-06-05 17:41:21,101 - INFO - Сбор завершен. Всего ссылок: 75
+2025-06-05 17:41:21,102 - INFO - Найдено 75 компаний за april 2025
+2025-06-05 17:41:22,564 - ERROR - Попытка 1 не удалась: list indices must be integers or slices, not str
+2025-06-05 17:41:36,477 - INFO - Применение фильтров: 2025-04-01 - 2025-04-30

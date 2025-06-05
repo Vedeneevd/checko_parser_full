@@ -35,6 +35,7 @@ API_KEY = os.getenv('API_KEY')  # API ключ для rucaptcha
 SMTPBZ_API_KEY = os.getenv('SMTPBZ_API_KEY')
 
 
+
 def setup_driver():
     """Настройка веб-драйвера"""
     options = webdriver.ChromeOptions()
@@ -51,6 +52,138 @@ def setup_driver():
         "source": "Object.defineProperty(navigator, 'webdriver', {get: () => undefined})"
     })
     return driver
+
+
+def solve_recaptcha_v2(driver):
+    """Полное решение reCAPTCHA v2 с отладкой"""
+    print("Начинаем решение reCAPTCHA v2...")
+    debug_screenshot(driver, "before_solving")
+
+    try:
+        # Получаем параметры капчи
+        sitekey = driver.find_element(By.CSS_SELECTOR, 'div[data-sitekey]').get_attribute("data-sitekey")
+        pageurl = driver.current_url
+        print(f"Sitekey: {sitekey}, URL: {pageurl}")
+
+        # 1. Создаем задачу в API
+        payload = {
+            "clientKey": API_KEY,
+            "task": {
+                "type": "RecaptchaV2TaskProxyless",
+                "websiteURL": pageurl,
+                "websiteKey": sitekey,
+                "isInvisible": False
+            },
+            "softId": 3898
+        }
+
+        response = requests.post(
+            "https://api.rucaptcha.com/createTask",
+            json=payload,
+            headers={"Content-Type": "application/json"},
+            timeout=30
+        )
+        result = response.json()
+
+        if result.get("errorId") != 0:
+            error = result.get("errorDescription", "Неизвестная ошибка API")
+            raise Exception(f"Ошибка API при создании задачи: {error}")
+
+        task_id = result["taskId"]
+        print(f"Задача создана, ID: {task_id}")
+        debug_screenshot(driver, "task_created")
+
+        # 2. Ожидаем решения
+        start_time = time.time()
+        while time.time() - start_time < 300:  # 5 минут максимум
+            time.sleep(10)
+
+            status_response = requests.post(
+                "https://api.rucaptcha.com/getTaskResult",
+                json={"clientKey": API_KEY, "taskId": task_id},
+                headers={"Content-Type": "application/json"},
+                timeout=30
+            ).json()
+
+            print(f"Статус решения: {json.dumps(status_response, indent=2)}")
+
+            if status_response.get("status") == "ready":
+                token = status_response["solution"]["gRecaptchaResponse"]
+                print("Капча успешно решена!")
+
+                # 3. Вводим токен
+                driver.execute_script(f"""
+                    var response = document.getElementById('g-recaptcha-response');
+                    if (response) {{
+                        response.style.display = '';
+                        response.value = '{token}';
+                    }} else {{
+                        var input = document.createElement('input');
+                        input.type = 'hidden';
+                        input.id = 'g-recaptcha-response';
+                        input.name = 'g-recaptcha-response';
+                        input.value = '{token}';
+                        document.body.appendChild(input);
+                    }}
+                """)
+                debug_screenshot(driver, "after_token_input")
+                time.sleep(2)
+
+                # 4. Нажимаем кнопку через JS
+                submit_btn = WebDriverWait(driver, 20).until(
+                    EC.presence_of_element_located((By.CSS_SELECTOR, "button[type='submit']"))
+                )
+                driver.execute_script("arguments[0].click();", submit_btn)
+                print("Форма отправлена через JS")
+                debug_screenshot(driver, "after_submit")
+                time.sleep(3)
+
+                return True
+
+            elif status_response.get("errorId") != 0:
+                error = status_response.get("errorDescription", "Неизвестная ошибка API")
+                raise Exception(f"Ошибка API: {error}")
+
+        raise Exception("Превышено время ожидания решения (5 минут)")
+
+    except Exception as e:
+        debug_screenshot(driver, "captcha_error")
+        print(f"Ошибка при решении капчи: {str(e)}")
+        return False
+
+
+
+def handle_captcha(driver):
+    """Полная обработка капчи с улучшенной логикой"""
+    print("Обнаружена капча, начинаем обработку...")
+    debug_screenshot(driver, "captcha_detected")
+
+    try:
+        # 1. Кликаем на чекбокс "Я не робот"
+        checkbox_frame = WebDriverWait(driver, 20).until(
+            EC.frame_to_be_available_and_switch_to_it((By.CSS_SELECTOR, "iframe[title*='reCAPTCHA']"))
+        )
+        checkbox = WebDriverWait(driver, 20).until(
+            EC.element_to_be_clickable((By.CLASS_NAME, "recaptcha-checkbox"))
+        )
+        checkbox.click()
+        print("Чекбокс 'Я не робот' нажат")
+        driver.switch_to.default_content()
+        debug_screenshot(driver, "after_checkbox_click")
+        time.sleep(3)
+
+        # 2. Решаем капчу через API
+        if not solve_recaptcha_v2(driver):
+            return False
+
+        return True
+
+    except Exception as e:
+        debug_screenshot(driver, "captcha_handling_error")
+        print(f"Ошибка при обработке капчи: {str(e)}")
+        return False
+
+
 
 
 def debug_screenshot(driver, name):
@@ -125,8 +258,8 @@ def apply_date_filters(driver, start_date, end_date):
 def get_all_company_links(driver, start_date, end_date):
     """Собираем ссылки на компании с учетом уже примененных фильтров"""
     all_links = []
-    page_num = 1
-    max_pages = 999  # Максимальное количество страниц
+    page_num = 558
+    max_pages = 560  # Максимальное количество страниц
 
     while page_num <= max_pages:
         logger.info(f"Обработка страницы {page_num}")
@@ -171,58 +304,111 @@ def get_all_company_links(driver, start_date, end_date):
     return all_links
 
 
-def parse_company_page(driver, url, existing_inns):
-    """Парсинг данных компании"""
-    logger.info(f"Обработка компании: {url}")
+def get_person_info(soup, label):
+    person_section = soup.find('strong', class_='fw-700', string=label)
+    if not person_section:
+        person_section = soup.find('div', class_='fw-700', string=label)
+    if person_section:
+        person_tag = person_section.find_next('a', class_='link')
+        if person_tag:
+            return person_tag.get_text(strip=True)
+        parent_div = person_section.find_parent('div', class_='mb-3')
+        if parent_div:
+            return parent_div.get_text(strip=True).replace(label, '').strip()
+    return None
 
+
+def parse_company_page(driver, url, existing_inns):
+    """Парсинг данных компании с проверкой дубликатов по ИНН и немедленной отправкой письма"""
+    print(f"\nОбрабатываем компанию: {url}")
     try:
         driver.get(url)
+        debug_screenshot(driver, f"company_page_{url.split('/')[-1]}")
+
+        # Ожидаем либо данные, либо капчу
         WebDriverWait(driver, PAGE_LOAD_TIMEOUT).until(
-            EC.presence_of_element_located((By.CSS_SELECTOR, "#copy-inn, .company-not-found"))
+            lambda d: d.find_elements(By.ID, "copy-inn") or
+                      d.find_elements(By.CSS_SELECTOR, "iframe[title*='reCAPTCHA']")
         )
 
+        # Если есть капча - обрабатываем
+        if driver.find_elements(By.CSS_SELECTOR, "iframe[title*='reCAPTCHA']"):
+            if not handle_captcha(driver):
+                return None
+
+        # Дожидаемся загрузки данных
+        WebDriverWait(driver, 20).until(
+            EC.presence_of_element_located((By.ID, "copy-inn"))
+        )
+
+        # Парсинг данных
         soup = BeautifulSoup(driver.page_source, 'html.parser')
 
-        # Проверка на 404
-        if soup.select('.company-not-found'):
-            return None
+        driver.execute_script("window.scrollTo(0, 5000);")
 
         # Основные данные
-        inn = soup.find('strong', id='copy-inn').get_text(strip=True) if soup.find('strong', id='copy-inn') else None
-        if not inn or inn in existing_inns:
+        inn = None
+        try:
+            inn = soup.find('strong', id='copy-inn').get_text(strip=True) if soup.find('strong',
+                                                                                       id='copy-inn') else None
+        except Exception as e:
+            print(f"Ошибка при извлечении ИНН: {e}")
+
+        # Проверка дубликата по ИНН
+        if not inn:
+            print("Пропускаем - нет ИНН")
             return None
 
-        name = soup.select_one('h1.company-title').get_text(strip=True) if soup.select_one('h1.company-title') else None
-        address = soup.select_one('div.company-address').get_text(strip=True) if soup.select_one(
-            'div.company-address') else None
-        reg_date = soup.find('div', string='Дата регистрации').find_next('div').get_text(strip=True) if soup.find('div',
-                                                                                                                  string='Дата регистрации') else None
+        if inn in existing_inns:
+            print(f"Пропускаем дубликат ИНН: {inn}")
+            return None
 
-        # Телефоны и email
+        date = soup.find('div', string='Дата регистрации').find_next('div').get_text(strip=True) if soup.find('div',
+                                                                                                              string='Дата регистрации') else None
+
+        # Директор и учредитель
+        director = get_person_info(soup, 'Директор')
+        founder = get_person_info(soup, 'Учредитель')
+
+        # Телефоны
         phones = []
-        phone_section = soup.find('strong', string='Телефоны')
-        if phone_section:
-            phone_div = phone_section.find_next('div')
-            if phone_div:
-                phones = [a.get_text(strip=True) for a in
-                          phone_div.find_all('a', href=lambda x: x and x.startswith('tel:'))]
+        phone_divs = soup.find_all('div', class_='col-12 col-lg-4')
+        for div in phone_divs:
+            if 'Телефон' in div.get_text():
+                phone_links = div.find_all('a', href=lambda x: x and x.startswith('tel:'))
+                for link in phone_links:
+                    phone = link.get_text(strip=True)
+                    if phone and phone not in phones:
+                        phones.append(phone)
 
+        phone = ', '.join(phones) if phones else None
+
+        # Email
         email_tag = soup.find('a', href=lambda x: x and x.startswith('mailto:'))
         email = email_tag.get_text(strip=True) if email_tag else None
 
-        return {
-            'Название': name,
-            'ИНН': inn,
-            'Адрес': address,
-            'Дата регистрации': reg_date,
-            'Телефоны': ', '.join(phones) if phones else None,
-            'Email': email,
-            'URL': url
-        }
+        # Проверяем обязательные поля
+        if not inn:
+            print("Пропускаем - нет ИНН")
+            return None
+
+        if not phone and not email:
+            print("Пропускаем - нет ни телефона, ни email")
+            return None
+
+        # Формируем строку для таблицы
+        current_date = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+        print(
+            f"Данные: ИНН={inn}, Дата={date}, Директор={director}, Учредитель={founder}, Телефон={phone}, Email={email}")
+
+        return [inn, date, director, founder, phone, email, url, current_date]
+
 
     except Exception as e:
-        logger.error(f"Ошибка при парсинге компании {url}: {str(e)}")
+        debug_screenshot(driver, f"parse_error_{url.split('/')[-1]}")
+        print(f"Ошибка при парсинге компании: {str(e)}")
         return None
+
 
 
 def process_month(driver, start_date, end_date):
@@ -277,11 +463,83 @@ def process_month(driver, start_date, end_date):
     else:
         logger.info(f"Нет новых компаний для сохранения за {month_name}")
 
-    return True
+    return all_links
+
+def load_existing_data(filepath):
+    """Загрузка существующих данных из файла"""
+    if os.path.exists(filepath):
+        try:
+            df = pd.read_excel(filepath)
+            return df
+        except Exception as e:
+            print(f"Ошибка при загрузке файла: {str(e)}")
+            return pd.DataFrame()
+    return pd.DataFrame()
+
+
+
+def save_to_excel(new_data, filepath):
+    """Сохранение данных с надежной проверкой дубликатов"""
+    try:
+        # Загрузка существующих данных
+        existing_df = load_existing_data(filepath)
+
+        # Получаем список существующих ИНН для проверки дубликатов
+        existing_inns = set(existing_df['ИНН'].dropna().unique()) if not existing_df.empty else set()
+
+        # Создание DataFrame из новых данных
+        new_df = pd.DataFrame(new_data,
+                              columns=['ИНН', 'Дата регистрации', 'Ген. директор', 'Учредитель',
+                                       'Телефон', 'Email', 'URL', 'Дата добавления', 'EmailSent'])
+
+        # Удаление полностью пустых строк
+        new_df = new_df.dropna(how='all')
+
+        # Фильтрация только компаний с телефоном или email
+        new_df = new_df[(new_df['Телефон'].notna()) | (new_df['Email'].notna())]
+
+        # Удаление дубликатов среди новых данных
+        new_df = new_df.drop_duplicates(subset=['ИНН', 'URL'])
+
+        # Удаление записей, которые уже есть в существующих данных
+        new_df = new_df[~new_df['ИНН'].isin(existing_inns)]
+
+        if new_df.empty:
+            logger.info("Нет новых данных для сохранения")
+            return
+
+        # Объединение с существующими данными
+        final_df = pd.concat([existing_df, new_df], ignore_index=True)
+
+        # Дополнительная проверка на дубликаты после объединения
+        final_df = final_df.drop_duplicates(subset=['ИНН', 'URL'], keep='last')
+
+        # Сохранение результата
+        with pd.ExcelWriter(filepath, engine='xlsxwriter') as writer:
+            final_df.to_excel(writer, index=False)
+
+            # Форматирование
+            worksheet = writer.sheets['Sheet1']
+            worksheet.set_column('A:A', 15)  # ИНН
+            worksheet.set_column('B:B', 15)  # Дата регистрации
+            worksheet.set_column('C:C', 25)  # Ген. директор
+            worksheet.set_column('D:D', 25)  # Учредитель
+            worksheet.set_column('E:E', 20)  # Телефон
+            worksheet.set_column('F:F', 25)  # Email
+            worksheet.set_column('G:G', 40)  # URL
+            worksheet.set_column('H:H', 20)  # Дата добавления
+            worksheet.set_column('I:I', 20)  # EmailSent
+
+        logger.info(f"Сохранено {len(new_df)} новых записей. Всего записей: {len(final_df)}")
+
+    except Exception as e:
+        logger.error(f"Ошибка при сохранении: {str(e)}")
+        raise
+
 
 
 def main():
-    """Основная функция парсера"""
+    """Основная функция парсера с сохранением данных в Excel и переходом на начальную страницу после обработки месяца"""
     driver = setup_driver()
 
     # Определяем месяцы для парсинга (с мая 2025 по январь 2025)
@@ -295,6 +553,10 @@ def main():
         months_to_parse.append((month_start, month_end))
         current_date = month_start - timedelta(days=1)
 
+    all_data = []  # Список для хранения всех данных за месяц
+    processed_count = 0
+    emails_sent = 0
+
     # Обрабатываем каждый месяц
     for month_start, month_end in months_to_parse:
         month_name = month_start.strftime("%B %Y").lower()
@@ -303,9 +565,51 @@ def main():
         success = False
         for attempt in range(1, MAX_RETRIES + 1):
             try:
-                success = process_month(driver, month_start, month_end)
-                if success:
-                    break
+                # Обработка месяца
+                company_links = process_month(driver, month_start, month_end)
+                if company_links:
+                    # Фильтруем новые ссылки, которые не были обработаны
+                    for i, link in enumerate(company_links, 1):
+                        print(f"Обработка компании {i}/{len(company_links)}: {link}")
+                        data = parse_company_page(driver, link, processed_count)
+
+                        if data:
+                            all_data.append({
+                                'ИНН': data[0],
+                                'Дата регистрации': data[1],
+                                'Ген. директор': data[2],
+                                'Учредитель': data[3],
+                                'Телефон': data[4],
+                                'Email': data[5],
+                                'URL': data[6],
+                                'Дата добавления': data[7],
+                                'EmailSent': data[8]  # Дата отправки письма (если было отправлено)
+                            })
+                            processed_count += 1
+                            if data[8]:  # Если письмо было отправлено
+                                emails_sent += 1
+
+                        # Промежуточное сохранение каждые 20 компаний
+                        if i % 20 == 0 and all_data:
+                            print(f"\nПромежуточное сохранение после {i} компаний...")
+                            save_to_excel(all_data, f"{month_name}_output.xlsx")
+                            all_data = []  # Очищаем после сохранения
+
+                        time.sleep(random.uniform(2, 5))
+
+                    # Сохраняем все данные за месяц в Excel
+                    if all_data:
+                        print("\nФинальное сохранение результатов...")
+                        save_to_excel(all_data, f"{month_name}_output.xlsx")
+                        all_data = []  # Очищаем после сохранения
+
+                # После завершения обработки месяца, возвращаемся на начальную страницу
+                logger.info(f"Завершена обработка месяца {month_name}. Переход на начальную страницу.")
+                driver.get(BASE_URL)  # Переход на начальную страницу
+                time.sleep(3)  # Ждем немного, чтобы страница загрузилась
+
+                success = True
+                break
             except Exception as e:
                 logger.error(f"Попытка {attempt} не удалась: {str(e)}")
                 time.sleep(10 * attempt)
@@ -315,7 +619,8 @@ def main():
 
     driver.quit()
     logger.info("Парсер завершил работу")
-
+    logger.info(f"Обработано компаний: {processed_count}")
+    logger.info(f"Отправлено писем: {emails_sent}")
 
 if __name__ == "__main__":
     main()
