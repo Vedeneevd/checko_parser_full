@@ -634,3 +634,478 @@ Stacktrace:
 2025-06-06 10:07:35,376 - INFO - Парсер завершил работу
 2025-06-06 10:07:35,377 - INFO - Обработано компаний: 18
 2025-06-06 10:07:35,377 - INFO - Отправлено писем: 0
+2025-06-06 10:11:45,194 - INFO - ====== WebDriver manager ======
+2025-06-06 10:11:46,586 - INFO - Get LATEST chromedriver version for google-chrome
+2025-06-06 10:11:47,016 - INFO - Get LATEST chromedriver version for google-chrome
+2025-06-06 10:11:47,374 - INFO - Driver [C:\Users\User\.wdm\drivers\chromedriver\win64\137.0.7151.68\chromedriver-win32/chromedriver.exe] found in cache
+2025-06-06 10:11:50,390 - INFO - 
+Начинаем обработку месяца: may 2025
+2025-06-06 10:11:57,661 - INFO - Применение фильтров: 2025-05-01 - 2025-05-31
+2025-06-06 10:11:59,857 - ERROR - Ошибка при применении фильтров: Message: element click intercepted: Element <button type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse-1" aria-expanded="false" aria-controls="flush-collapse-1" class="accordion-button collapsed">...</button> is not clickable at point (83, 462). Other element would receive the click: <div style="position: absolute; left: 0; bottom: 0; width: 360px; z-index: 1; background: #ffe3aa; color: #111; padding: 0.35rem 0.75rem 1rem 1rem; font-size: 14px;">...</div>
+  (Session info: chrome=137.0.7151.56)
+Stacktrace:
+	GetHandleVerifier [0x0x463763+63299]
+	GetHandleVerifier [0x0x4637a4+63364]
+	(No symbol) [0x0x291113]
+	(No symbol) [0x0x2dfbb0]
+	(No symbol) [0x0x2ddf6a]
+	(No symbol) [0x0x2dbad7]
+	(No symbol) [0x0x2dada7]
+	(No symbol) [0x0x2cf445]
+	(No symbol) [0x0x2fe57c]
+	(No symbol) [0x0x2ceed4]
+	(No symbol) [0x0x2fe7f4]
+	(No symbol) [0x0x31fa4a]
+	(No symbol) [0x0x2fe376]
+	(No symbol) [0x0x2cd6e0]
+	(No symbol) [0x0x2ce544]
+	GetHandleVerifier [0x0x6be033+2531347]
+	GetHandleVerifier [0x0x6b9332+2511634]
+	GetHandleVerifier [0x0x489eda+220858]
+	GetHandleVerifier [0x0x47a528+156936]
+	GetHandleVerifier [0x0x480c5d+183357]
+	GetHandleVerifier [0x0x46b6c8+95912]
+	GetHandleVerifier [0x0x46b870+96336]
+	GetHandleVerifier [0x0x45664a+9770]
+	BaseThreadInitThunk [0x0x760dfcc9+25]
+	RtlGetAppContainerNamedObjectPath [0x0x776b809e+286]
+	RtlGetAppContainerNamedObjectPath [0x0x776b806e+238]
+
+2025-06-06 10:12:00,015 - INFO - 
+Начинаем обработку месяца: april 2025
+2025-06-06 10:12:04,818 - INFO - Применение фильтров: 2025-04-01 - 2025-04-30
+2025-06-06 10:12:17,632 - INFO - Обработка страницы 1
+2025-06-06 10:12:19,706 - INFO - Добавлено 25 новых ссылок (Всего: 25)
+2025-06-06 10:12:19,706 - INFO - Сбор завершен. Всего ссылок: 25
+2025-06-06 10:12:19,706 - INFO - Найдено 25 компаний за april 2025
+2025-06-06 10:12:21,242 - ERROR - Секция учредителей не найдена.
+2025-06-06 10:12:23,255 - ERROR - Секция учредителей не найдена.
+2025-06-06 10:12:26,447 - ERROR - Секция учредителей не найдена.
+2025-06-06 10:12:29,901 - ERROR - Секция учредителей не найдена.
+2025-06-06 10:12:41,701 - ERROR - Секция учредителей не найдена.
+2025-06-06 10:12:44,924 - ERROR - Секция учредителей не найдена.
+2025-06-06 10:12:48,187 - INFO - Обработано 10/25 компаний за april 2025
+2025-06-06 10:12:51,427 - ERROR - Секция учредителей не найдена.
+2025-06-06 10:12:53,840 - ERROR - Секция учредителей не найдена.
+2025-06-06 10:12:58,728 - ERROR - Секция учредителей не найдена.
+2025-06-06 10:13:04,726 - ERROR - Секция учредителей не найдена.
+2025-06-06 10:13:14,370 - ERROR - Секция учредителей не найдена.
+2025-06-06 10:13:18,083 - INFO - Обработано 20/25 компаний за april 2025
+2025-06-06 10:13:21,773 - ERROR - Секция учредителей не найдена.
+2025-06-06 10:13:24,106 - ERROR - Секция учредителей не найдена.
+2025-06-06 10:13:26,360 - ERROR - Секция учредителей не найдена.
+2025-06-06 10:13:29,385 - ERROR - Секция учредителей не найдена.
+2025-06-06 10:13:31,199 - ERROR - Секция учредителей не найдена.
+2025-06-06 10:13:34,266 - INFO - Сохранено 18 новых записей. Всего записей: 18
+2025-06-06 10:13:34,267 - INFO - Сохранено 18 компаний в файл april 2025.xlsx
+2025-06-06 10:13:34,267 - INFO - 
+Начинаем обработку месяца: march 2025
+2025-06-06 10:13:38,112 - INFO - Применение фильтров: 2025-03-01 - 2025-03-31
+2025-06-06 10:13:45,041 - ERROR - Ошибка при применении фильтров: Message: invalid session id: session deleted as the browser has closed the connection
+from disconnected: not connected to DevTools
+  (Session info: chrome=137.0.7151.56)
+Stacktrace:
+	GetHandleVerifier [0x0x463763+63299]
+	GetHandleVerifier [0x0x4637a4+63364]
+	(No symbol) [0x0x291113]
+	(No symbol) [0x0x2808a0]
+	(No symbol) [0x0x29e8c2]
+	(No symbol) [0x0x30519c]
+	(No symbol) [0x0x31f359]
+	(No symbol) [0x0x2fe376]
+	(No symbol) [0x0x2cd6e0]
+	(No symbol) [0x0x2ce544]
+	GetHandleVerifier [0x0x6be033+2531347]
+	GetHandleVerifier [0x0x6b9332+2511634]
+	GetHandleVerifier [0x0x489eda+220858]
+	GetHandleVerifier [0x0x47a528+156936]
+	GetHandleVerifier [0x0x480c5d+183357]
+	GetHandleVerifier [0x0x46b6c8+95912]
+	GetHandleVerifier [0x0x46b870+96336]
+	GetHandleVerifier [0x0x45664a+9770]
+	BaseThreadInitThunk [0x0x760dfcc9+25]
+	RtlGetAppContainerNamedObjectPath [0x0x776b809e+286]
+	RtlGetAppContainerNamedObjectPath [0x0x776b806e+238]
+
+2025-06-06 10:52:54,189 - INFO - ====== WebDriver manager ======
+2025-06-06 10:52:55,715 - INFO - Get LATEST chromedriver version for google-chrome
+2025-06-06 10:52:56,141 - INFO - Get LATEST chromedriver version for google-chrome
+2025-06-06 10:52:56,528 - INFO - Driver [C:\Users\User\.wdm\drivers\chromedriver\win64\137.0.7151.68\chromedriver-win32/chromedriver.exe] found in cache
+2025-06-06 10:52:59,529 - INFO - 
+Начинаем обработку месяца: may 2025
+2025-06-06 10:53:07,238 - INFO - Применение фильтров: 2025-05-01 - 2025-05-31
+2025-06-06 10:53:09,402 - ERROR - Ошибка при применении фильтров: Message: element click intercepted: Element <button type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse-1" aria-expanded="false" aria-controls="flush-collapse-1" class="accordion-button collapsed">...</button> is not clickable at point (83, 472). Other element would receive the click: <div style="position: absolute; left: 0; bottom: 0; width: 360px; z-index: 1; background: #ffe3aa; color: #111; padding: 0.35rem 0.75rem 1rem 1rem; font-size: 14px;">...</div>
+  (Session info: chrome=137.0.7151.56)
+Stacktrace:
+	GetHandleVerifier [0x0xf53763+63299]
+	GetHandleVerifier [0x0xf537a4+63364]
+	(No symbol) [0x0xd81113]
+	(No symbol) [0x0xdcfbb0]
+	(No symbol) [0x0xdcdf6a]
+	(No symbol) [0x0xdcbad7]
+	(No symbol) [0x0xdcada7]
+	(No symbol) [0x0xdbf445]
+	(No symbol) [0x0xdee57c]
+	(No symbol) [0x0xdbeed4]
+	(No symbol) [0x0xdee7f4]
+	(No symbol) [0x0xe0fa4a]
+	(No symbol) [0x0xdee376]
+	(No symbol) [0x0xdbd6e0]
+	(No symbol) [0x0xdbe544]
+	GetHandleVerifier [0x0x11ae033+2531347]
+	GetHandleVerifier [0x0x11a9332+2511634]
+	GetHandleVerifier [0x0xf79eda+220858]
+	GetHandleVerifier [0x0xf6a528+156936]
+	GetHandleVerifier [0x0xf70c5d+183357]
+	GetHandleVerifier [0x0xf5b6c8+95912]
+	GetHandleVerifier [0x0xf5b870+96336]
+	GetHandleVerifier [0x0xf4664a+9770]
+	BaseThreadInitThunk [0x0x760dfcc9+25]
+	RtlGetAppContainerNamedObjectPath [0x0x776b809e+286]
+	RtlGetAppContainerNamedObjectPath [0x0x776b806e+238]
+
+2025-06-06 10:53:09,528 - INFO - 
+Начинаем обработку месяца: april 2025
+2025-06-06 10:53:14,446 - INFO - Применение фильтров: 2025-04-01 - 2025-04-30
+2025-06-06 10:53:27,233 - INFO - Обработка страницы 1
+2025-06-06 10:53:29,306 - INFO - Добавлено 25 новых ссылок (Всего: 25)
+2025-06-06 10:53:29,306 - INFO - Сбор завершен. Всего ссылок: 25
+2025-06-06 10:53:29,306 - INFO - Найдено 25 компаний за april 2025
+2025-06-06 10:53:31,658 - ERROR - Таблица с учредителями не найдена.
+2025-06-06 10:53:35,094 - ERROR - ИНН учредителя не найден.
+2025-06-06 10:53:51,075 - ERROR - ИНН учредителя не найден.
+2025-06-06 10:53:53,463 - ERROR - ИНН учредителя не найден.
+2025-06-06 10:53:56,872 - INFO - Обработано 10/25 компаний за april 2025
+2025-06-06 10:54:00,267 - ERROR - ИНН учредителя не найден.
+2025-06-06 10:54:08,810 - ERROR - ИНН учредителя не найден.
+2025-06-06 10:54:23,552 - INFO - Обработано 20/25 компаний за april 2025
+2025-06-06 10:54:28,882 - ERROR - ИНН учредителя не найден.
+2025-06-06 10:54:32,493 - ERROR - ИНН учредителя не найден.
+2025-06-06 10:54:41,836 - ERROR - ИНН учредителя не найден.
+2025-06-06 10:54:44,453 - ERROR - ИНН учредителя не найден.
+2025-06-06 10:54:46,933 - INFO - Сохранено 18 новых записей. Всего записей: 18
+2025-06-06 10:54:46,933 - INFO - Сохранено 18 компаний в файл april 2025.xlsx
+2025-06-06 10:54:46,934 - INFO - 
+Начинаем обработку месяца: march 2025
+2025-06-06 10:54:50,586 - INFO - Применение фильтров: 2025-03-01 - 2025-03-31
+2025-06-06 10:54:53,569 - WARNING - Retrying (Retry(total=2, connect=None, read=None, redirect=None, status=None)) after connection broken by 'ConnectionResetError(10054, 'Удаленный хост принудительно разорвал существующее подключение', None, 10054, None)': /session/1681395b765c2ae6b48b5eb8806c6587
+2025-06-06 10:58:49,275 - INFO - ====== WebDriver manager ======
+2025-06-06 10:58:50,560 - INFO - Get LATEST chromedriver version for google-chrome
+2025-06-06 10:58:51,057 - INFO - Get LATEST chromedriver version for google-chrome
+2025-06-06 10:58:51,436 - INFO - Driver [C:\Users\User\.wdm\drivers\chromedriver\win64\137.0.7151.68\chromedriver-win32/chromedriver.exe] found in cache
+2025-06-06 10:58:52,994 - INFO - 
+Начинаем обработку месяца: may 2025
+2025-06-06 10:59:10,164 - INFO - Применение фильтров: 2025-05-01 - 2025-05-31
+2025-06-06 10:59:12,386 - ERROR - Ошибка при применении фильтров: Message: element click intercepted: Element <button type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse-1" aria-expanded="false" aria-controls="flush-collapse-1" class="accordion-button collapsed">...</button> is not clickable at point (83, 472). Other element would receive the click: <div style="position: absolute; left: 0; bottom: 0; width: 360px; z-index: 1; background: #ffe3aa; color: #111; padding: 0.35rem 0.75rem 1rem 1rem; font-size: 14px;">...</div>
+  (Session info: chrome=137.0.7151.56)
+Stacktrace:
+	GetHandleVerifier [0x0xfc3763+63299]
+	GetHandleVerifier [0x0xfc37a4+63364]
+	(No symbol) [0x0xdf1113]
+	(No symbol) [0x0xe3fbb0]
+	(No symbol) [0x0xe3df6a]
+	(No symbol) [0x0xe3bad7]
+	(No symbol) [0x0xe3ada7]
+	(No symbol) [0x0xe2f445]
+	(No symbol) [0x0xe5e57c]
+	(No symbol) [0x0xe2eed4]
+	(No symbol) [0x0xe5e7f4]
+	(No symbol) [0x0xe7fa4a]
+	(No symbol) [0x0xe5e376]
+	(No symbol) [0x0xe2d6e0]
+	(No symbol) [0x0xe2e544]
+	GetHandleVerifier [0x0x121e033+2531347]
+	GetHandleVerifier [0x0x1219332+2511634]
+	GetHandleVerifier [0x0xfe9eda+220858]
+	GetHandleVerifier [0x0xfda528+156936]
+	GetHandleVerifier [0x0xfe0c5d+183357]
+	GetHandleVerifier [0x0xfcb6c8+95912]
+	GetHandleVerifier [0x0xfcb870+96336]
+	GetHandleVerifier [0x0xfb664a+9770]
+	BaseThreadInitThunk [0x0x760dfcc9+25]
+	RtlGetAppContainerNamedObjectPath [0x0x776b809e+286]
+	RtlGetAppContainerNamedObjectPath [0x0x776b806e+238]
+
+2025-06-06 10:59:12,504 - INFO - 
+Начинаем обработку месяца: april 2025
+2025-06-06 10:59:17,455 - INFO - Применение фильтров: 2025-04-01 - 2025-04-30
+2025-06-06 10:59:30,103 - INFO - Обработка страницы 1
+2025-06-06 10:59:32,200 - INFO - Добавлено 25 новых ссылок (Всего: 25)
+2025-06-06 10:59:32,200 - INFO - Сбор завершен. Всего ссылок: 25
+2025-06-06 10:59:32,200 - INFO - Найдено 25 компаний за april 2025
+2025-06-06 10:59:33,359 - ERROR - Таблица учредителей не найдена в секции.
+2025-06-06 10:59:38,834 - ERROR - Не удалось найти имя учредителя в таблице.
+2025-06-06 10:59:42,220 - ERROR - Не удалось найти имя учредителя в таблице.
+2025-06-06 11:00:00,735 - INFO - Обработано 10/25 компаний за april 2025
+2025-06-06 11:00:06,036 - ERROR - Не удалось найти имя учредителя в таблице.
+2025-06-06 11:00:16,994 - ERROR - Не удалось найти имя учредителя в таблице.
+2025-06-06 11:00:25,111 - ERROR - Не удалось найти имя учредителя в таблице.
+2025-06-06 11:00:28,077 - INFO - Обработано 20/25 компаний за april 2025
+2025-06-06 11:00:33,828 - ERROR - Не удалось найти имя учредителя в таблице.
+2025-06-06 11:00:42,576 - INFO - Сохранено 18 новых записей. Всего записей: 18
+2025-06-06 11:00:42,577 - INFO - Сохранено 18 компаний в файл april 2025.xlsx
+2025-06-06 11:00:42,577 - INFO - 
+Начинаем обработку месяца: march 2025
+2025-06-06 11:00:46,285 - INFO - Применение фильтров: 2025-03-01 - 2025-03-31
+2025-06-06 11:00:59,528 - ERROR - Ошибка при применении фильтров: Message: 
+
+2025-06-06 11:00:59,657 - INFO - 
+Начинаем обработку месяца: february 2025
+2025-06-06 11:01:03,338 - INFO - Применение фильтров: 2025-02-01 - 2025-02-28
+2025-06-06 11:01:07,190 - ERROR - Ошибка при применении фильтров: Message: invalid session id: session deleted as the browser has closed the connection
+from disconnected: not connected to DevTools
+  (Session info: chrome=137.0.7151.56)
+Stacktrace:
+	GetHandleVerifier [0x0xfc3763+63299]
+	GetHandleVerifier [0x0xfc37a4+63364]
+	(No symbol) [0x0xdf1113]
+	(No symbol) [0x0xde08a0]
+	(No symbol) [0x0xdfe8c2]
+	(No symbol) [0x0xe6519c]
+	(No symbol) [0x0xe7f359]
+	(No symbol) [0x0xe5e376]
+	(No symbol) [0x0xe2d6e0]
+	(No symbol) [0x0xe2e544]
+	GetHandleVerifier [0x0x121e033+2531347]
+	GetHandleVerifier [0x0x1219332+2511634]
+	GetHandleVerifier [0x0xfe9eda+220858]
+	GetHandleVerifier [0x0xfda528+156936]
+	GetHandleVerifier [0x0xfe0c5d+183357]
+	GetHandleVerifier [0x0xfcb6c8+95912]
+	GetHandleVerifier [0x0xfcb870+96336]
+	GetHandleVerifier [0x0xfb664a+9770]
+	BaseThreadInitThunk [0x0x760dfcc9+25]
+	RtlGetAppContainerNamedObjectPath [0x0x776b809e+286]
+	RtlGetAppContainerNamedObjectPath [0x0x776b806e+238]
+
+2025-06-06 11:01:08,408 - INFO - Парсер завершил работу
+2025-06-06 11:01:08,408 - INFO - Обработано компаний: 18
+2025-06-06 11:01:08,408 - INFO - Отправлено писем: 0
+2025-06-06 11:04:42,218 - INFO - ====== WebDriver manager ======
+2025-06-06 11:04:43,327 - INFO - Get LATEST chromedriver version for google-chrome
+2025-06-06 11:04:43,716 - INFO - Get LATEST chromedriver version for google-chrome
+2025-06-06 11:04:44,084 - INFO - Driver [C:\Users\User\.wdm\drivers\chromedriver\win64\137.0.7151.68\chromedriver-win32/chromedriver.exe] found in cache
+2025-06-06 11:04:45,332 - INFO - 
+Начинаем обработку месяца: may 2025
+2025-06-06 11:04:52,531 - INFO - Применение фильтров: 2025-05-01 - 2025-05-31
+2025-06-06 11:04:54,720 - ERROR - Ошибка при применении фильтров: Message: element click intercepted: Element <button type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse-1" aria-expanded="false" aria-controls="flush-collapse-1" class="accordion-button collapsed">...</button> is not clickable at point (83, 472). Other element would receive the click: <div style="position: absolute; left: 0; bottom: 0; width: 360px; z-index: 1; background: #ffe3aa; color: #111; padding: 0.35rem 0.75rem 1rem 1rem; font-size: 14px;">...</div>
+  (Session info: chrome=137.0.7151.56)
+Stacktrace:
+	GetHandleVerifier [0x0xfc3763+63299]
+	GetHandleVerifier [0x0xfc37a4+63364]
+	(No symbol) [0x0xdf1113]
+	(No symbol) [0x0xe3fbb0]
+	(No symbol) [0x0xe3df6a]
+	(No symbol) [0x0xe3bad7]
+	(No symbol) [0x0xe3ada7]
+	(No symbol) [0x0xe2f445]
+	(No symbol) [0x0xe5e57c]
+	(No symbol) [0x0xe2eed4]
+	(No symbol) [0x0xe5e7f4]
+	(No symbol) [0x0xe7fa4a]
+	(No symbol) [0x0xe5e376]
+	(No symbol) [0x0xe2d6e0]
+	(No symbol) [0x0xe2e544]
+	GetHandleVerifier [0x0x121e033+2531347]
+	GetHandleVerifier [0x0x1219332+2511634]
+	GetHandleVerifier [0x0xfe9eda+220858]
+	GetHandleVerifier [0x0xfda528+156936]
+	GetHandleVerifier [0x0xfe0c5d+183357]
+	GetHandleVerifier [0x0xfcb6c8+95912]
+	GetHandleVerifier [0x0xfcb870+96336]
+	GetHandleVerifier [0x0xfb664a+9770]
+	BaseThreadInitThunk [0x0x760dfcc9+25]
+	RtlGetAppContainerNamedObjectPath [0x0x776b809e+286]
+	RtlGetAppContainerNamedObjectPath [0x0x776b806e+238]
+
+2025-06-06 11:04:54,850 - INFO - 
+Начинаем обработку месяца: april 2025
+2025-06-06 11:05:01,525 - INFO - Применение фильтров: 2025-04-01 - 2025-04-30
+2025-06-06 11:05:14,178 - INFO - Обработка страницы 1
+2025-06-06 11:05:16,256 - INFO - Добавлено 25 новых ссылок (Всего: 25)
+2025-06-06 11:05:16,256 - INFO - Сбор завершен. Всего ссылок: 25
+2025-06-06 11:05:16,256 - INFO - Найдено 25 компаний за april 2025
+2025-06-06 11:05:17,694 - ERROR - Таблица учредителей не найдена в секции.
+2025-06-06 11:05:22,648 - ERROR - Не удалось найти имя учредителя в таблице.
+2025-06-06 11:05:24,805 - ERROR - Не удалось найти имя учредителя в таблице.
+2025-06-06 11:05:40,930 - INFO - Обработано 10/25 компаний за april 2025
+2025-06-06 11:05:46,217 - ERROR - Не удалось найти имя учредителя в таблице.
+2025-06-06 11:05:58,623 - ERROR - Не удалось найти имя учредителя в таблице.
+2025-06-06 11:06:06,285 - ERROR - Не удалось найти имя учредителя в таблице.
+2025-06-06 11:06:09,708 - INFO - Обработано 20/25 компаний за april 2025
+2025-06-06 11:06:18,439 - ERROR - Не удалось найти имя учредителя в таблице.
+2025-06-06 11:06:26,489 - INFO - Сохранено 18 новых записей. Всего записей: 18
+2025-06-06 11:06:26,489 - INFO - Сохранено 18 компаний в файл april 2025.xlsx
+2025-06-06 11:06:26,489 - INFO - 
+Начинаем обработку месяца: march 2025
+2025-06-06 11:06:30,136 - INFO - Применение фильтров: 2025-03-01 - 2025-03-31
+2025-06-06 11:06:39,681 - ERROR - Ошибка при применении фильтров: Message: invalid session id: session deleted as the browser has closed the connection
+from disconnected: not connected to DevTools
+  (Session info: chrome=137.0.7151.56)
+Stacktrace:
+	GetHandleVerifier [0x0xfc3763+63299]
+	GetHandleVerifier [0x0xfc37a4+63364]
+	(No symbol) [0x0xdf1113]
+	(No symbol) [0x0xde08a0]
+	(No symbol) [0x0xdfe8c2]
+	(No symbol) [0x0xe6519c]
+	(No symbol) [0x0xe7f359]
+	(No symbol) [0x0xe5e376]
+	(No symbol) [0x0xe2d6e0]
+	(No symbol) [0x0xe2e544]
+	GetHandleVerifier [0x0x121e033+2531347]
+	GetHandleVerifier [0x0x1219332+2511634]
+	GetHandleVerifier [0x0xfe9eda+220858]
+	GetHandleVerifier [0x0xfda528+156936]
+	GetHandleVerifier [0x0xfe0c5d+183357]
+	GetHandleVerifier [0x0xfcb6c8+95912]
+	GetHandleVerifier [0x0xfcb870+96336]
+	GetHandleVerifier [0x0xfb664a+9770]
+	BaseThreadInitThunk [0x0x760dfcc9+25]
+	RtlGetAppContainerNamedObjectPath [0x0x776b809e+286]
+	RtlGetAppContainerNamedObjectPath [0x0x776b806e+238]
+
+2025-06-06 11:10:24,396 - INFO - ====== WebDriver manager ======
+2025-06-06 11:10:25,572 - INFO - Get LATEST chromedriver version for google-chrome
+2025-06-06 11:10:26,186 - INFO - Get LATEST chromedriver version for google-chrome
+2025-06-06 11:10:26,618 - INFO - Driver [C:\Users\User\.wdm\drivers\chromedriver\win64\137.0.7151.68\chromedriver-win32/chromedriver.exe] found in cache
+2025-06-06 11:10:28,145 - INFO - 
+Начинаем обработку месяца: may 2025
+2025-06-06 11:10:35,180 - INFO - Применение фильтров: 2025-05-01 - 2025-05-31
+2025-06-06 11:10:37,323 - ERROR - Ошибка при применении фильтров: Message: element click intercepted: Element <button type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse-1" aria-expanded="false" aria-controls="flush-collapse-1" class="accordion-button collapsed">...</button> is not clickable at point (83, 472). Other element would receive the click: <div style="position: absolute; left: 0; bottom: 0; width: 360px; z-index: 1; background: #ffe3aa; color: #111; padding: 0.35rem 0.75rem 1rem 1rem; font-size: 14px;">...</div>
+  (Session info: chrome=137.0.7151.56)
+Stacktrace:
+	GetHandleVerifier [0x0x9b3763+63299]
+	GetHandleVerifier [0x0x9b37a4+63364]
+	(No symbol) [0x0x7e1113]
+	(No symbol) [0x0x82fbb0]
+	(No symbol) [0x0x82df6a]
+	(No symbol) [0x0x82bad7]
+	(No symbol) [0x0x82ada7]
+	(No symbol) [0x0x81f445]
+	(No symbol) [0x0x84e57c]
+	(No symbol) [0x0x81eed4]
+	(No symbol) [0x0x84e7f4]
+	(No symbol) [0x0x86fa4a]
+	(No symbol) [0x0x84e376]
+	(No symbol) [0x0x81d6e0]
+	(No symbol) [0x0x81e544]
+	GetHandleVerifier [0x0xc0e033+2531347]
+	GetHandleVerifier [0x0xc09332+2511634]
+	GetHandleVerifier [0x0x9d9eda+220858]
+	GetHandleVerifier [0x0x9ca528+156936]
+	GetHandleVerifier [0x0x9d0c5d+183357]
+	GetHandleVerifier [0x0x9bb6c8+95912]
+	GetHandleVerifier [0x0x9bb870+96336]
+	GetHandleVerifier [0x0x9a664a+9770]
+	BaseThreadInitThunk [0x0x760dfcc9+25]
+	RtlGetAppContainerNamedObjectPath [0x0x776b809e+286]
+	RtlGetAppContainerNamedObjectPath [0x0x776b806e+238]
+
+2025-06-06 11:10:37,465 - INFO - 
+Начинаем обработку месяца: april 2025
+2025-06-06 11:10:42,172 - INFO - Применение фильтров: 2025-04-01 - 2025-04-30
+2025-06-06 11:10:54,790 - INFO - Обработка страницы 1
+2025-06-06 11:10:56,878 - INFO - Добавлено 25 новых ссылок (Всего: 25)
+2025-06-06 11:10:56,878 - INFO - Сбор завершен. Всего ссылок: 25
+2025-06-06 11:10:56,879 - INFO - Найдено 25 компаний за april 2025
+2025-06-06 11:10:57,992 - ERROR - Таблица учредителей не найдена в секции.
+2025-06-06 11:11:03,471 - ERROR - Не удалось найти имя учредителя в таблице.
+2025-06-06 11:11:06,718 - ERROR - Не удалось найти имя учредителя в таблице.
+2025-06-06 11:11:21,424 - INFO - Обработано 10/25 компаний за april 2025
+2025-06-06 11:11:28,318 - ERROR - Не удалось найти имя учредителя в таблице.
+2025-06-06 11:11:38,367 - ERROR - Не удалось найти имя учредителя в таблице.
+2025-06-06 11:11:47,095 - ERROR - Не удалось найти имя учредителя в таблице.
+2025-06-06 11:11:49,877 - INFO - Обработано 20/25 компаний за april 2025
+2025-06-06 11:11:57,553 - ERROR - Не удалось найти имя учредителя в таблице.
+2025-06-06 11:12:05,287 - INFO - Сохранено 18 новых записей. Всего записей: 18
+2025-06-06 11:12:05,287 - INFO - Сохранено 18 компаний в файл april 2025.xlsx
+2025-06-06 11:12:05,287 - INFO - 
+Начинаем обработку месяца: march 2025
+2025-06-06 11:12:08,878 - INFO - Применение фильтров: 2025-03-01 - 2025-03-31
+2025-06-06 11:12:21,587 - ERROR - Ошибка при применении фильтров: Message: invalid session id: session deleted as the browser has closed the connection
+from disconnected: not connected to DevTools
+  (Session info: chrome=137.0.7151.56)
+Stacktrace:
+	GetHandleVerifier [0x0x9b3763+63299]
+	GetHandleVerifier [0x0x9b37a4+63364]
+	(No symbol) [0x0x7e1113]
+	(No symbol) [0x0x7d08a0]
+	(No symbol) [0x0x7ee8c2]
+	(No symbol) [0x0x85519c]
+	(No symbol) [0x0x86f359]
+	(No symbol) [0x0x84e376]
+	(No symbol) [0x0x81d6e0]
+	(No symbol) [0x0x81e544]
+	GetHandleVerifier [0x0xc0e033+2531347]
+	GetHandleVerifier [0x0xc09332+2511634]
+	GetHandleVerifier [0x0x9d9eda+220858]
+	GetHandleVerifier [0x0x9ca528+156936]
+	GetHandleVerifier [0x0x9d0c5d+183357]
+	GetHandleVerifier [0x0x9bb6c8+95912]
+	GetHandleVerifier [0x0x9bb870+96336]
+	GetHandleVerifier [0x0x9a664a+9770]
+	BaseThreadInitThunk [0x0x760dfcc9+25]
+	RtlGetAppContainerNamedObjectPath [0x0x776b809e+286]
+	RtlGetAppContainerNamedObjectPath [0x0x776b806e+238]
+
+2025-06-06 11:15:06,127 - INFO - ====== WebDriver manager ======
+2025-06-06 11:15:23,062 - INFO - ====== WebDriver manager ======
+2025-06-06 11:15:24,366 - INFO - Get LATEST chromedriver version for google-chrome
+2025-06-06 11:15:25,062 - INFO - Get LATEST chromedriver version for google-chrome
+2025-06-06 11:15:27,228 - INFO - Driver [C:\Users\User\.wdm\drivers\chromedriver\win64\137.0.7151.68\chromedriver-win32/chromedriver.exe] found in cache
+2025-06-06 11:15:28,516 - INFO - 
+Начинаем обработку месяца: may 2025
+2025-06-06 11:15:36,279 - INFO - Применение фильтров: 2025-05-01 - 2025-05-31
+2025-06-06 11:15:38,480 - ERROR - Ошибка при применении фильтров: Message: element click intercepted: Element <button type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse-1" aria-expanded="false" aria-controls="flush-collapse-1" class="accordion-button collapsed">...</button> is not clickable at point (83, 472). Other element would receive the click: <div style="position: absolute; left: 0; bottom: 0; width: 360px; z-index: 1; background: #ffe3aa; color: #111; padding: 0.35rem 0.75rem 1rem 1rem; font-size: 14px;">...</div>
+  (Session info: chrome=137.0.7151.56)
+Stacktrace:
+	GetHandleVerifier [0x0x9b3763+63299]
+	GetHandleVerifier [0x0x9b37a4+63364]
+	(No symbol) [0x0x7e1113]
+	(No symbol) [0x0x82fbb0]
+	(No symbol) [0x0x82df6a]
+	(No symbol) [0x0x82bad7]
+	(No symbol) [0x0x82ada7]
+	(No symbol) [0x0x81f445]
+	(No symbol) [0x0x84e57c]
+	(No symbol) [0x0x81eed4]
+	(No symbol) [0x0x84e7f4]
+	(No symbol) [0x0x86fa4a]
+	(No symbol) [0x0x84e376]
+	(No symbol) [0x0x81d6e0]
+	(No symbol) [0x0x81e544]
+	GetHandleVerifier [0x0xc0e033+2531347]
+	GetHandleVerifier [0x0xc09332+2511634]
+	GetHandleVerifier [0x0x9d9eda+220858]
+	GetHandleVerifier [0x0x9ca528+156936]
+	GetHandleVerifier [0x0x9d0c5d+183357]
+	GetHandleVerifier [0x0x9bb6c8+95912]
+	GetHandleVerifier [0x0x9bb870+96336]
+	GetHandleVerifier [0x0x9a664a+9770]
+	BaseThreadInitThunk [0x0x760dfcc9+25]
+	RtlGetAppContainerNamedObjectPath [0x0x776b809e+286]
+	RtlGetAppContainerNamedObjectPath [0x0x776b806e+238]
+
+2025-06-06 11:15:38,631 - INFO - 
+Начинаем обработку месяца: april 2025
+2025-06-06 11:15:46,195 - INFO - Применение фильтров: 2025-04-01 - 2025-04-30
+2025-06-06 11:15:58,862 - INFO - Обработка страницы 1
+2025-06-06 11:16:00,984 - INFO - Добавлено 25 новых ссылок (Всего: 25)
+2025-06-06 11:16:00,984 - INFO - Сбор завершен. Всего ссылок: 25
+2025-06-06 11:16:00,984 - INFO - Найдено 25 компаний за april 2025
+2025-06-06 11:16:02,169 - ERROR - Таблица учредителей не найдена в секции.
+2025-06-06 11:16:06,472 - ERROR - Не удалось найти имя учредителя в таблице.
+2025-06-06 11:16:08,312 - ERROR - Не удалось найти имя учредителя в таблице.
+2025-06-06 11:16:25,523 - INFO - Обработано 10/25 компаний за april 2025
+2025-06-06 11:16:31,739 - ERROR - Не удалось найти имя учредителя в таблице.
+2025-06-06 11:16:44,100 - ERROR - Не удалось найти имя учредителя в таблице.
+2025-06-06 11:16:53,730 - ERROR - Не удалось найти имя учредителя в таблице.
+2025-06-06 11:16:57,069 - INFO - Обработано 20/25 компаний за april 2025
+2025-06-06 11:17:06,145 - ERROR - Не удалось найти имя учредителя в таблице.
+2025-06-06 11:17:11,917 - INFO - Сохранено 18 новых записей. Всего записей: 18
+2025-06-06 11:17:11,917 - INFO - Сохранено 18 компаний в файл april 2025.xlsx
+2025-06-06 11:17:11,918 - INFO - 
+Начинаем обработку месяца: march 2025
+2025-06-06 11:17:16,022 - INFO - Применение фильтров: 2025-03-01 - 2025-03-31
+2025-06-06 11:17:23,443 - WARNING - Retrying (Retry(total=2, connect=None, read=None, redirect=None, status=None)) after connection broken by 'ConnectionResetError(10054, 'Удаленный хост принудительно разорвал существующее подключение', None, 10054, None)': /session/67bfb7c6fa8f606e0ed062617374ca66

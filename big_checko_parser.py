@@ -342,37 +342,80 @@ def get_person_info(soup, label):
 
             return director, director_inn  # Возвращаем два значения: директор и ИНН
 
-        # Поиск учредителя с улучшенным парсингом
+        # Поиск учредителя
         else:
             founder = None
-            founder_section = soup.find('strong', class_='fw-700', string='Учредитель')
-            if not founder_section:
-                founder_section = soup.find('div', class_='fw-700', string='Учредитель')
+            founder_inn = None
+
+            # Попытка найти учредителя в секции с ID 'founders'
+            founder_section = soup.find('section', id='founders')
 
             if founder_section:
-                # Ищем ссылку на учредителя рядом с заголовком
-                founder_tag = founder_section.find_next('a', class_='link')
-                if founder_tag:
-                    founder = founder_tag.get_text(strip=True)
+                # Находим таблицу с учредителями
+                founder_table = founder_section.find('table', class_='table table-md')
+
+                if founder_table:
+                    # Находим все строки в таблицы
+                    rows = founder_table.find_all('tr')
+
+                    if rows:
+                        # Извлекаем первого учредителя (первую строку таблицы, пропуская заголовок)
+                        first_row = rows[1]  # Пропускаем заголовок таблицы
+                        columns = first_row.find_all('td')  # Получаем все столбцы в строке
+
+                        if len(columns) >= 2:
+                            # Извлекаем Ф. И. О. учредителя
+                            founder_tag = columns[1].find('a')
+                            if founder_tag:
+                                founder = founder_tag.get_text(strip=True)
+
+                                # Проверка на "Показать на карте"
+                                if "Показать на карте" in founder:
+                                    return '', ''  # Возвращаем пустые строки, если нашли "Показать на карте"
+
+                                # Извлекаем ИНН учредителя
+                                inn_div = columns[1].find_next('div')
+                                if inn_div and "ИНН" in inn_div.text:
+                                    founder_inn = inn_div.text.split()[-1]  # Получаем последний элемент, который будет ИНН
+                            else:
+                                logger.error("Не удалось найти имя учредителя в таблице.")
+                        else:
+                            logger.error("Не удалось найти достаточное количество столбцов для учредителя.")
+                    else:
+                        logger.error("В таблице учредителей нет строк.")
                 else:
-                    # Если нет ссылки, проверяем структуру как в вашем примере
-                    parent_div = founder_section.find_parent('div', class_='mb-3')
-                    if parent_div:
-                        # Проверяем, есть ли вложенные div (может быть адрес)
-                        address_divs = parent_div.find_all('div', recursive=False)
-                        if len(address_divs) > 0 and 'Субъект РФ' not in address_divs[0].get_text():
-                            # Если это не адрес, то берем текст после заголовка
-                            founder = parent_div.get_text(strip=True).replace('Учредитель', '').strip()
-                        elif len(address_divs) > 0:
-                            # Если это адрес, пропускаем
-                            founder = None
+                    logger.error("Таблица учредителей не найдена в секции.")
 
-            return founder if founder and founder != 'Показать на карте' else None
+            # Если учредитель не найден в секции, ищем его через стандартный поиск
+            if not founder:
+                # Стандартный способ поиска учредителя (как было раньше)
+                founder_section = soup.find('strong', class_='fw-700', string='Учредитель')
+                if not founder_section:
+                    founder_section = soup.find('div', class_='fw-700', string='Учредитель')
 
+                if founder_section:
+                    # Ищем ссылку на учредителя рядом с заголовком
+                    founder_tag = founder_section.find_next('a', class_='link')
+                    if founder_tag:
+                        founder = founder_tag.get_text(strip=True)
+                    else:
+                        # Если нет ссылки, проверяем структуру как в вашем примере
+                        parent_div = founder_section.find_parent('div', class_='mb-3')
+                        if parent_div:
+                            # Проверяем, есть ли вложенные div (может быть адрес)
+                            address_divs = parent_div.find_all('div', recursive=False)
+                            if len(address_divs) > 0 and 'Субъект РФ' not in address_divs[0].get_text():
+                                # Если это не адрес, то берем текст после заголовка
+                                founder = parent_div.get_text(strip=True).replace('Учредитель', '').strip()
+                            elif len(address_divs) > 0:
+                                # Если это адрес, пропускаем
+                                founder = None
+
+            return founder, founder_inn  # Возвращаем Ф. И. О. и ИНН учредителя
 
     except Exception as e:
         logger.error(f"Ошибка при поиске {label}: {str(e)}")
-        return None, None  # Возвращаем два значения (None) для директора и ИНН
+        return '', ''  # Возвращаем два значения пустых строк для директора и ИНН
 
 
 def get_first_okved(soup):
@@ -397,7 +440,6 @@ def get_first_okved(soup):
         # Извлекаем первый вид деятельности (первую строку таблицы)
             first_row = rows[0]  # Первая строка таблицы
             columns = first_row.find_all('td')  # Получаем все столбцы в строке
-            print(columns)
 
             okved_code = columns[0].text.strip()  # Код ОКВЭД (например, 01.21)
             activity_description = columns[1].text.strip()  # Описание (например, Выращивание винограда)
@@ -406,6 +448,52 @@ def get_first_okved(soup):
     except Exception as e:
         logger.error(f"Ошибка при извлечении ОКВЭД: {str(e)}")
         return None, None
+
+
+def get_founder_inn(soup):
+    """Функция для получения ИНН учредителя"""
+    try:
+        # Находим секцию с учредителями
+        founder_section = soup.find('div', class_='tab-pane fade show active', id='founders-tab-1')
+
+        if not founder_section:
+            logger.error("Секция учредителей не найдена.")
+            return None
+
+        # Находим таблицу с учредителями
+        founder_table = founder_section.find('table', class_='table table-md')
+
+        if not founder_table:
+            logger.error("Таблица с учредителями не найдена.")
+            return None
+
+        # Находим все строки в таблице
+        rows = founder_table.find_all('tr')
+
+        if not rows:
+            logger.error("В таблице нет строк с учредителями.")
+            return None
+
+        # Извлекаем первого учредителя (первую строку таблицы)
+        first_row = rows[1]  # Пропускаем заголовок таблицы, начинаем с первой строки с данными
+        columns = first_row.find_all('td')  # Получаем все столбцы в строке
+
+        if len(columns) < 2:
+            logger.error("Неверная структура строки таблицы учредителей.")
+            return None
+
+        # Извлекаем ИНН учредителя, который содержится в следующем div
+        inn_div = columns[1].find_next('div')
+        if inn_div and "ИНН" in inn_div.text:
+            founder_inn = inn_div.text.split()[-1]  # Получаем последний элемент, который будет ИНН
+            return founder_inn
+        else:
+            logger.error("ИНН учредителя не найден.")
+            return None
+    except Exception as e:
+        logger.error(f"Ошибка при извлечении ИНН учредителя: {str(e)}")
+        return None
+
 
 def parse_company_page(driver, url, existing_inns):
     """Парсинг данных компании с проверкой дубликатов по ИНН"""
@@ -457,7 +545,7 @@ def parse_company_page(driver, url, existing_inns):
 
         # Директор и учредитель
         director, director_inn = get_person_info(soup, 'Генеральный директор') or get_person_info(soup, 'Директор')
-        founder = get_person_info(soup, 'Учредитель')
+        founder, founder_inn = get_person_info(soup, 'Учредитель')
 
         # Телефоны
         phones = []
@@ -499,6 +587,7 @@ def parse_company_page(driver, url, existing_inns):
             'Ген. директор': director,
             'ИНН директора': director_inn,  # Добавляем ИНН директора
             'Учредитель': founder,
+            'ИНН учредителя': founder_inn if founder_inn else '',  # Добавляем ИНН учредителя, если найден
             'Телефон': phone,
             'Email': email,
             'ОКВЭД': f"{okved_code} - {okved_description}",  # Добавляем ОКВЭД
@@ -511,7 +600,6 @@ def parse_company_page(driver, url, existing_inns):
         debug_screenshot(driver, f"parse_error_{url.split('/')[-1]}")
         print(f"Ошибка при парсинге компании: {str(e)}")
         return None
-
 
 
 def save_to_excel(data, filepath):
@@ -548,7 +636,6 @@ def save_to_excel(data, filepath):
     except Exception as e:
         logger.error(f"Ошибка при сохранении: {str(e)}")
         raise
-
 
 def process_month(driver, start_date, end_date, existing_inns):
     """Обработка одного месяца"""
