@@ -606,6 +606,19 @@ def parse_company_page(driver, url, existing_inns):
         # Получаем первый ОКВЭД
         okved_code, okved_description = get_first_okved(soup)
 
+        # Извлекаем юридический адрес
+        legal_address = None
+        address_tag = soup.find('span', id='copy-address')
+        if address_tag:
+            legal_address = address_tag.get_text(strip=True)
+
+        # Извлекаем уставной капитал
+        charter_capital = None
+        capital_tag = soup.find('div', string="Уставный капитал")
+        if capital_tag:
+            # Получаем следующий элемент, который содержит текст с уставным капиталом
+            charter_capital = capital_tag.find_next('div').get_text(strip=True)
+
         # Проверяем обязательные поля
         if not inn:
             print("Пропускаем - нет ИНН")
@@ -618,7 +631,7 @@ def parse_company_page(driver, url, existing_inns):
         # Формируем строку для таблицы
         current_date = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         print(
-            f"Данные: ИНН={inn}, Дата={date}, Директор={director}, Учредитель={founder}, Телефон={phone}, Email={email}, ОКВЭД={okved_code} - {okved_description}")
+            f"Данные: ИНН={inn}, Дата={date}, Директор={director}, Учредитель={founder}, Телефон={phone}, Email={email}, ОКВЭД={okved_code} - {okved_description}, Юридический адрес={legal_address}, Уставной капитал={charter_capital}")
 
         return {
             'ИНН': inn,
@@ -630,6 +643,8 @@ def parse_company_page(driver, url, existing_inns):
             'Телефон': phone,
             'Email': email,
             'ОКВЭД': f"{okved_code} - {okved_description}",  # Добавляем ОКВЭД
+            'Юридический адрес': legal_address,  # Добавляем юридический адрес
+            'Уставной капитал': charter_capital,  # Добавляем уставной капитал
             'URL': url,
             'Дата добавления': current_date,
             'EmailSent': False  # Флаг отправки письма
@@ -639,6 +654,7 @@ def parse_company_page(driver, url, existing_inns):
         debug_screenshot(driver, f"parse_error_{url.split('/')[-1]}")
         print(f"Ошибка при парсинге компании: {str(e)}")
         return None
+
 
 
 def save_to_excel(data, filepath):
@@ -675,6 +691,7 @@ def save_to_excel(data, filepath):
     except Exception as e:
         logger.error(f"Ошибка при сохранении: {str(e)}")
         raise
+
 
 def process_month(driver, start_date, end_date, existing_inns):
     """Обработка одного месяца"""
