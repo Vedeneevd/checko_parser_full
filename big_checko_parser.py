@@ -311,14 +311,24 @@ def get_person_info(soup, label):
         # Поиск директора
         if is_director:
             director = None
+            director_inn = None  # Добавляем переменную для ИНН директора
+
+            # Находим секцию с директором
             director_section = soup.find('div', class_='fw-700', string=lambda t: t and 'директор' in t.lower())
             if not director_section:
                 director_section = soup.find('strong', class_='fw-700', string=lambda t: t and 'директор' in t.lower())
 
             if director_section:
+                # Ищем ссылку на имя директора
                 director_tag = director_section.find_next('a', class_='link')
                 if director_tag:
                     director = director_tag.get_text(strip=True)
+
+                    # Находим ИНН рядом с директором
+                    director_inn_tag = director_section.find_next('span', {'class': 'copy'})
+                    if director_inn_tag:
+                        director_inn = director_inn_tag.get_text(strip=True)
+
                 else:
                     # Альтернативный вариант поиска, если структура отличается
                     parent_div = director_section.find_parent('div', class_='mb-3')
@@ -326,8 +336,11 @@ def get_person_info(soup, label):
                         director_tag = parent_div.find('a', class_='link')
                         if director_tag:
                             director = director_tag.get_text(strip=True)
+                            director_inn_tag = parent_div.find('span', {'class': 'copy'})
+                            if director_inn_tag:
+                                director_inn = director_inn_tag.get_text(strip=True)
 
-            return director
+            return director, director_inn  # Возвращаем два значения: директор и ИНН
 
         # Поиск учредителя с улучшенным парсингом
         else:
@@ -356,10 +369,43 @@ def get_person_info(soup, label):
 
             return founder if founder and founder != 'Показать на карте' else None
 
+
     except Exception as e:
         logger.error(f"Ошибка при поиске {label}: {str(e)}")
-        return None
+        return None, None  # Возвращаем два значения (None) для директора и ИНН
 
+
+def get_first_okved(soup):
+    """Функция для получения первого вида ОКВЭД"""
+    try:
+        x_section = soup.find('section', id='activity')
+        if x_section:
+            print('Секция найдена')
+        # Находим таблицу с видами деятельности
+            activity_table = x_section.find('table', class_='table table-sm table-striped')
+            if not activity_table:
+                logger.error("Таблица с видами деятельности не найдена.")
+                return None, None
+
+        # Находим все строки в таблице
+            rows = activity_table.find_all('tr')
+
+            if not rows:
+                logger.error("В таблице нет строк с ОКВЭД.")
+                return None, None
+
+        # Извлекаем первый вид деятельности (первую строку таблицы)
+            first_row = rows[0]  # Первая строка таблицы
+            columns = first_row.find_all('td')  # Получаем все столбцы в строке
+            print(columns)
+
+            okved_code = columns[0].text.strip()  # Код ОКВЭД (например, 01.21)
+            activity_description = columns[1].text.strip()  # Описание (например, Выращивание винограда)
+
+            return okved_code, activity_description
+    except Exception as e:
+        logger.error(f"Ошибка при извлечении ОКВЭД: {str(e)}")
+        return None, None
 
 def parse_company_page(driver, url, existing_inns):
     """Парсинг данных компании с проверкой дубликатов по ИНН"""
@@ -410,7 +456,7 @@ def parse_company_page(driver, url, existing_inns):
                                                                                                               string='Дата регистрации') else None
 
         # Директор и учредитель
-        director = get_person_info(soup, 'Генеральный директор') or get_person_info(soup, 'Директор')
+        director, director_inn = get_person_info(soup, 'Генеральный директор') or get_person_info(soup, 'Директор')
         founder = get_person_info(soup, 'Учредитель')
 
         # Телефоны
@@ -430,6 +476,9 @@ def parse_company_page(driver, url, existing_inns):
         email_tag = soup.find('a', href=lambda x: x and x.startswith('mailto:'))
         email = email_tag.get_text(strip=True) if email_tag else None
 
+        # Получаем первый ОКВЭД
+        okved_code, okved_description = get_first_okved(soup)
+
         # Проверяем обязательные поля
         if not inn:
             print("Пропускаем - нет ИНН")
@@ -442,15 +491,17 @@ def parse_company_page(driver, url, existing_inns):
         # Формируем строку для таблицы
         current_date = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         print(
-            f"Данные: ИНН={inn}, Дата={date}, Директор={director}, Учредитель={founder}, Телефон={phone}, Email={email}")
+            f"Данные: ИНН={inn}, Дата={date}, Директор={director}, Учредитель={founder}, Телефон={phone}, Email={email}, ОКВЭД={okved_code} - {okved_description}")
 
         return {
             'ИНН': inn,
             'Дата регистрации': date,
             'Ген. директор': director,
+            'ИНН директора': director_inn,  # Добавляем ИНН директора
             'Учредитель': founder,
             'Телефон': phone,
             'Email': email,
+            'ОКВЭД': f"{okved_code} - {okved_description}",  # Добавляем ОКВЭД
             'URL': url,
             'Дата добавления': current_date,
             'EmailSent': False  # Флаг отправки письма
@@ -460,6 +511,7 @@ def parse_company_page(driver, url, existing_inns):
         debug_screenshot(driver, f"parse_error_{url.split('/')[-1]}")
         print(f"Ошибка при парсинге компании: {str(e)}")
         return None
+
 
 
 def save_to_excel(data, filepath):

@@ -41,3 +41,596 @@
 2025-06-06 09:09:21,690 - INFO - 
 Начинаем обработку месяца: march 2025
 2025-06-06 09:09:24,516 - WARNING - Retrying (Retry(total=2, connect=None, read=None, redirect=None, status=None)) after connection broken by 'ConnectionResetError(10054, 'Удаленный хост принудительно разорвал существующее подключение', None, 10054, None)': /session/c2060f3ea20cbe79f41f59c63b572890
+2025-06-06 09:16:03,269 - INFO - ====== WebDriver manager ======
+2025-06-06 09:16:04,453 - INFO - Get LATEST chromedriver version for google-chrome
+2025-06-06 09:16:04,893 - INFO - Get LATEST chromedriver version for google-chrome
+2025-06-06 09:16:05,271 - INFO - Driver [C:\Users\User\.wdm\drivers\chromedriver\win64\137.0.7151.68\chromedriver-win32/chromedriver.exe] found in cache
+2025-06-06 09:16:06,882 - INFO - 
+Начинаем обработку месяца: may 2025
+2025-06-06 09:16:15,126 - INFO - Применение фильтров: 2025-05-01 - 2025-05-31
+2025-06-06 09:16:27,893 - INFO - Обработка страницы 1
+2025-06-06 09:16:29,965 - INFO - Добавлено 25 новых ссылок (Всего: 25)
+2025-06-06 09:16:29,965 - INFO - Сбор завершен. Всего ссылок: 25
+2025-06-06 09:16:29,965 - INFO - Найдено 25 компаний за may 2025
+2025-06-06 09:16:52,998 - INFO - Обработано 10/25 компаний за may 2025
+2025-06-06 09:17:19,409 - INFO - Обработано 20/25 компаний за may 2025
+2025-06-06 09:17:34,112 - INFO - Сохранено 19 новых записей. Всего записей: 19
+2025-06-06 09:17:34,112 - INFO - Сохранено 19 компаний в файл may 2025.xlsx
+2025-06-06 09:17:34,112 - INFO - 
+Начинаем обработку месяца: april 2025
+2025-06-06 09:17:37,698 - INFO - Применение фильтров: 2025-04-01 - 2025-04-30
+2025-06-06 09:17:51,145 - ERROR - Ошибка при применении фильтров: Message: 
+
+2025-06-06 09:17:51,275 - INFO - 
+Начинаем обработку месяца: march 2025
+2025-06-06 09:17:54,864 - INFO - Применение фильтров: 2025-03-01 - 2025-03-31
+2025-06-06 09:18:06,062 - WARNING - Retrying (Retry(total=2, connect=None, read=None, redirect=None, status=None)) after connection broken by 'ConnectionResetError(10054, 'Удаленный хост принудительно разорвал существующее подключение', None, 10054, None)': /session/cb45f39a76f9981c493bde790a38c50f
+2025-06-06 09:18:08,085 - WARNING - Retrying (Retry(total=1, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError('<urllib3.connection.HTTPConnection object at 0x00000258CAC1CE60>: Failed to establish a new connection: [WinError 10061] Подключение не установлено, т.к. конечный компьютер отверг запрос на подключение')': /session/cb45f39a76f9981c493bde790a38c50f
+2025-06-06 09:18:10,147 - WARNING - Retrying (Retry(total=0, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError('<urllib3.connection.HTTPConnection object at 0x00000258CADDB710>: Failed to establish a new connection: [WinError 10061] Подключение не установлено, т.к. конечный компьютер отверг запрос на подключение')': /session/cb45f39a76f9981c493bde790a38c50f
+2025-06-06 09:18:12,222 - INFO - Парсер завершил работу
+2025-06-06 09:18:12,223 - INFO - Обработано компаний: 19
+2025-06-06 09:18:12,223 - INFO - Отправлено писем: 0
+2025-06-06 09:23:56,459 - INFO - ====== WebDriver manager ======
+2025-06-06 09:23:57,739 - INFO - Get LATEST chromedriver version for google-chrome
+2025-06-06 09:23:58,118 - INFO - Get LATEST chromedriver version for google-chrome
+2025-06-06 09:23:58,502 - INFO - Driver [C:\Users\User\.wdm\drivers\chromedriver\win64\137.0.7151.68\chromedriver-win32/chromedriver.exe] found in cache
+2025-06-06 09:23:59,725 - INFO - 
+Начинаем обработку месяца: may 2025
+2025-06-06 09:24:06,345 - INFO - Применение фильтров: 2025-05-01 - 2025-05-31
+2025-06-06 09:24:19,825 - INFO - Обработка страницы 1
+2025-06-06 09:24:21,918 - INFO - Добавлено 25 новых ссылок (Всего: 25)
+2025-06-06 09:24:21,918 - INFO - Сбор завершен. Всего ссылок: 25
+2025-06-06 09:24:21,918 - INFO - Найдено 25 компаний за may 2025
+2025-06-06 09:24:46,711 - INFO - Обработано 10/25 компаний за may 2025
+2025-06-06 09:25:15,338 - INFO - Обработано 20/25 компаний за may 2025
+2025-06-06 09:25:31,532 - INFO - Сохранено 19 новых записей. Всего записей: 19
+2025-06-06 09:25:31,533 - INFO - Сохранено 19 компаний в файл may 2025.xlsx
+2025-06-06 09:25:31,533 - INFO - 
+Начинаем обработку месяца: april 2025
+2025-06-06 09:25:35,131 - INFO - Применение фильтров: 2025-04-01 - 2025-04-30
+2025-06-06 09:25:48,504 - ERROR - Ошибка при применении фильтров: Message: 
+
+2025-06-06 09:25:48,628 - INFO - 
+Начинаем обработку месяца: march 2025
+2025-06-06 09:25:52,682 - INFO - Применение фильтров: 2025-03-01 - 2025-03-31
+2025-06-06 09:25:59,358 - WARNING - Retrying (Retry(total=2, connect=None, read=None, redirect=None, status=None)) after connection broken by 'ConnectionResetError(10054, 'Удаленный хост принудительно разорвал существующее подключение', None, 10054, None)': /session/633877aaf1e909f3da1f6f970a82df7c
+2025-06-06 09:38:15,822 - INFO - ====== WebDriver manager ======
+2025-06-06 09:38:16,957 - INFO - Get LATEST chromedriver version for google-chrome
+2025-06-06 09:38:17,581 - INFO - Get LATEST chromedriver version for google-chrome
+2025-06-06 09:38:18,048 - INFO - Driver [C:\Users\User\.wdm\drivers\chromedriver\win64\137.0.7151.68\chromedriver-win32/chromedriver.exe] found in cache
+2025-06-06 09:38:19,476 - INFO - 
+Начинаем обработку месяца: may 2025
+2025-06-06 09:38:30,177 - INFO - Применение фильтров: 2025-05-01 - 2025-05-31
+2025-06-06 09:38:32,396 - ERROR - Ошибка при применении фильтров: Message: element click intercepted: Element <button type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse-1" aria-expanded="false" aria-controls="flush-collapse-1" class="accordion-button collapsed">...</button> is not clickable at point (83, 462). Other element would receive the click: <div style="position: absolute; left: 0; bottom: 0; width: 360px; z-index: 1; background: #ffe3aa; color: #111; padding: 0.35rem 0.75rem 1rem 1rem; font-size: 14px;">...</div>
+  (Session info: chrome=137.0.7151.56)
+Stacktrace:
+	GetHandleVerifier [0x0xb53763+63299]
+	GetHandleVerifier [0x0xb537a4+63364]
+	(No symbol) [0x0x981113]
+	(No symbol) [0x0x9cfbb0]
+	(No symbol) [0x0x9cdf6a]
+	(No symbol) [0x0x9cbad7]
+	(No symbol) [0x0x9cada7]
+	(No symbol) [0x0x9bf445]
+	(No symbol) [0x0x9ee57c]
+	(No symbol) [0x0x9beed4]
+	(No symbol) [0x0x9ee7f4]
+	(No symbol) [0x0xa0fa4a]
+	(No symbol) [0x0x9ee376]
+	(No symbol) [0x0x9bd6e0]
+	(No symbol) [0x0x9be544]
+	GetHandleVerifier [0x0xdae033+2531347]
+	GetHandleVerifier [0x0xda9332+2511634]
+	GetHandleVerifier [0x0xb79eda+220858]
+	GetHandleVerifier [0x0xb6a528+156936]
+	GetHandleVerifier [0x0xb70c5d+183357]
+	GetHandleVerifier [0x0xb5b6c8+95912]
+	GetHandleVerifier [0x0xb5b870+96336]
+	GetHandleVerifier [0x0xb4664a+9770]
+	BaseThreadInitThunk [0x0x760dfcc9+25]
+	RtlGetAppContainerNamedObjectPath [0x0x776b809e+286]
+	RtlGetAppContainerNamedObjectPath [0x0x776b806e+238]
+
+2025-06-06 09:38:32,553 - INFO - 
+Начинаем обработку месяца: april 2025
+2025-06-06 09:38:37,507 - INFO - Применение фильтров: 2025-04-01 - 2025-04-30
+2025-06-06 09:38:50,359 - INFO - Обработка страницы 1
+2025-06-06 09:38:52,475 - INFO - Добавлено 25 новых ссылок (Всего: 25)
+2025-06-06 09:38:52,475 - INFO - Сбор завершен. Всего ссылок: 25
+2025-06-06 09:38:52,475 - INFO - Найдено 25 компаний за april 2025
+2025-06-06 09:38:53,525 - ERROR - Ошибка при извлечении ОКВЭД: list index out of range
+2025-06-06 09:38:55,615 - ERROR - Ошибка при извлечении ОКВЭД: list index out of range
+2025-06-06 09:38:58,799 - ERROR - Ошибка при извлечении ОКВЭД: list index out of range
+2025-06-06 09:39:00,888 - ERROR - Ошибка при извлечении ОКВЭД: list index out of range
+2025-06-06 09:39:04,052 - ERROR - Ошибка при извлечении ОКВЭД: list index out of range
+2025-06-06 09:39:07,482 - ERROR - Ошибка при извлечении ОКВЭД: list index out of range
+2025-06-06 09:39:09,647 - ERROR - Ошибка при извлечении ОКВЭД: list index out of range
+2025-06-06 09:39:13,031 - ERROR - Ошибка при извлечении ОКВЭД: list index out of range
+2025-06-06 09:39:16,041 - ERROR - Ошибка при извлечении ОКВЭД: list index out of range
+2025-06-06 09:39:19,100 - ERROR - Ошибка при извлечении ОКВЭД: list index out of range
+2025-06-06 09:39:19,101 - INFO - Обработано 10/25 компаний за april 2025
+2025-06-06 09:39:21,887 - ERROR - Ошибка при извлечении ОКВЭД: list index out of range
+2025-06-06 09:39:24,575 - ERROR - Ошибка при извлечении ОКВЭД: list index out of range
+2025-06-06 09:39:27,009 - ERROR - Ошибка при извлечении ОКВЭД: list index out of range
+2025-06-06 09:39:29,236 - ERROR - Ошибка при извлечении ОКВЭД: list index out of range
+2025-06-06 09:39:32,649 - ERROR - Ошибка при извлечении ОКВЭД: list index out of range
+2025-06-06 09:39:35,274 - ERROR - Ошибка при извлечении ОКВЭД: list index out of range
+2025-06-06 09:39:37,514 - ERROR - Ошибка при извлечении ОКВЭД: list index out of range
+2025-06-06 09:39:40,127 - ERROR - Ошибка при извлечении ОКВЭД: list index out of range
+2025-06-06 09:39:41,859 - ERROR - Ошибка при извлечении ОКВЭД: list index out of range
+2025-06-06 09:39:45,469 - ERROR - Ошибка при извлечении ОКВЭД: list index out of range
+2025-06-06 09:39:45,469 - INFO - Обработано 20/25 компаний за april 2025
+2025-06-06 09:39:49,153 - ERROR - Ошибка при извлечении ОКВЭД: list index out of range
+2025-06-06 09:39:51,466 - ERROR - Ошибка при извлечении ОКВЭД: list index out of range
+2025-06-06 09:39:54,691 - ERROR - Ошибка при извлечении ОКВЭД: list index out of range
+2025-06-06 09:39:58,004 - ERROR - Ошибка при извлечении ОКВЭД: list index out of range
+2025-06-06 09:40:01,409 - ERROR - Ошибка при извлечении ОКВЭД: list index out of range
+2025-06-06 09:40:04,692 - INFO - Сохранено 18 новых записей. Всего записей: 18
+2025-06-06 09:40:04,693 - INFO - Сохранено 18 компаний в файл april 2025.xlsx
+2025-06-06 09:40:04,693 - INFO - 
+Начинаем обработку месяца: march 2025
+2025-06-06 09:40:08,898 - INFO - Применение фильтров: 2025-03-01 - 2025-03-31
+2025-06-06 09:40:14,283 - ERROR - Ошибка при применении фильтров: Message: invalid session id: session deleted as the browser has closed the connection
+from disconnected: not connected to DevTools
+  (Session info: chrome=137.0.7151.56)
+Stacktrace:
+	GetHandleVerifier [0x0xb53763+63299]
+	GetHandleVerifier [0x0xb537a4+63364]
+	(No symbol) [0x0x981113]
+	(No symbol) [0x0x9708a0]
+	(No symbol) [0x0x98e8c2]
+	(No symbol) [0x0x9f519c]
+	(No symbol) [0x0xa0f359]
+	(No symbol) [0x0x9ee376]
+	(No symbol) [0x0x9bd6e0]
+	(No symbol) [0x0x9be544]
+	GetHandleVerifier [0x0xdae033+2531347]
+	GetHandleVerifier [0x0xda9332+2511634]
+	GetHandleVerifier [0x0xb79eda+220858]
+	GetHandleVerifier [0x0xb6a528+156936]
+	GetHandleVerifier [0x0xb70c5d+183357]
+	GetHandleVerifier [0x0xb5b6c8+95912]
+	GetHandleVerifier [0x0xb5b870+96336]
+	GetHandleVerifier [0x0xb4664a+9770]
+	BaseThreadInitThunk [0x0x760dfcc9+25]
+	RtlGetAppContainerNamedObjectPath [0x0x776b809e+286]
+	RtlGetAppContainerNamedObjectPath [0x0x776b806e+238]
+
+2025-06-06 09:40:15,505 - INFO - Парсер завершил работу
+2025-06-06 09:40:15,506 - INFO - Обработано компаний: 18
+2025-06-06 09:40:15,506 - INFO - Отправлено писем: 0
+2025-06-06 09:41:58,624 - INFO - ====== WebDriver manager ======
+2025-06-06 09:41:59,709 - INFO - Get LATEST chromedriver version for google-chrome
+2025-06-06 09:42:00,112 - INFO - Get LATEST chromedriver version for google-chrome
+2025-06-06 09:42:00,546 - INFO - Driver [C:\Users\User\.wdm\drivers\chromedriver\win64\137.0.7151.68\chromedriver-win32/chromedriver.exe] found in cache
+2025-06-06 09:42:01,803 - INFO - 
+Начинаем обработку месяца: may 2025
+2025-06-06 09:42:08,829 - INFO - Применение фильтров: 2025-05-01 - 2025-05-31
+2025-06-06 09:42:21,627 - INFO - Обработка страницы 1
+2025-06-06 09:42:23,696 - INFO - Добавлено 25 новых ссылок (Всего: 25)
+2025-06-06 09:42:23,696 - INFO - Сбор завершен. Всего ссылок: 25
+2025-06-06 09:42:23,696 - INFO - Найдено 25 компаний за may 2025
+2025-06-06 09:42:25,369 - ERROR - Неверная структура строки таблицы, отсутствуют нужные данные.
+2025-06-06 09:42:27,285 - ERROR - Неверная структура строки таблицы, отсутствуют нужные данные.
+2025-06-06 09:42:29,864 - ERROR - Неверная структура строки таблицы, отсутствуют нужные данные.
+2025-06-06 09:42:32,704 - ERROR - Неверная структура строки таблицы, отсутствуют нужные данные.
+2025-06-06 09:42:35,204 - ERROR - Неверная структура строки таблицы, отсутствуют нужные данные.
+2025-06-06 09:42:37,713 - ERROR - Неверная структура строки таблицы, отсутствуют нужные данные.
+2025-06-06 09:42:40,555 - ERROR - Неверная структура строки таблицы, отсутствуют нужные данные.
+2025-06-06 09:42:43,664 - ERROR - Неверная структура строки таблицы, отсутствуют нужные данные.
+2025-06-06 09:42:46,154 - ERROR - Неверная структура строки таблицы, отсутствуют нужные данные.
+2025-06-06 09:42:49,542 - ERROR - Неверная структура строки таблицы, отсутствуют нужные данные.
+2025-06-06 09:42:49,542 - INFO - Обработано 10/25 компаний за may 2025
+2025-06-06 09:42:52,773 - ERROR - Неверная структура строки таблицы, отсутствуют нужные данные.
+2025-06-06 09:42:54,961 - ERROR - Неверная структура строки таблицы, отсутствуют нужные данные.
+2025-06-06 09:42:57,424 - ERROR - Неверная структура строки таблицы, отсутствуют нужные данные.
+2025-06-06 09:43:00,224 - ERROR - Неверная структура строки таблицы, отсутствуют нужные данные.
+2025-06-06 09:43:02,207 - ERROR - Неверная структура строки таблицы, отсутствуют нужные данные.
+2025-06-06 09:43:05,365 - ERROR - Неверная структура строки таблицы, отсутствуют нужные данные.
+2025-06-06 09:43:06,997 - ERROR - Неверная структура строки таблицы, отсутствуют нужные данные.
+2025-06-06 09:43:09,111 - ERROR - Неверная структура строки таблицы, отсутствуют нужные данные.
+2025-06-06 09:43:11,040 - ERROR - Неверная структура строки таблицы, отсутствуют нужные данные.
+2025-06-06 09:43:14,599 - ERROR - Неверная структура строки таблицы, отсутствуют нужные данные.
+2025-06-06 09:43:14,599 - INFO - Обработано 20/25 компаний за may 2025
+2025-06-06 09:43:17,311 - ERROR - Неверная структура строки таблицы, отсутствуют нужные данные.
+2025-06-06 09:43:20,979 - ERROR - Неверная структура строки таблицы, отсутствуют нужные данные.
+2025-06-06 09:43:24,129 - ERROR - Неверная структура строки таблицы, отсутствуют нужные данные.
+2025-06-06 09:43:27,502 - ERROR - Неверная структура строки таблицы, отсутствуют нужные данные.
+2025-06-06 09:43:29,736 - ERROR - Неверная структура строки таблицы, отсутствуют нужные данные.
+2025-06-06 09:43:31,756 - INFO - Сохранено 19 новых записей. Всего записей: 19
+2025-06-06 09:43:31,757 - INFO - Сохранено 19 компаний в файл may 2025.xlsx
+2025-06-06 09:43:31,757 - INFO - 
+Начинаем обработку месяца: april 2025
+2025-06-06 09:43:35,415 - INFO - Применение фильтров: 2025-04-01 - 2025-04-30
+2025-06-06 09:43:44,067 - WARNING - Retrying (Retry(total=2, connect=None, read=None, redirect=None, status=None)) after connection broken by 'ConnectionResetError(10054, 'Удаленный хост принудительно разорвал существующее подключение', None, 10054, None)': /session/3628710862f8617536b80e4bb544ec97
+2025-06-06 09:46:03,107 - INFO - ====== WebDriver manager ======
+2025-06-06 09:46:04,297 - INFO - Get LATEST chromedriver version for google-chrome
+2025-06-06 09:46:04,707 - INFO - Get LATEST chromedriver version for google-chrome
+2025-06-06 09:46:05,114 - INFO - Driver [C:\Users\User\.wdm\drivers\chromedriver\win64\137.0.7151.68\chromedriver-win32/chromedriver.exe] found in cache
+2025-06-06 09:46:06,539 - INFO - 
+Начинаем обработку месяца: may 2025
+2025-06-06 09:46:13,759 - INFO - Применение фильтров: 2025-05-01 - 2025-05-31
+2025-06-06 09:46:15,971 - ERROR - Ошибка при применении фильтров: Message: element click intercepted: Element <button type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse-1" aria-expanded="false" aria-controls="flush-collapse-1" class="accordion-button collapsed">...</button> is not clickable at point (83, 472). Other element would receive the click: <div style="position: absolute; left: 0; bottom: 0; width: 360px; z-index: 1; background: #ffe3aa; color: #111; padding: 0.35rem 0.75rem 1rem 1rem; font-size: 14px;">...</div>
+  (Session info: chrome=137.0.7151.56)
+Stacktrace:
+	GetHandleVerifier [0x0x563763+63299]
+	GetHandleVerifier [0x0x5637a4+63364]
+	(No symbol) [0x0x391113]
+	(No symbol) [0x0x3dfbb0]
+	(No symbol) [0x0x3ddf6a]
+	(No symbol) [0x0x3dbad7]
+	(No symbol) [0x0x3dada7]
+	(No symbol) [0x0x3cf445]
+	(No symbol) [0x0x3fe57c]
+	(No symbol) [0x0x3ceed4]
+	(No symbol) [0x0x3fe7f4]
+	(No symbol) [0x0x41fa4a]
+	(No symbol) [0x0x3fe376]
+	(No symbol) [0x0x3cd6e0]
+	(No symbol) [0x0x3ce544]
+	GetHandleVerifier [0x0x7be033+2531347]
+	GetHandleVerifier [0x0x7b9332+2511634]
+	GetHandleVerifier [0x0x589eda+220858]
+	GetHandleVerifier [0x0x57a528+156936]
+	GetHandleVerifier [0x0x580c5d+183357]
+	GetHandleVerifier [0x0x56b6c8+95912]
+	GetHandleVerifier [0x0x56b870+96336]
+	GetHandleVerifier [0x0x55664a+9770]
+	BaseThreadInitThunk [0x0x760dfcc9+25]
+	RtlGetAppContainerNamedObjectPath [0x0x776b809e+286]
+	RtlGetAppContainerNamedObjectPath [0x0x776b806e+238]
+
+2025-06-06 09:46:16,097 - INFO - 
+Начинаем обработку месяца: april 2025
+2025-06-06 09:46:22,271 - INFO - Применение фильтров: 2025-04-01 - 2025-04-30
+2025-06-06 09:46:35,069 - INFO - Обработка страницы 1
+2025-06-06 09:46:37,147 - INFO - Добавлено 25 новых ссылок (Всего: 25)
+2025-06-06 09:46:37,147 - INFO - Сбор завершен. Всего ссылок: 25
+2025-06-06 09:46:37,147 - INFO - Найдено 25 компаний за april 2025
+2025-06-06 09:46:38,105 - ERROR - Неверная структура строки таблицы, отсутствуют нужные данные.
+2025-06-06 09:46:40,180 - ERROR - Неверная структура строки таблицы, отсутствуют нужные данные.
+2025-06-06 09:46:43,573 - ERROR - Неверная структура строки таблицы, отсутствуют нужные данные.
+2025-06-06 09:46:46,773 - ERROR - Неверная структура строки таблицы, отсутствуют нужные данные.
+2025-06-06 09:46:48,591 - ERROR - Неверная структура строки таблицы, отсутствуют нужные данные.
+2025-06-06 09:46:51,307 - ERROR - Неверная структура строки таблицы, отсутствуют нужные данные.
+2025-06-06 09:46:53,232 - ERROR - Неверная структура строки таблицы, отсутствуют нужные данные.
+2025-06-06 09:46:54,939 - ERROR - Неверная структура строки таблицы, отсутствуют нужные данные.
+2025-06-06 09:46:59,525 - ERROR - Неверная структура строки таблицы, отсутствуют нужные данные.
+2025-06-06 09:47:01,577 - ERROR - Неверная структура строки таблицы, отсутствуют нужные данные.
+2025-06-06 09:47:01,578 - INFO - Обработано 10/25 компаний за april 2025
+2025-06-06 09:47:04,588 - ERROR - Неверная структура строки таблицы, отсутствуют нужные данные.
+2025-06-06 09:47:07,062 - ERROR - Неверная структура строки таблицы, отсутствуют нужные данные.
+2025-06-06 09:47:08,417 - WARNING - Retrying (Retry(total=2, connect=None, read=None, redirect=None, status=None)) after connection broken by 'ConnectionResetError(10054, 'Удаленный хост принудительно разорвал существующее подключение', None, 10054, None)': /session/9a0a4e321d0132c1667be91b003db6a4
+2025-06-06 09:48:50,994 - INFO - ====== WebDriver manager ======
+2025-06-06 09:48:52,081 - INFO - Get LATEST chromedriver version for google-chrome
+2025-06-06 09:48:52,464 - INFO - Get LATEST chromedriver version for google-chrome
+2025-06-06 09:48:52,848 - INFO - Driver [C:\Users\User\.wdm\drivers\chromedriver\win64\137.0.7151.68\chromedriver-win32/chromedriver.exe] found in cache
+2025-06-06 09:48:54,174 - INFO - 
+Начинаем обработку месяца: may 2025
+2025-06-06 09:49:01,032 - INFO - Применение фильтров: 2025-05-01 - 2025-05-31
+2025-06-06 09:49:03,195 - ERROR - Ошибка при применении фильтров: Message: element click intercepted: Element <button type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse-1" aria-expanded="false" aria-controls="flush-collapse-1" class="accordion-button collapsed">...</button> is not clickable at point (83, 472). Other element would receive the click: <div style="position: absolute; left: 0; bottom: 0; width: 360px; z-index: 1; background: #ffe3aa; color: #111; padding: 0.35rem 0.75rem 1rem 1rem; font-size: 14px;">...</div>
+  (Session info: chrome=137.0.7151.56)
+Stacktrace:
+	GetHandleVerifier [0x0x563763+63299]
+	GetHandleVerifier [0x0x5637a4+63364]
+	(No symbol) [0x0x391113]
+	(No symbol) [0x0x3dfbb0]
+	(No symbol) [0x0x3ddf6a]
+	(No symbol) [0x0x3dbad7]
+	(No symbol) [0x0x3dada7]
+	(No symbol) [0x0x3cf445]
+	(No symbol) [0x0x3fe57c]
+	(No symbol) [0x0x3ceed4]
+	(No symbol) [0x0x3fe7f4]
+	(No symbol) [0x0x41fa4a]
+	(No symbol) [0x0x3fe376]
+	(No symbol) [0x0x3cd6e0]
+	(No symbol) [0x0x3ce544]
+	GetHandleVerifier [0x0x7be033+2531347]
+	GetHandleVerifier [0x0x7b9332+2511634]
+	GetHandleVerifier [0x0x589eda+220858]
+	GetHandleVerifier [0x0x57a528+156936]
+	GetHandleVerifier [0x0x580c5d+183357]
+	GetHandleVerifier [0x0x56b6c8+95912]
+	GetHandleVerifier [0x0x56b870+96336]
+	GetHandleVerifier [0x0x55664a+9770]
+	BaseThreadInitThunk [0x0x760dfcc9+25]
+	RtlGetAppContainerNamedObjectPath [0x0x776b809e+286]
+	RtlGetAppContainerNamedObjectPath [0x0x776b806e+238]
+
+2025-06-06 09:49:03,349 - INFO - 
+Начинаем обработку месяца: april 2025
+2025-06-06 09:49:08,536 - INFO - Применение фильтров: 2025-04-01 - 2025-04-30
+2025-06-06 09:49:21,215 - INFO - Обработка страницы 1
+2025-06-06 09:49:23,337 - INFO - Добавлено 25 новых ссылок (Всего: 25)
+2025-06-06 09:49:23,337 - INFO - Сбор завершен. Всего ссылок: 25
+2025-06-06 09:49:23,337 - INFO - Найдено 25 компаний за april 2025
+2025-06-06 09:49:25,174 - ERROR - Ошибка при извлечении ОКВЭД: list index out of range
+2025-06-06 09:49:27,335 - ERROR - Ошибка при извлечении ОКВЭД: list index out of range
+2025-06-06 09:49:29,746 - ERROR - Ошибка при извлечении ОКВЭД: list index out of range
+2025-06-06 09:49:32,686 - ERROR - Ошибка при извлечении ОКВЭД: list index out of range
+2025-06-06 09:49:35,848 - ERROR - Ошибка при извлечении ОКВЭД: list index out of range
+2025-06-06 09:49:38,359 - ERROR - Ошибка при извлечении ОКВЭД: list index out of range
+2025-06-06 09:49:40,673 - ERROR - Ошибка при извлечении ОКВЭД: list index out of range
+2025-06-06 09:49:42,495 - ERROR - Ошибка при извлечении ОКВЭД: list index out of range
+2025-06-06 09:49:44,321 - ERROR - Ошибка при извлечении ОКВЭД: list index out of range
+2025-06-06 09:49:47,896 - ERROR - Ошибка при извлечении ОКВЭД: list index out of range
+2025-06-06 09:49:47,896 - INFO - Обработано 10/25 компаний за april 2025
+2025-06-06 09:49:50,071 - ERROR - Ошибка при извлечении ОКВЭД: list index out of range
+2025-06-06 09:49:52,711 - ERROR - Ошибка при извлечении ОКВЭД: list index out of range
+2025-06-06 09:49:55,156 - ERROR - Ошибка при извлечении ОКВЭД: list index out of range
+2025-06-06 09:49:57,508 - ERROR - Ошибка при извлечении ОКВЭД: list index out of range
+2025-06-06 09:49:57,790 - WARNING - Retrying (Retry(total=2, connect=None, read=None, redirect=None, status=None)) after connection broken by 'ConnectionResetError(10054, 'Удаленный хост принудительно разорвал существующее подключение', None, 10054, None)': /session/fc0d18ac00f858908613913f45c2b213
+2025-06-06 09:54:51,639 - INFO - ====== WebDriver manager ======
+2025-06-06 09:54:52,760 - INFO - Get LATEST chromedriver version for google-chrome
+2025-06-06 09:54:53,288 - INFO - Get LATEST chromedriver version for google-chrome
+2025-06-06 09:54:53,674 - INFO - Driver [C:\Users\User\.wdm\drivers\chromedriver\win64\137.0.7151.68\chromedriver-win32/chromedriver.exe] found in cache
+2025-06-06 09:54:54,972 - INFO - 
+Начинаем обработку месяца: may 2025
+2025-06-06 09:55:01,579 - INFO - Применение фильтров: 2025-05-01 - 2025-05-31
+2025-06-06 09:55:03,798 - ERROR - Ошибка при применении фильтров: Message: element click intercepted: Element <button type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse-1" aria-expanded="false" aria-controls="flush-collapse-1" class="accordion-button collapsed">...</button> is not clickable at point (83, 472). Other element would receive the click: <div style="position: absolute; left: 0; bottom: 0; width: 360px; z-index: 1; background: #ffe3aa; color: #111; padding: 0.35rem 0.75rem 1rem 1rem; font-size: 14px;">...</div>
+  (Session info: chrome=137.0.7151.56)
+Stacktrace:
+	GetHandleVerifier [0x0x563763+63299]
+	GetHandleVerifier [0x0x5637a4+63364]
+	(No symbol) [0x0x391113]
+	(No symbol) [0x0x3dfbb0]
+	(No symbol) [0x0x3ddf6a]
+	(No symbol) [0x0x3dbad7]
+	(No symbol) [0x0x3dada7]
+	(No symbol) [0x0x3cf445]
+	(No symbol) [0x0x3fe57c]
+	(No symbol) [0x0x3ceed4]
+	(No symbol) [0x0x3fe7f4]
+	(No symbol) [0x0x41fa4a]
+	(No symbol) [0x0x3fe376]
+	(No symbol) [0x0x3cd6e0]
+	(No symbol) [0x0x3ce544]
+	GetHandleVerifier [0x0x7be033+2531347]
+	GetHandleVerifier [0x0x7b9332+2511634]
+	GetHandleVerifier [0x0x589eda+220858]
+	GetHandleVerifier [0x0x57a528+156936]
+	GetHandleVerifier [0x0x580c5d+183357]
+	GetHandleVerifier [0x0x56b6c8+95912]
+	GetHandleVerifier [0x0x56b870+96336]
+	GetHandleVerifier [0x0x55664a+9770]
+	BaseThreadInitThunk [0x0x760dfcc9+25]
+	RtlGetAppContainerNamedObjectPath [0x0x776b809e+286]
+	RtlGetAppContainerNamedObjectPath [0x0x776b806e+238]
+
+2025-06-06 09:55:03,910 - INFO - 
+Начинаем обработку месяца: april 2025
+2025-06-06 09:55:09,153 - INFO - Применение фильтров: 2025-04-01 - 2025-04-30
+2025-06-06 09:55:21,875 - INFO - Обработка страницы 1
+2025-06-06 09:55:23,980 - INFO - Добавлено 25 новых ссылок (Всего: 25)
+2025-06-06 09:55:23,980 - INFO - Сбор завершен. Всего ссылок: 25
+2025-06-06 09:55:23,981 - INFO - Найдено 25 компаний за april 2025
+2025-06-06 09:55:25,057 - ERROR - Таблица с видами деятельности не найдена.
+2025-06-06 09:55:28,551 - ERROR - Таблица с видами деятельности не найдена.
+2025-06-06 09:55:30,872 - ERROR - Таблица с видами деятельности не найдена.
+2025-06-06 09:55:34,964 - ERROR - Таблица с видами деятельности не найдена.
+2025-06-06 09:55:38,365 - ERROR - Таблица с видами деятельности не найдена.
+2025-06-06 09:55:41,941 - ERROR - Таблица с видами деятельности не найдена.
+2025-06-06 09:55:44,830 - ERROR - Таблица с видами деятельности не найдена.
+2025-06-06 09:55:46,675 - ERROR - Таблица с видами деятельности не найдена.
+2025-06-06 09:55:48,784 - ERROR - Таблица с видами деятельности не найдена.
+2025-06-06 09:55:51,254 - ERROR - Таблица с видами деятельности не найдена.
+2025-06-06 09:55:51,254 - INFO - Обработано 10/25 компаний за april 2025
+2025-06-06 09:55:52,245 - WARNING - Retrying (Retry(total=2, connect=None, read=None, redirect=None, status=None)) after connection broken by 'ConnectionResetError(10054, 'Удаленный хост принудительно разорвал существующее подключение', None, 10054, None)': /session/0f06b8317e21c7669250b68240ea0e75
+2025-06-06 09:55:54,280 - WARNING - Retrying (Retry(total=1, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001F62310E930>: Failed to establish a new connection: [WinError 10061] Подключение не установлено, т.к. конечный компьютер отверг запрос на подключение')': /session/0f06b8317e21c7669250b68240ea0e75
+2025-06-06 09:55:56,321 - WARNING - Retrying (Retry(total=0, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001F62310EC30>: Failed to establish a new connection: [WinError 10061] Подключение не установлено, т.к. конечный компьютер отверг запрос на подключение')': /session/0f06b8317e21c7669250b68240ea0e75
+2025-06-06 09:55:58,371 - INFO - Парсер завершил работу
+2025-06-06 09:55:58,371 - INFO - Обработано компаний: 0
+2025-06-06 09:55:58,371 - INFO - Отправлено писем: 0
+2025-06-06 09:56:44,843 - INFO - ====== WebDriver manager ======
+2025-06-06 09:56:45,885 - INFO - Get LATEST chromedriver version for google-chrome
+2025-06-06 09:56:46,266 - INFO - Get LATEST chromedriver version for google-chrome
+2025-06-06 09:56:46,641 - INFO - Driver [C:\Users\User\.wdm\drivers\chromedriver\win64\137.0.7151.68\chromedriver-win32/chromedriver.exe] found in cache
+2025-06-06 09:56:47,811 - INFO - 
+Начинаем обработку месяца: may 2025
+2025-06-06 09:56:55,024 - INFO - Применение фильтров: 2025-05-01 - 2025-05-31
+2025-06-06 09:56:57,217 - ERROR - Ошибка при применении фильтров: Message: element click intercepted: Element <button type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse-1" aria-expanded="false" aria-controls="flush-collapse-1" class="accordion-button collapsed">...</button> is not clickable at point (83, 472). Other element would receive the click: <div style="position: absolute; left: 0; bottom: 0; width: 360px; z-index: 1; background: #ffe3aa; color: #111; padding: 0.35rem 0.75rem 1rem 1rem; font-size: 14px;">...</div>
+  (Session info: chrome=137.0.7151.56)
+Stacktrace:
+	GetHandleVerifier [0x0x563763+63299]
+	GetHandleVerifier [0x0x5637a4+63364]
+	(No symbol) [0x0x391113]
+	(No symbol) [0x0x3dfbb0]
+	(No symbol) [0x0x3ddf6a]
+	(No symbol) [0x0x3dbad7]
+	(No symbol) [0x0x3dada7]
+	(No symbol) [0x0x3cf445]
+	(No symbol) [0x0x3fe57c]
+	(No symbol) [0x0x3ceed4]
+	(No symbol) [0x0x3fe7f4]
+	(No symbol) [0x0x41fa4a]
+	(No symbol) [0x0x3fe376]
+	(No symbol) [0x0x3cd6e0]
+	(No symbol) [0x0x3ce544]
+	GetHandleVerifier [0x0x7be033+2531347]
+	GetHandleVerifier [0x0x7b9332+2511634]
+	GetHandleVerifier [0x0x589eda+220858]
+	GetHandleVerifier [0x0x57a528+156936]
+	GetHandleVerifier [0x0x580c5d+183357]
+	GetHandleVerifier [0x0x56b6c8+95912]
+	GetHandleVerifier [0x0x56b870+96336]
+	GetHandleVerifier [0x0x55664a+9770]
+	BaseThreadInitThunk [0x0x760dfcc9+25]
+	RtlGetAppContainerNamedObjectPath [0x0x776b809e+286]
+	RtlGetAppContainerNamedObjectPath [0x0x776b806e+238]
+
+2025-06-06 09:56:57,369 - INFO - 
+Начинаем обработку месяца: april 2025
+2025-06-06 09:57:04,941 - INFO - Применение фильтров: 2025-04-01 - 2025-04-30
+2025-06-06 09:57:17,653 - INFO - Обработка страницы 1
+2025-06-06 09:57:19,752 - INFO - Добавлено 25 новых ссылок (Всего: 25)
+2025-06-06 09:57:19,752 - INFO - Сбор завершен. Всего ссылок: 25
+2025-06-06 09:57:19,752 - INFO - Найдено 25 компаний за april 2025
+2025-06-06 09:57:20,911 - ERROR - Таблица с видами деятельности не найдена.
+2025-06-06 09:57:24,419 - ERROR - Таблица с видами деятельности не найдена.
+2025-06-06 09:57:27,409 - ERROR - Таблица с видами деятельности не найдена.
+2025-06-06 09:57:29,461 - ERROR - Таблица с видами деятельности не найдена.
+2025-06-06 09:57:29,643 - WARNING - Retrying (Retry(total=2, connect=None, read=None, redirect=None, status=None)) after connection broken by 'ConnectionResetError(10054, 'Удаленный хост принудительно разорвал существующее подключение', None, 10054, None)': /session/3230158ac2b67e029780396083e56273
+2025-06-06 09:58:15,344 - INFO - ====== WebDriver manager ======
+2025-06-06 09:58:16,325 - INFO - Get LATEST chromedriver version for google-chrome
+2025-06-06 09:58:16,738 - INFO - Get LATEST chromedriver version for google-chrome
+2025-06-06 09:58:17,128 - INFO - Driver [C:\Users\User\.wdm\drivers\chromedriver\win64\137.0.7151.68\chromedriver-win32/chromedriver.exe] found in cache
+2025-06-06 09:58:18,250 - INFO - 
+Начинаем обработку месяца: may 2025
+2025-06-06 09:58:25,098 - INFO - Применение фильтров: 2025-05-01 - 2025-05-31
+2025-06-06 09:58:27,279 - ERROR - Ошибка при применении фильтров: Message: element click intercepted: Element <button type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse-1" aria-expanded="false" aria-controls="flush-collapse-1" class="accordion-button collapsed">...</button> is not clickable at point (83, 472). Other element would receive the click: <div style="position: absolute; left: 0; bottom: 0; width: 360px; z-index: 1; background: #ffe3aa; color: #111; padding: 0.35rem 0.75rem 1rem 1rem; font-size: 14px;">...</div>
+  (Session info: chrome=137.0.7151.56)
+Stacktrace:
+	GetHandleVerifier [0x0x563763+63299]
+	GetHandleVerifier [0x0x5637a4+63364]
+	(No symbol) [0x0x391113]
+	(No symbol) [0x0x3dfbb0]
+	(No symbol) [0x0x3ddf6a]
+	(No symbol) [0x0x3dbad7]
+	(No symbol) [0x0x3dada7]
+	(No symbol) [0x0x3cf445]
+	(No symbol) [0x0x3fe57c]
+	(No symbol) [0x0x3ceed4]
+	(No symbol) [0x0x3fe7f4]
+	(No symbol) [0x0x41fa4a]
+	(No symbol) [0x0x3fe376]
+	(No symbol) [0x0x3cd6e0]
+	(No symbol) [0x0x3ce544]
+	GetHandleVerifier [0x0x7be033+2531347]
+	GetHandleVerifier [0x0x7b9332+2511634]
+	GetHandleVerifier [0x0x589eda+220858]
+	GetHandleVerifier [0x0x57a528+156936]
+	GetHandleVerifier [0x0x580c5d+183357]
+	GetHandleVerifier [0x0x56b6c8+95912]
+	GetHandleVerifier [0x0x56b870+96336]
+	GetHandleVerifier [0x0x55664a+9770]
+	BaseThreadInitThunk [0x0x760dfcc9+25]
+	RtlGetAppContainerNamedObjectPath [0x0x776b809e+286]
+	RtlGetAppContainerNamedObjectPath [0x0x776b806e+238]
+
+2025-06-06 09:58:27,428 - INFO - 
+Начинаем обработку месяца: april 2025
+2025-06-06 09:58:32,775 - INFO - Применение фильтров: 2025-04-01 - 2025-04-30
+2025-06-06 09:58:45,557 - INFO - Обработка страницы 1
+2025-06-06 09:58:47,675 - INFO - Добавлено 25 новых ссылок (Всего: 25)
+2025-06-06 09:58:47,675 - INFO - Сбор завершен. Всего ссылок: 25
+2025-06-06 09:58:47,675 - INFO - Найдено 25 компаний за april 2025
+2025-06-06 09:58:48,879 - ERROR - Таблица с видами деятельности не найдена.
+2025-06-06 09:58:51,350 - ERROR - Таблица с видами деятельности не найдена.
+2025-06-06 09:58:54,595 - ERROR - Таблица с видами деятельности не найдена.
+2025-06-06 09:58:58,680 - ERROR - Таблица с видами деятельности не найдена.
+2025-06-06 09:59:00,748 - ERROR - Таблица с видами деятельности не найдена.
+2025-06-06 09:59:02,520 - ERROR - Таблица с видами деятельности не найдена.
+2025-06-06 09:59:04,384 - ERROR - Таблица с видами деятельности не найдена.
+2025-06-06 09:59:06,520 - ERROR - Таблица с видами деятельности не найдена.
+2025-06-06 09:59:37,018 - INFO - ====== WebDriver manager ======
+2025-06-06 09:59:38,076 - INFO - Get LATEST chromedriver version for google-chrome
+2025-06-06 09:59:38,479 - INFO - Get LATEST chromedriver version for google-chrome
+2025-06-06 09:59:38,831 - INFO - Driver [C:\Users\User\.wdm\drivers\chromedriver\win64\137.0.7151.68\chromedriver-win32/chromedriver.exe] found in cache
+2025-06-06 09:59:39,957 - INFO - 
+Начинаем обработку месяца: may 2025
+2025-06-06 09:59:46,395 - INFO - Применение фильтров: 2025-05-01 - 2025-05-31
+2025-06-06 09:59:59,502 - INFO - Обработка страницы 1
+2025-06-06 10:00:01,620 - INFO - Добавлено 25 новых ссылок (Всего: 25)
+2025-06-06 10:00:01,620 - INFO - Сбор завершен. Всего ссылок: 25
+2025-06-06 10:00:01,620 - INFO - Найдено 25 компаний за may 2025
+2025-06-06 10:00:02,824 - ERROR - Таблица с видами деятельности не найдена.
+2025-06-06 10:00:05,616 - ERROR - Таблица с видами деятельности не найдена.
+2025-06-06 10:00:11,140 - ERROR - Таблица с видами деятельности не найдена.
+2025-06-06 10:00:13,398 - ERROR - Таблица с видами деятельности не найдена.
+2025-06-06 10:00:16,566 - ERROR - Таблица с видами деятельности не найдена.
+2025-06-06 10:00:19,569 - ERROR - Таблица с видами деятельности не найдена.
+2025-06-06 10:00:21,923 - ERROR - Таблица с видами деятельности не найдена.
+2025-06-06 10:00:25,215 - ERROR - Таблица с видами деятельности не найдена.
+2025-06-06 10:00:28,722 - ERROR - Таблица с видами деятельности не найдена.
+2025-06-06 10:00:30,849 - ERROR - Таблица с видами деятельности не найдена.
+2025-06-06 10:00:30,849 - INFO - Обработано 10/25 компаний за may 2025
+2025-06-06 10:00:33,741 - ERROR - Таблица с видами деятельности не найдена.
+2025-06-06 10:00:36,267 - ERROR - Таблица с видами деятельности не найдена.
+2025-06-06 10:00:38,496 - ERROR - Таблица с видами деятельности не найдена.
+2025-06-06 10:00:41,705 - ERROR - Таблица с видами деятельности не найдена.
+2025-06-06 10:00:44,255 - ERROR - Таблица с видами деятельности не найдена.
+2025-06-06 10:00:47,012 - ERROR - Таблица с видами деятельности не найдена.
+2025-06-06 10:00:48,810 - ERROR - Таблица с видами деятельности не найдена.
+2025-06-06 10:00:50,805 - ERROR - Таблица с видами деятельности не найдена.
+2025-06-06 10:00:52,623 - ERROR - Таблица с видами деятельности не найдена.
+2025-06-06 10:00:56,004 - ERROR - Таблица с видами деятельности не найдена.
+2025-06-06 10:00:56,004 - INFO - Обработано 20/25 компаний за may 2025
+2025-06-06 10:00:58,618 - ERROR - Таблица с видами деятельности не найдена.
+2025-06-06 10:01:01,537 - ERROR - Таблица с видами деятельности не найдена.
+2025-06-06 10:01:04,404 - ERROR - Таблица с видами деятельности не найдена.
+2025-06-06 10:01:07,415 - ERROR - Таблица с видами деятельности не найдена.
+2025-06-06 10:01:10,538 - ERROR - Таблица с видами деятельности не найдена.
+2025-06-06 10:01:12,698 - INFO - Сохранено 19 новых записей. Всего записей: 19
+2025-06-06 10:01:12,699 - INFO - Сохранено 19 компаний в файл may 2025.xlsx
+2025-06-06 10:01:12,699 - INFO - 
+Начинаем обработку месяца: april 2025
+2025-06-06 10:01:14,024 - WARNING - Retrying (Retry(total=2, connect=None, read=None, redirect=None, status=None)) after connection broken by 'ConnectionResetError(10054, 'Удаленный хост принудительно разорвал существующее подключение', None, 10054, None)': /session/6ba8e3af51f43872244b0734b81fe246
+2025-06-06 10:04:24,137 - INFO - ====== WebDriver manager ======
+2025-06-06 10:04:25,164 - INFO - Get LATEST chromedriver version for google-chrome
+2025-06-06 10:04:25,592 - INFO - Get LATEST chromedriver version for google-chrome
+2025-06-06 10:04:25,976 - INFO - Driver [C:\Users\User\.wdm\drivers\chromedriver\win64\137.0.7151.68\chromedriver-win32/chromedriver.exe] found in cache
+2025-06-06 10:04:27,241 - INFO - 
+Начинаем обработку месяца: may 2025
+2025-06-06 10:04:34,775 - INFO - Применение фильтров: 2025-05-01 - 2025-05-31
+2025-06-06 10:04:47,510 - INFO - Обработка страницы 1
+2025-06-06 10:04:49,606 - INFO - Добавлено 25 новых ссылок (Всего: 25)
+2025-06-06 10:04:49,606 - INFO - Сбор завершен. Всего ссылок: 25
+2025-06-06 10:04:49,606 - INFO - Найдено 25 компаний за may 2025
+2025-06-06 10:05:32,957 - INFO - ====== WebDriver manager ======
+2025-06-06 10:05:34,124 - INFO - Get LATEST chromedriver version for google-chrome
+2025-06-06 10:05:34,648 - INFO - Get LATEST chromedriver version for google-chrome
+2025-06-06 10:05:35,253 - INFO - Driver [C:\Users\User\.wdm\drivers\chromedriver\win64\137.0.7151.68\chromedriver-win32/chromedriver.exe] found in cache
+2025-06-06 10:05:36,497 - INFO - 
+Начинаем обработку месяца: may 2025
+2025-06-06 10:05:43,541 - INFO - Применение фильтров: 2025-05-01 - 2025-05-31
+2025-06-06 10:05:45,737 - ERROR - Ошибка при применении фильтров: Message: element click intercepted: Element <button type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse-1" aria-expanded="false" aria-controls="flush-collapse-1" class="accordion-button collapsed">...</button> is not clickable at point (83, 462). Other element would receive the click: <div style="position: absolute; left: 0; bottom: 0; width: 360px; z-index: 1; background: #ffe3aa; color: #111; padding: 0.35rem 0.75rem 1rem 1rem; font-size: 14px;">...</div>
+  (Session info: chrome=137.0.7151.56)
+Stacktrace:
+	GetHandleVerifier [0x0x563763+63299]
+	GetHandleVerifier [0x0x5637a4+63364]
+	(No symbol) [0x0x391113]
+	(No symbol) [0x0x3dfbb0]
+	(No symbol) [0x0x3ddf6a]
+	(No symbol) [0x0x3dbad7]
+	(No symbol) [0x0x3dada7]
+	(No symbol) [0x0x3cf445]
+	(No symbol) [0x0x3fe57c]
+	(No symbol) [0x0x3ceed4]
+	(No symbol) [0x0x3fe7f4]
+	(No symbol) [0x0x41fa4a]
+	(No symbol) [0x0x3fe376]
+	(No symbol) [0x0x3cd6e0]
+	(No symbol) [0x0x3ce544]
+	GetHandleVerifier [0x0x7be033+2531347]
+	GetHandleVerifier [0x0x7b9332+2511634]
+	GetHandleVerifier [0x0x589eda+220858]
+	GetHandleVerifier [0x0x57a528+156936]
+	GetHandleVerifier [0x0x580c5d+183357]
+	GetHandleVerifier [0x0x56b6c8+95912]
+	GetHandleVerifier [0x0x56b870+96336]
+	GetHandleVerifier [0x0x55664a+9770]
+	BaseThreadInitThunk [0x0x760dfcc9+25]
+	RtlGetAppContainerNamedObjectPath [0x0x776b809e+286]
+	RtlGetAppContainerNamedObjectPath [0x0x776b806e+238]
+
+2025-06-06 10:05:45,871 - INFO - 
+Начинаем обработку месяца: april 2025
+2025-06-06 10:05:51,025 - INFO - Применение фильтров: 2025-04-01 - 2025-04-30
+2025-06-06 10:06:03,689 - INFO - Обработка страницы 1
+2025-06-06 10:06:05,804 - INFO - Добавлено 25 новых ссылок (Всего: 25)
+2025-06-06 10:06:05,804 - INFO - Сбор завершен. Всего ссылок: 25
+2025-06-06 10:06:05,804 - INFO - Найдено 25 компаний за april 2025
+2025-06-06 10:06:35,560 - INFO - Обработано 10/25 компаний за april 2025
+2025-06-06 10:07:07,163 - INFO - Обработано 20/25 компаний за april 2025
+2025-06-06 10:07:22,293 - INFO - Сохранено 18 новых записей. Всего записей: 18
+2025-06-06 10:07:22,293 - INFO - Сохранено 18 компаний в файл april 2025.xlsx
+2025-06-06 10:07:22,294 - INFO - 
+Начинаем обработку месяца: march 2025
+2025-06-06 10:07:26,079 - INFO - Применение фильтров: 2025-03-01 - 2025-03-31
+2025-06-06 10:07:29,220 - WARNING - Retrying (Retry(total=2, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError('<urllib3.connection.HTTPConnection object at 0x0000017212C70C20>: Failed to establish a new connection: [WinError 10061] Подключение не установлено, т.к. конечный компьютер отверг запрос на подключение')': /session/a2f5b55a0387dd5cb68d5a8d725a9670
+2025-06-06 10:07:31,271 - WARNING - Retrying (Retry(total=1, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError('<urllib3.connection.HTTPConnection object at 0x00000172125AC0E0>: Failed to establish a new connection: [WinError 10061] Подключение не установлено, т.к. конечный компьютер отверг запрос на подключение')': /session/a2f5b55a0387dd5cb68d5a8d725a9670
+2025-06-06 10:07:33,331 - WARNING - Retrying (Retry(total=0, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError('<urllib3.connection.HTTPConnection object at 0x0000017212C04500>: Failed to establish a new connection: [WinError 10061] Подключение не установлено, т.к. конечный компьютер отверг запрос на подключение')': /session/a2f5b55a0387dd5cb68d5a8d725a9670
+2025-06-06 10:07:35,376 - INFO - Парсер завершил работу
+2025-06-06 10:07:35,377 - INFO - Обработано компаний: 18
+2025-06-06 10:07:35,377 - INFO - Отправлено писем: 0
