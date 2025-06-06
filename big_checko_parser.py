@@ -656,7 +656,6 @@ def parse_company_page(driver, url, existing_inns):
         return None
 
 
-
 def save_to_excel(data, filepath):
     """Сохранение данных в Excel с проверкой дубликатов"""
     try:
@@ -748,9 +747,9 @@ def main():
     all_inns = set()
 
     try:
-        # Определяем месяцы для парсинга (с мая 2025 по январь 2025)
-        current_date = datetime(2025, 5, 1)
-        end_date = datetime(2025, 1, 1)
+        # Определяем месяцы для парсинга (с 1 января 2025 по 31 мая 2025)
+        current_date = datetime(2025, 1, 1)
+        end_date = datetime(2025, 5, 31)
 
         while current_date >= end_date:
             month_start = current_date.replace(day=1)
