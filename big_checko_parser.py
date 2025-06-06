@@ -1,13 +1,12 @@
 import json
 import os
 import random
-import re
 import time
 from datetime import datetime, timedelta
 import pandas as pd
 import requests
 from selenium import webdriver
-from selenium.webdriver import ActionChains
+from selenium.webdriver import Keys
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
@@ -204,36 +203,51 @@ def apply_date_filters(driver, start_date, end_date):
         driver.execute_script("window.scrollTo(0, 0);")
         time.sleep(1)
 
-        # Кликаем на кнопку "Дата регистрации"
+        # Находим кнопку "Дата регистрации"
         date_button = WebDriverWait(driver, 10).until(
             EC.element_to_be_clickable((By.CSS_SELECTOR, "button[data-bs-target='#flush-collapse-1']"))
         )
-        driver.execute_script("arguments[0].scrollIntoView({block: 'center'});", date_button)
-        date_button.click()
-        time.sleep(2)
+
+        # Проверяем состояние кнопки (открыта/закрыта)
+        is_collapsed = "collapsed" in date_button.get_attribute("class")
+
+        # Если кнопка закрыта (collapsed), кликаем чтобы открыть
+        if is_collapsed:
+            driver.execute_script("arguments[0].scrollIntoView({block: 'center'});", date_button)
+            date_button.click()
+            time.sleep(2)
 
         # Ждем появления полей ввода дат
         WebDriverWait(driver, 10).until(
             EC.visibility_of_element_located((By.ID, "reg_date_from"))
         )
 
-        # Вводим дату "От"
+        # Очищаем поле "От" (3 разных способа на случай если один не сработает)
         date_from = driver.find_element(By.ID, "reg_date_from")
         driver.execute_script("arguments[0].removeAttribute('readonly')", date_from)
-        date_from.clear()
-        date_from.send_keys(start_date.strftime("%Y-%m-%d"))
+        date_from.clear()  # Способ 1: стандартный clear()
+        date_from.send_keys(Keys.CONTROL + 'a')  # Способ 2: выделить все
+        date_from.send_keys(Keys.DELETE)  # Способ 3: удалить
         time.sleep(1)
 
-        # Вводим дату "До"
+        # Очищаем поле "До" (аналогично)
         date_to = driver.find_element(By.ID, "reg_date_to")
         driver.execute_script("arguments[0].removeAttribute('readonly')", date_to)
         date_to.clear()
+        date_to.send_keys(Keys.CONTROL + 'a')
+        date_to.send_keys(Keys.DELETE)
+        time.sleep(1)
+
+        # Вводим новые даты
+        date_from.send_keys(start_date.strftime("%Y-%m-%d"))
+        time.sleep(1)
         date_to.send_keys(end_date.strftime("%Y-%m-%d"))
         time.sleep(1)
 
         # Прокручиваем к кнопке "Применить"
         apply_button = WebDriverWait(driver, 10).until(
-            EC.presence_of_element_located((By.XPATH, "//button[contains(@class, 'primary') and contains(., 'Применить')]"))
+            EC.presence_of_element_located(
+                (By.XPATH, "//button[contains(@class, 'primary') and contains(., 'Применить')]"))
         )
         driver.execute_script("arguments[0].scrollIntoView({block: 'center'});", apply_button)
         time.sleep(1)
@@ -251,8 +265,7 @@ def apply_date_filters(driver, start_date, end_date):
         debug_screenshot(driver, "filter_error")
         return False
 
-
-def get_all_company_links(driver, start_date, end_date):
+def get_all_company_links(driver):
     """Собираем ссылки на компании с учетом уже примененных фильтров"""
     all_links = []
     page_num = 1
@@ -654,7 +667,7 @@ def process_month(driver, start_date, end_date, existing_inns):
         return existing_inns, []
 
     # Собираем все ссылки на компании
-    company_links = get_all_company_links(driver, start_date, end_date)
+    company_links = get_all_company_links(driver)
     logger.info(f"Найдено {len(company_links)} компаний за {month_name}")
 
     if not company_links:
@@ -681,6 +694,7 @@ def process_month(driver, start_date, end_date, existing_inns):
         logger.info(f"Нет новых компаний для сохранения за {month_name}")
 
     return existing_inns, all_data
+
 
 
 def main():
