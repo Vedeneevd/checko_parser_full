@@ -253,9 +253,14 @@ def apply_date_filters(driver, start_date, end_date):
         time.sleep(1)
 
         # Кликаем кнопку "Применить"
+        # После клика на кнопку "Применить"
         apply_button.click()
         time.sleep(6)
 
+        # Проверяем капчу после применения фильтров
+        if driver.find_elements(By.CSS_SELECTOR, "iframe[title*='reCAPTCHA']"):
+            if not handle_captcha(driver):
+                return False
         # Ждем загрузки результатов
 
         return True
@@ -264,6 +269,7 @@ def apply_date_filters(driver, start_date, end_date):
         logger.error(f"Ошибка при применении фильтров: {str(e)}")
         debug_screenshot(driver, "filter_error")
         return False
+
 
 def get_all_company_links(driver):
     """Собираем ссылки на компании с учетом уже примененных фильтров"""
@@ -282,9 +288,21 @@ def get_all_company_links(driver):
                 driver.get(f"{BASE_URL}?page={page_num}")
                 time.sleep(2)
 
+                # Проверяем наличие капчи
+                if driver.find_elements(By.CSS_SELECTOR, "iframe[title*='reCAPTCHA']"):
+                    if not handle_captcha(driver):
+                        logger.error("Не удалось решить капчу при переходе на страницу")
+                        break
+
             # Прокручиваем страницу до конца, чтобы кнопка "Далее" стала видимой
             driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
             time.sleep(2)
+
+            # Проверяем наличие капчи после прокрутки
+            if driver.find_elements(By.CSS_SELECTOR, "iframe[title*='reCAPTCHA']"):
+                if not handle_captcha(driver):
+                    logger.error("Не удалось решить капчу после прокрутки")
+                    break
 
             # Собираем все ссылки на компании на текущей странице
             soup = BeautifulSoup(driver.page_source, 'html.parser')
@@ -313,6 +331,7 @@ def get_all_company_links(driver):
 
     logger.info(f"Сбор завершен. Всего ссылок: {len(all_links)}")
     return all_links
+
 
 
 def get_person_info(soup, label):
@@ -534,7 +553,14 @@ def parse_company_page(driver, url, existing_inns):
         # Парсинг данных
         soup = BeautifulSoup(driver.page_source, 'html.parser')
 
+        # Прокручиваем страницу (может появиться капча)
         driver.execute_script("window.scrollTo(0, 5000);")
+        time.sleep(1)
+
+        # Проверяем капчу после прокрутки
+        if driver.find_elements(By.CSS_SELECTOR, "iframe[title*='reCAPTCHA']"):
+            if not handle_captcha(driver):
+                return None
 
         # Основные данные
         inn = None
