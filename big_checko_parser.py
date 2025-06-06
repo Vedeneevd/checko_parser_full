@@ -1,6 +1,7 @@
 import json
 import os
 import random
+import re
 import time
 from datetime import datetime, timedelta
 import pandas as pd
@@ -33,7 +34,6 @@ MAX_RETRIES = 3
 DELAY_BETWEEN_PAGES = 2  # Задержка между страницами в секундах
 API_KEY = os.getenv('API_KEY')  # API ключ для rucaptcha
 SMTPBZ_API_KEY = os.getenv('SMTPBZ_API_KEY')
-
 
 
 def setup_driver():
@@ -152,7 +152,6 @@ def solve_recaptcha_v2(driver):
         return False
 
 
-
 def handle_captcha(driver):
     """Полная обработка капчи с улучшенной логикой"""
     print("Обнаружена капча, начинаем обработку...")
@@ -182,8 +181,6 @@ def handle_captcha(driver):
         debug_screenshot(driver, "captcha_handling_error")
         print(f"Ошибка при обработке капчи: {str(e)}")
         return False
-
-
 
 
 def debug_screenshot(driver, name):
@@ -258,8 +255,9 @@ def apply_date_filters(driver, start_date, end_date):
 def get_all_company_links(driver, start_date, end_date):
     """Собираем ссылки на компании с учетом уже примененных фильтров"""
     all_links = []
-    page_num = 558
-    max_pages = 560  # Максимальное количество страниц
+    page_num = 1
+    max_pages = 1  # Максимальное количество страниц
+    processed_pages = set()
 
     while page_num <= max_pages:
         logger.info(f"Обработка страницы {page_num}")
@@ -305,21 +303,66 @@ def get_all_company_links(driver, start_date, end_date):
 
 
 def get_person_info(soup, label):
-    person_section = soup.find('strong', class_='fw-700', string=label)
-    if not person_section:
-        person_section = soup.find('div', class_='fw-700', string=label)
-    if person_section:
-        person_tag = person_section.find_next('a', class_='link')
-        if person_tag:
-            return person_tag.get_text(strip=True)
-        parent_div = person_section.find_parent('div', class_='mb-3')
-        if parent_div:
-            return parent_div.get_text(strip=True).replace(label, '').strip()
-    return None
+    """Универсальная функция для поиска информации о директоре и учредителе"""
+    try:
+        # Определяем, что ищем (директора или учредителя)
+        is_director = 'директор' in label.lower()
+
+        # Поиск директора
+        if is_director:
+            director = None
+            director_section = soup.find('div', class_='fw-700', string=lambda t: t and 'директор' in t.lower())
+            if not director_section:
+                director_section = soup.find('strong', class_='fw-700', string=lambda t: t and 'директор' in t.lower())
+
+            if director_section:
+                director_tag = director_section.find_next('a', class_='link')
+                if director_tag:
+                    director = director_tag.get_text(strip=True)
+                else:
+                    # Альтернативный вариант поиска, если структура отличается
+                    parent_div = director_section.find_parent('div', class_='mb-3')
+                    if parent_div:
+                        director_tag = parent_div.find('a', class_='link')
+                        if director_tag:
+                            director = director_tag.get_text(strip=True)
+
+            return director
+
+        # Поиск учредителя с улучшенным парсингом
+        else:
+            founder = None
+            founder_section = soup.find('strong', class_='fw-700', string='Учредитель')
+            if not founder_section:
+                founder_section = soup.find('div', class_='fw-700', string='Учредитель')
+
+            if founder_section:
+                # Ищем ссылку на учредителя рядом с заголовком
+                founder_tag = founder_section.find_next('a', class_='link')
+                if founder_tag:
+                    founder = founder_tag.get_text(strip=True)
+                else:
+                    # Если нет ссылки, проверяем структуру как в вашем примере
+                    parent_div = founder_section.find_parent('div', class_='mb-3')
+                    if parent_div:
+                        # Проверяем, есть ли вложенные div (может быть адрес)
+                        address_divs = parent_div.find_all('div', recursive=False)
+                        if len(address_divs) > 0 and 'Субъект РФ' not in address_divs[0].get_text():
+                            # Если это не адрес, то берем текст после заголовка
+                            founder = parent_div.get_text(strip=True).replace('Учредитель', '').strip()
+                        elif len(address_divs) > 0:
+                            # Если это адрес, пропускаем
+                            founder = None
+
+            return founder if founder and founder != 'Показать на карте' else None
+
+    except Exception as e:
+        logger.error(f"Ошибка при поиске {label}: {str(e)}")
+        return None
 
 
 def parse_company_page(driver, url, existing_inns):
-    """Парсинг данных компании с проверкой дубликатов по ИНН и немедленной отправкой письма"""
+    """Парсинг данных компании с проверкой дубликатов по ИНН"""
     print(f"\nОбрабатываем компанию: {url}")
     try:
         driver.get(url)
@@ -367,7 +410,7 @@ def parse_company_page(driver, url, existing_inns):
                                                                                                               string='Дата регистрации') else None
 
         # Директор и учредитель
-        director = get_person_info(soup, 'Директор')
+        director = get_person_info(soup, 'Генеральный директор') or get_person_info(soup, 'Директор')
         founder = get_person_info(soup, 'Учредитель')
 
         # Телефоны
@@ -401,8 +444,17 @@ def parse_company_page(driver, url, existing_inns):
         print(
             f"Данные: ИНН={inn}, Дата={date}, Директор={director}, Учредитель={founder}, Телефон={phone}, Email={email}")
 
-        return [inn, date, director, founder, phone, email, url, current_date]
-
+        return {
+            'ИНН': inn,
+            'Дата регистрации': date,
+            'Ген. директор': director,
+            'Учредитель': founder,
+            'Телефон': phone,
+            'Email': email,
+            'URL': url,
+            'Дата добавления': current_date,
+            'EmailSent': False  # Флаг отправки письма
+        }
 
     except Exception as e:
         debug_screenshot(driver, f"parse_error_{url.split('/')[-1]}")
@@ -410,21 +462,49 @@ def parse_company_page(driver, url, existing_inns):
         return None
 
 
+def save_to_excel(data, filepath):
+    """Сохранение данных в Excel с проверкой дубликатов"""
+    try:
+        # Загрузка существующих данных, если файл уже есть
+        if os.path.exists(filepath):
+            existing_df = pd.read_excel(filepath)
+            existing_inns = set(existing_df['ИНН'].dropna().astype(str))
+        else:
+            existing_df = pd.DataFrame()
+            existing_inns = set()
 
-def process_month(driver, start_date, end_date):
-    """Обработка одного месяца с оптимизацией применения фильтров"""
+        # Создаем DataFrame из новых данных
+        new_df = pd.DataFrame(data)
+
+        # Удаляем дубликаты среди новых данных
+        new_df = new_df.drop_duplicates(subset=['ИНН'])
+
+        # Фильтруем только новые записи
+        new_df = new_df[~new_df['ИНН'].isin(existing_inns)]
+
+        if new_df.empty:
+            logger.info("Нет новых данных для сохранения")
+            return
+
+        # Объединяем с существующими данными
+        final_df = pd.concat([existing_df, new_df], ignore_index=True)
+
+        # Сохраняем результат
+        final_df.to_excel(filepath, index=False)
+        logger.info(f"Сохранено {len(new_df)} новых записей. Всего записей: {len(final_df)}")
+
+    except Exception as e:
+        logger.error(f"Ошибка при сохранении: {str(e)}")
+        raise
+
+
+def process_month(driver, start_date, end_date, existing_inns):
+    """Обработка одного месяца"""
     month_name = start_date.strftime("%B %Y").lower()
     output_file = f"{month_name}.xlsx"
-    existing_inns = set()
+    all_data = []
 
-    # Загружаем существующие данные, если файл уже есть
-    if os.path.exists(output_file):
-        try:
-            existing_df = pd.read_excel(output_file)
-            existing_inns = set(existing_df['ИНН'].dropna().astype(str))
-            logger.info(f"Загружено {len(existing_inns)} существующих ИНН из файла {output_file}")
-        except Exception as e:
-            logger.error(f"Ошибка при загрузке файла {output_file}: {str(e)}")
+    logger.info(f"\nНачинаем обработку месяца: {month_name}")
 
     # Переходим на страницу поиска
     driver.get(BASE_URL)
@@ -432,7 +512,7 @@ def process_month(driver, start_date, end_date):
 
     # Применяем фильтры
     if not apply_date_filters(driver, start_date, end_date):
-        return False
+        return existing_inns, []
 
     # Собираем все ссылки на компании
     company_links = get_all_company_links(driver, start_date, end_date)
@@ -440,14 +520,13 @@ def process_month(driver, start_date, end_date):
 
     if not company_links:
         logger.info(f"Нет компаний за {month_name}, пропускаем")
-        return True
+        return existing_inns, []
 
     # Парсим данные компаний
-    companies_data = []
     for i, link in enumerate(company_links, 1):
         company_data = parse_company_page(driver, link, existing_inns)
         if company_data:
-            companies_data.append(company_data)
+            all_data.append(company_data)
             existing_inns.add(company_data['ИНН'])
 
         if i % 10 == 0:
@@ -456,171 +535,45 @@ def process_month(driver, start_date, end_date):
         time.sleep(random.uniform(1, 3))
 
     # Сохраняем данные
-    if companies_data:
-        df = pd.DataFrame(companies_data)
-        df.to_excel(output_file, index=False)
-        logger.info(f"Сохранено {len(df)} компаний в файл {output_file}")
+    if all_data:
+        save_to_excel(all_data, output_file)
+        logger.info(f"Сохранено {len(all_data)} компаний в файл {output_file}")
     else:
         logger.info(f"Нет новых компаний для сохранения за {month_name}")
 
-    return all_links
-
-def load_existing_data(filepath):
-    """Загрузка существующих данных из файла"""
-    if os.path.exists(filepath):
-        try:
-            df = pd.read_excel(filepath)
-            return df
-        except Exception as e:
-            print(f"Ошибка при загрузке файла: {str(e)}")
-            return pd.DataFrame()
-    return pd.DataFrame()
-
-
-
-def save_to_excel(new_data, filepath):
-    """Сохранение данных с надежной проверкой дубликатов"""
-    try:
-        # Загрузка существующих данных
-        existing_df = load_existing_data(filepath)
-
-        # Получаем список существующих ИНН для проверки дубликатов
-        existing_inns = set(existing_df['ИНН'].dropna().unique()) if not existing_df.empty else set()
-
-        # Создание DataFrame из новых данных
-        new_df = pd.DataFrame(new_data,
-                              columns=['ИНН', 'Дата регистрации', 'Ген. директор', 'Учредитель',
-                                       'Телефон', 'Email', 'URL', 'Дата добавления', 'EmailSent'])
-
-        # Удаление полностью пустых строк
-        new_df = new_df.dropna(how='all')
-
-        # Фильтрация только компаний с телефоном или email
-        new_df = new_df[(new_df['Телефон'].notna()) | (new_df['Email'].notna())]
-
-        # Удаление дубликатов среди новых данных
-        new_df = new_df.drop_duplicates(subset=['ИНН', 'URL'])
-
-        # Удаление записей, которые уже есть в существующих данных
-        new_df = new_df[~new_df['ИНН'].isin(existing_inns)]
-
-        if new_df.empty:
-            logger.info("Нет новых данных для сохранения")
-            return
-
-        # Объединение с существующими данными
-        final_df = pd.concat([existing_df, new_df], ignore_index=True)
-
-        # Дополнительная проверка на дубликаты после объединения
-        final_df = final_df.drop_duplicates(subset=['ИНН', 'URL'], keep='last')
-
-        # Сохранение результата
-        with pd.ExcelWriter(filepath, engine='xlsxwriter') as writer:
-            final_df.to_excel(writer, index=False)
-
-            # Форматирование
-            worksheet = writer.sheets['Sheet1']
-            worksheet.set_column('A:A', 15)  # ИНН
-            worksheet.set_column('B:B', 15)  # Дата регистрации
-            worksheet.set_column('C:C', 25)  # Ген. директор
-            worksheet.set_column('D:D', 25)  # Учредитель
-            worksheet.set_column('E:E', 20)  # Телефон
-            worksheet.set_column('F:F', 25)  # Email
-            worksheet.set_column('G:G', 40)  # URL
-            worksheet.set_column('H:H', 20)  # Дата добавления
-            worksheet.set_column('I:I', 20)  # EmailSent
-
-        logger.info(f"Сохранено {len(new_df)} новых записей. Всего записей: {len(final_df)}")
-
-    except Exception as e:
-        logger.error(f"Ошибка при сохранении: {str(e)}")
-        raise
-
+    return existing_inns, all_data
 
 
 def main():
-    """Основная функция парсера с сохранением данных в Excel и переходом на начальную страницу после обработки месяца"""
+    """Основная функция парсера"""
     driver = setup_driver()
-
-    # Определяем месяцы для парсинга (с мая 2025 по январь 2025)
-    months_to_parse = []
-    current_date = datetime(2025, 5, 1)
-    end_date = datetime(2025, 1, 1)
-
-    while current_date >= end_date:
-        month_start = current_date.replace(day=1)
-        month_end = (month_start + timedelta(days=32)).replace(day=1) - timedelta(days=1)
-        months_to_parse.append((month_start, month_end))
-        current_date = month_start - timedelta(days=1)
-
-    all_data = []  # Список для хранения всех данных за месяц
     processed_count = 0
     emails_sent = 0
+    all_inns = set()
 
-    # Обрабатываем каждый месяц
-    for month_start, month_end in months_to_parse:
-        month_name = month_start.strftime("%B %Y").lower()
-        logger.info(f"\nНачинаем обработку месяца: {month_name}")
+    try:
+        # Определяем месяцы для парсинга (с мая 2025 по январь 2025)
+        current_date = datetime(2025, 5, 1)
+        end_date = datetime(2025, 1, 1)
 
-        success = False
-        for attempt in range(1, MAX_RETRIES + 1):
-            try:
-                # Обработка месяца
-                company_links = process_month(driver, month_start, month_end)
-                if company_links:
-                    # Фильтруем новые ссылки, которые не были обработаны
-                    for i, link in enumerate(company_links, 1):
-                        print(f"Обработка компании {i}/{len(company_links)}: {link}")
-                        data = parse_company_page(driver, link, processed_count)
+        while current_date >= end_date:
+            month_start = current_date.replace(day=1)
+            month_end = (month_start + timedelta(days=32)).replace(day=1) - timedelta(days=1)
 
-                        if data:
-                            all_data.append({
-                                'ИНН': data[0],
-                                'Дата регистрации': data[1],
-                                'Ген. директор': data[2],
-                                'Учредитель': data[3],
-                                'Телефон': data[4],
-                                'Email': data[5],
-                                'URL': data[6],
-                                'Дата добавления': data[7],
-                                'EmailSent': data[8]  # Дата отправки письма (если было отправлено)
-                            })
-                            processed_count += 1
-                            if data[8]:  # Если письмо было отправлено
-                                emails_sent += 1
+            # Обрабатываем месяц
+            all_inns, month_data = process_month(driver, month_start, month_end, all_inns)
+            processed_count += len(month_data)
+            emails_sent += sum(1 for item in month_data if item['EmailSent'])
 
-                        # Промежуточное сохранение каждые 20 компаний
-                        if i % 20 == 0 and all_data:
-                            print(f"\nПромежуточное сохранение после {i} компаний...")
-                            save_to_excel(all_data, f"{month_name}_output.xlsx")
-                            all_data = []  # Очищаем после сохранения
+            # Переходим к предыдущему месяцу
+            current_date = month_start - timedelta(days=1)
 
-                        time.sleep(random.uniform(2, 5))
+    finally:
+        driver.quit()
+        logger.info("Парсер завершил работу")
+        logger.info(f"Обработано компаний: {processed_count}")
+        logger.info(f"Отправлено писем: {emails_sent}")
 
-                    # Сохраняем все данные за месяц в Excel
-                    if all_data:
-                        print("\nФинальное сохранение результатов...")
-                        save_to_excel(all_data, f"{month_name}_output.xlsx")
-                        all_data = []  # Очищаем после сохранения
-
-                # После завершения обработки месяца, возвращаемся на начальную страницу
-                logger.info(f"Завершена обработка месяца {month_name}. Переход на начальную страницу.")
-                driver.get(BASE_URL)  # Переход на начальную страницу
-                time.sleep(3)  # Ждем немного, чтобы страница загрузилась
-
-                success = True
-                break
-            except Exception as e:
-                logger.error(f"Попытка {attempt} не удалась: {str(e)}")
-                time.sleep(10 * attempt)
-
-        if not success:
-            logger.error(f"Не удалось обработать месяц {month_name} после {MAX_RETRIES} попыток")
-
-    driver.quit()
-    logger.info("Парсер завершил работу")
-    logger.info(f"Обработано компаний: {processed_count}")
-    logger.info(f"Отправлено писем: {emails_sent}")
 
 if __name__ == "__main__":
     main()
