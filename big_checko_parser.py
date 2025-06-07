@@ -11,6 +11,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.chrome.service import Service
+from selenium.webdriver.chrome.options import Options
 from webdriver_manager.chrome import ChromeDriverManager
 from bs4 import BeautifulSoup
 import logging
@@ -36,21 +37,41 @@ SMTPBZ_API_KEY = os.getenv('SMTPBZ_API_KEY')
 
 
 def setup_driver():
-    """Настройка веб-драйвера"""
+    """Настройка веб-драйвера для работы на VPS"""
     options = webdriver.ChromeOptions()
+
+    # Основные аргументы
+    options.add_argument("--headless=new")
+    options.add_argument("--no-sandbox")
+    options.add_argument("--disable-dev-shm-usage")
+    options.add_argument("--remote-debugging-port=9222")
+    options.add_argument("--disable-gpu")
+
+    # Укажите явный путь к Chrome
+    options.binary_location = '/usr/bin/google-chrome'
+
+    # Дополнительные настройки
     options.add_argument("--disable-blink-features=AutomationControlled")
     options.add_experimental_option("excludeSwitches", ["enable-automation"])
     options.add_experimental_option("useAutomationExtension", False)
-    options.add_argument("--disable-dev-shm-usage")
     options.add_argument(
         "user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36")
+    options.add_argument("--window-size=1920,1080")
+    options.binary_location = '/usr/bin/chromium-browser'
 
-    service = Service(ChromeDriverManager().install())
-    driver = webdriver.Chrome(service=service, options=options)
-    driver.execute_cdp_cmd("Page.addScriptToEvaluateOnNewDocument", {
-        "source": "Object.defineProperty(navigator, 'webdriver', {get: () => undefined})"
-    })
-    return driver
+    try:
+        # Используйте явный путь к ChromeDriver
+        service = Service('/usr/local/bin/chromedriver')
+        driver = webdriver.Chrome(service=service, options=options)
+
+        driver.execute_cdp_cmd("Page.addScriptToEvaluateOnNewDocument", {
+            "source": "Object.defineProperty(navigator, 'webdriver', {get: () => undefined})"
+        })
+
+        return driver
+    except Exception as e:
+        logger.error(f"Ошибка при инициализации драйвера: {str(e)}")
+        raise
 
 
 def solve_recaptcha_v2(driver):
@@ -346,7 +367,6 @@ def get_all_company_links(driver):
     return all_links
 
 
-
 def get_person_info(soup, label):
     """Универсальная функция для поиска информации о директоре и учредителе"""
     try:
@@ -421,7 +441,8 @@ def get_person_info(soup, label):
                                 # Извлекаем ИНН учредителя
                                 inn_div = columns[1].find_next('div')
                                 if inn_div and "ИНН" in inn_div.text:
-                                    founder_inn = inn_div.text.split()[-1]  # Получаем последний элемент, который будет ИНН
+                                    founder_inn = inn_div.text.split()[
+                                        -1]  # Получаем последний элемент, который будет ИНН
                             else:
                                 logger.error("Не удалось найти имя учредителя в таблице.")
                         else:
@@ -469,20 +490,20 @@ def get_first_okved(soup):
         x_section = soup.find('section', id='activity')
         if x_section:
             print('Секция найдена')
-        # Находим таблицу с видами деятельности
+            # Находим таблицу с видами деятельности
             activity_table = x_section.find('table', class_='table table-sm table-striped')
             if not activity_table:
                 logger.error("Таблица с видами деятельности не найдена.")
                 return None, None
 
-        # Находим все строки в таблице
+            # Находим все строки в таблице
             rows = activity_table.find_all('tr')
 
             if not rows:
                 logger.error("В таблице нет строк с ОКВЭД.")
                 return None, None
 
-        # Извлекаем первый вид деятельности (первую строку таблицы)
+            # Извлекаем первый вид деятельности (первую строку таблицы)
             first_row = rows[0]  # Первая строка таблицы
             columns = first_row.find_all('td')  # Получаем все столбцы в строке
 
@@ -669,7 +690,6 @@ def parse_company_page(driver, url, existing_inns):
         return None
 
 
-
 def save_to_excel(data, filepath):
     """Сохранение данных в Excel с проверкой дубликатов"""
     try:
@@ -755,7 +775,6 @@ def process_month(driver, start_date, end_date, existing_inns):
         logger.info(f"Нет новых компаний для сохранения за {month_name}")
 
     return existing_inns, all_data
-
 
 
 def main():
