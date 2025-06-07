@@ -152,33 +152,46 @@ def solve_recaptcha_v2(driver):
 
 
 def handle_captcha(driver):
-    """Полная обработка капчи с улучшенной логикой"""
+    """Полная обработка капчи с повторными попытками до 50 раз и улучшенной логикой"""
+    max_retries = 50  # Максимальное количество попыток решения капчи
+    retries = 0  # Счетчик попыток
+
     print("Обнаружена капча, начинаем обработку...")
     debug_screenshot(driver, "captcha_detected")
 
     try:
-        # 1. Кликаем на чекбокс "Я не робот"
-        checkbox_frame = WebDriverWait(driver, 20).until(
-            EC.frame_to_be_available_and_switch_to_it((By.CSS_SELECTOR, "iframe[title*='reCAPTCHA']"))
-        )
-        checkbox = WebDriverWait(driver, 20).until(
-            EC.element_to_be_clickable((By.CLASS_NAME, "recaptcha-checkbox"))
-        )
-        checkbox.click()
-        print("Чекбокс 'Я не робот' нажат")
-        driver.switch_to.default_content()
-        debug_screenshot(driver, "after_checkbox_click")
-        time.sleep(3)
+        while retries < max_retries:
+            retries += 1
+            logger.info(f"Попытка решения капчи {retries}/{max_retries}")
 
-        # 2. Решаем капчу через API
-        if not solve_recaptcha_v2(driver):
-            return False
+            # Кликаем на чекбокс "Я не робот"
+            checkbox_frame = WebDriverWait(driver, 20).until(
+                EC.frame_to_be_available_and_switch_to_it((By.CSS_SELECTOR, "iframe[title*='reCAPTCHA']"))
+            )
+            checkbox = WebDriverWait(driver, 20).until(
+                EC.element_to_be_clickable((By.CLASS_NAME, "recaptcha-checkbox"))
+            )
+            checkbox.click()
+            logger.info("Чекбокс 'Я не робот' нажат")
 
-        return True
+            driver.switch_to.default_content()
+            debug_screenshot(driver, "after_checkbox_click")
+            time.sleep(3)
+
+            # Решаем капчу через API
+            if not solve_recaptcha_v2(driver):
+                logger.error("Ошибка при решении капчи, пытаемся снова...")
+                time.sleep(5)  # Ожидание перед повторной попыткой
+            else:
+                logger.info("Капча успешно решена!")
+                return True
+
+        logger.error(f"Не удалось решить капчу после {max_retries} попыток.")
+        return False  # Если не удалось решить капчу после всех попыток
 
     except Exception as e:
         debug_screenshot(driver, "captcha_handling_error")
-        print(f"Ошибка при обработке капчи: {str(e)}")
+        logger.error(f"Ошибка при обработке капчи: {str(e)}")
         return False
 
 
