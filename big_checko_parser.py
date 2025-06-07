@@ -34,45 +34,22 @@ DELAY_BETWEEN_PAGES = 2  # Задержка между страницами в �
 API_KEY = os.getenv('API_KEY')  # API ключ для rucaptcha
 SMTPBZ_API_KEY = os.getenv('SMTPBZ_API_KEY')
 
-from selenium import webdriver
-from selenium.webdriver.chrome.service import Service
-from selenium.webdriver.chrome.options import Options
-from webdriver_manager.chrome import ChromeDriverManager
-
 
 def setup_driver():
-    """Настройка веб-драйвера для работы на VPS"""
-    options = Options()
-
-    # Настройки для работы в headless-режиме
-    options.add_argument("--headless")  # Запуск без графического интерфейса
-    options.add_argument("--disable-gpu")  # Отключение GPU
-    options.add_argument("--no-sandbox")  # Отключение песочницы (для работы в контейнерах или VPS)
-    options.add_argument("--disable-dev-shm-usage")  # Отключение ограничений памяти
-    options.add_argument("start-maximized")  # Запуск в полноэкранном режиме (не обязательно)
-
-    # Установка User-Agent для имитации обычного браузера
-    options.add_argument(
-        "user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
-    )
-
-    # Для предотвращения блокировки автоматизации
+    """Настройка веб-драйвера"""
+    options = webdriver.ChromeOptions()
     options.add_argument("--disable-blink-features=AutomationControlled")
     options.add_experimental_option("excludeSwitches", ["enable-automation"])
     options.add_experimental_option("useAutomationExtension", False)
+    options.add_argument("--disable-dev-shm-usage")
+    options.add_argument(
+        "user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36")
 
-    # Устанавливаем путь к браузеру (если нужно для нестандартных путей, например для Chromium)
-    options.binary_location = '/usr/bin/chromium-browser'
-
-    # Запуск веб-драйвера с использованием ChromeDriverManager для автоматической установки драйвера
     service = Service(ChromeDriverManager().install())
     driver = webdriver.Chrome(service=service, options=options)
-
-    # Для скрытия информации о WebDriver
     driver.execute_cdp_cmd("Page.addScriptToEvaluateOnNewDocument", {
         "source": "Object.defineProperty(navigator, 'webdriver', {get: () => undefined})"
     })
-
     return driver
 
 
@@ -298,7 +275,7 @@ def get_all_company_links(driver):
     """Собираем ссылки на компании с учетом уже примененных фильтров"""
     all_links = []
     page_num = 1
-    max_pages = 1  # Максимальное количество страниц
+    max_pages = 999  # Максимальное количество страниц
     processed_pages = set()
 
     while page_num <= max_pages:
@@ -679,6 +656,7 @@ def parse_company_page(driver, url, existing_inns):
         return None
 
 
+
 def save_to_excel(data, filepath):
     """Сохранение данных в Excel с проверкой дубликатов"""
     try:
@@ -716,7 +694,7 @@ def save_to_excel(data, filepath):
 
 
 def process_month(driver, start_date, end_date, existing_inns):
-    """Обработка одного месяца"""
+    """Обработка одного месяца с промежуточным сохранением данных о компаниях (по 10 компаний)"""
     month_name = start_date.strftime("%B %Y").lower()
     output_file = f"{month_name}.xlsx"
     all_data = []
@@ -746,12 +724,17 @@ def process_month(driver, start_date, end_date, existing_inns):
             all_data.append(company_data)
             existing_inns.add(company_data['ИНН'])
 
+        # После каждых 10 компаний сохраняем данные в файл
         if i % 10 == 0:
             logger.info(f"Обработано {i}/{len(company_links)} компаний за {month_name}")
+            save_to_excel(all_data, output_file)
+            logger.info(f"Сохранено {len(all_data)} компаний в файл {output_file}")
+            all_data = []  # Очистим данные для следующей порции компаний
 
+        # Задержка между запросами
         time.sleep(random.uniform(1, 3))
 
-    # Сохраняем данные
+    # Сохраняем остаток данных (если есть)
     if all_data:
         save_to_excel(all_data, output_file)
         logger.info(f"Сохранено {len(all_data)} компаний в файл {output_file}")
@@ -770,9 +753,9 @@ def main():
     all_inns = set()
 
     try:
-        # Определяем месяцы для парсинга (с 1 января 2025 по 31 мая 2025)
-        current_date = datetime(2025, 1, 1)
-        end_date = datetime(2025, 5, 31)
+        # Определяем месяцы для парсинга (с мая 2025 по январь 2025)
+        current_date = datetime(2025, 5, 1)
+        end_date = datetime(2025, 1, 1)
 
         while current_date >= end_date:
             month_start = current_date.replace(day=1)

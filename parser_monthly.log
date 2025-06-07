@@ -221,3 +221,132 @@ Stacktrace:
 2025-06-06 15:11:50,719 - INFO - Парсер завершил работу
 2025-06-06 15:11:50,719 - INFO - Обработано компаний: 43
 2025-06-06 15:11:50,719 - INFO - Отправлено писем: 0
+2025-06-06 23:52:56,101 - INFO - ====== WebDriver manager ======
+2025-06-06 23:53:04,332 - INFO - Get LATEST chromedriver version for google-chrome
+2025-06-06 23:53:04,553 - INFO - Get LATEST chromedriver version for google-chrome
+2025-06-06 23:53:04,740 - INFO - Get LATEST chromedriver version for google-chrome
+2025-06-06 23:53:05,155 - INFO - WebDriver version 137.0.7151.68 selected
+2025-06-06 23:53:05,161 - INFO - Modern chrome version https://storage.googleapis.com/chrome-for-testing-public/137.0.7151.68/win32/chromedriver-win32.zip
+2025-06-06 23:53:05,161 - INFO - About to download new driver from https://storage.googleapis.com/chrome-for-testing-public/137.0.7151.68/win32/chromedriver-win32.zip
+2025-06-06 23:53:05,292 - INFO - Driver downloading response is 200
+2025-06-06 23:53:06,356 - INFO - Get LATEST chromedriver version for google-chrome
+2025-06-06 23:53:06,781 - INFO - Driver has been saved in cache [C:\Users\Basd9\.wdm\drivers\chromedriver\win64\137.0.7151.68]
+2025-06-06 23:53:11,334 - INFO - Парсер завершил работу
+2025-06-06 23:53:11,334 - INFO - Обработано компаний: 0
+2025-06-06 23:53:11,334 - INFO - Отправлено писем: 0
+2025-06-06 23:53:42,312 - INFO - ====== WebDriver manager ======
+2025-06-06 23:53:43,086 - INFO - Get LATEST chromedriver version for google-chrome
+2025-06-06 23:53:43,236 - INFO - Get LATEST chromedriver version for google-chrome
+2025-06-06 23:53:43,368 - INFO - Driver [C:\Users\Basd9\.wdm\drivers\chromedriver\win64\137.0.7151.68\chromedriver-win32/chromedriver.exe] found in cache
+2025-06-06 23:53:46,719 - INFO - Парсер завершил работу
+2025-06-06 23:53:46,719 - INFO - Обработано компаний: 0
+2025-06-06 23:53:46,719 - INFO - Отправлено писем: 0
+2025-06-06 23:54:07,290 - INFO - ====== WebDriver manager ======
+2025-06-06 23:54:07,991 - INFO - Get LATEST chromedriver version for google-chrome
+2025-06-06 23:54:08,129 - INFO - Get LATEST chromedriver version for google-chrome
+2025-06-06 23:54:08,264 - INFO - Driver [C:\Users\Basd9\.wdm\drivers\chromedriver\win64\137.0.7151.68\chromedriver-win32/chromedriver.exe] found in cache
+2025-06-06 23:54:10,201 - INFO - 
+Начинаем обработку месяца: may 2025
+2025-06-06 23:54:18,853 - INFO - Применение фильтров: 2025-05-01 - 2025-05-31
+2025-06-06 23:54:18,854 - ERROR - Ошибка при применении фильтров: Message: invalid session id: session deleted as the browser has closed the connection
+from disconnected: not connected to DevTools
+  (Session info: chrome=137.0.7151.69)
+Stacktrace:
+	GetHandleVerifier [0x0x663763+63299]
+	GetHandleVerifier [0x0x6637a4+63364]
+	(No symbol) [0x0x491113]
+	(No symbol) [0x0x4808a0]
+	(No symbol) [0x0x49e8c2]
+	(No symbol) [0x0x50519c]
+	(No symbol) [0x0x51f359]
+	(No symbol) [0x0x4fe376]
+	(No symbol) [0x0x4cd6e0]
+	(No symbol) [0x0x4ce544]
+	GetHandleVerifier [0x0x8be033+2531347]
+	GetHandleVerifier [0x0x8b9332+2511634]
+	GetHandleVerifier [0x0x689eda+220858]
+	GetHandleVerifier [0x0x67a528+156936]
+	GetHandleVerifier [0x0x680c5d+183357]
+	GetHandleVerifier [0x0x66b6c8+95912]
+	GetHandleVerifier [0x0x66b870+96336]
+	GetHandleVerifier [0x0x65664a+9770]
+	BaseThreadInitThunk [0x0x7620fa29+25]
+	RtlGetAppContainerNamedObjectPath [0x0x77907b5e+286]
+	RtlGetAppContainerNamedObjectPath [0x0x77907b2e+238]
+
+2025-06-06 23:54:20,937 - INFO - Парсер завершил работу
+2025-06-06 23:54:20,937 - INFO - Обработано компаний: 0
+2025-06-06 23:54:20,937 - INFO - Отправлено писем: 0
+2025-06-06 23:54:25,398 - INFO - ====== WebDriver manager ======
+2025-06-06 23:54:26,120 - INFO - Get LATEST chromedriver version for google-chrome
+2025-06-06 23:54:26,259 - INFO - Get LATEST chromedriver version for google-chrome
+2025-06-06 23:54:26,393 - INFO - Driver [C:\Users\Basd9\.wdm\drivers\chromedriver\win64\137.0.7151.68\chromedriver-win32/chromedriver.exe] found in cache
+2025-06-06 23:54:29,777 - INFO - Парсер завершил работу
+2025-06-06 23:54:29,777 - INFO - Обработано компаний: 0
+2025-06-06 23:54:29,777 - INFO - Отправлено писем: 0
+2025-06-06 23:54:51,998 - INFO - ====== WebDriver manager ======
+2025-06-06 23:54:52,719 - INFO - Get LATEST chromedriver version for google-chrome
+2025-06-06 23:54:52,854 - INFO - Get LATEST chromedriver version for google-chrome
+2025-06-06 23:54:52,993 - INFO - Driver [C:\Users\Basd9\.wdm\drivers\chromedriver\win64\137.0.7151.68\chromedriver-win32/chromedriver.exe] found in cache
+2025-06-06 23:54:56,232 - INFO - Парсер завершил работу
+2025-06-06 23:54:56,232 - INFO - Обработано компаний: 0
+2025-06-06 23:54:56,232 - INFO - Отправлено писем: 0
+2025-06-06 23:55:28,756 - INFO - ====== WebDriver manager ======
+2025-06-06 23:55:29,478 - INFO - Get LATEST chromedriver version for google-chrome
+2025-06-06 23:55:29,621 - INFO - Get LATEST chromedriver version for google-chrome
+2025-06-06 23:55:29,752 - INFO - Driver [C:\Users\Basd9\.wdm\drivers\chromedriver\win64\137.0.7151.68\chromedriver-win32/chromedriver.exe] found in cache
+2025-06-06 23:55:30,877 - INFO - 
+Начинаем обработку месяца: may 2025
+2025-06-06 23:55:36,542 - INFO - Применение фильтров: 2025-05-01 - 2025-05-31
+2025-06-06 23:55:36,543 - ERROR - Ошибка при применении фильтров: Message: invalid session id: session deleted as the browser has closed the connection
+from disconnected: not connected to DevTools
+  (Session info: chrome=137.0.7151.69)
+Stacktrace:
+	GetHandleVerifier [0x0x663763+63299]
+	GetHandleVerifier [0x0x6637a4+63364]
+	(No symbol) [0x0x491113]
+	(No symbol) [0x0x4808a0]
+	(No symbol) [0x0x49e8c2]
+	(No symbol) [0x0x50519c]
+	(No symbol) [0x0x51f359]
+	(No symbol) [0x0x4fe376]
+	(No symbol) [0x0x4cd6e0]
+	(No symbol) [0x0x4ce544]
+	GetHandleVerifier [0x0x8be033+2531347]
+	GetHandleVerifier [0x0x8b9332+2511634]
+	GetHandleVerifier [0x0x689eda+220858]
+	GetHandleVerifier [0x0x67a528+156936]
+	GetHandleVerifier [0x0x680c5d+183357]
+	GetHandleVerifier [0x0x66b6c8+95912]
+	GetHandleVerifier [0x0x66b870+96336]
+	GetHandleVerifier [0x0x65664a+9770]
+	BaseThreadInitThunk [0x0x7620fa29+25]
+	RtlGetAppContainerNamedObjectPath [0x0x77907b5e+286]
+	RtlGetAppContainerNamedObjectPath [0x0x77907b2e+238]
+
+2025-06-06 23:55:38,626 - INFO - Парсер завершил работу
+2025-06-06 23:55:38,626 - INFO - Обработано компаний: 0
+2025-06-06 23:55:38,626 - INFO - Отправлено писем: 0
+2025-06-07 00:10:02,340 - INFO - ====== WebDriver manager ======
+2025-06-07 00:10:03,079 - INFO - Get LATEST chromedriver version for google-chrome
+2025-06-07 00:10:03,223 - INFO - Get LATEST chromedriver version for google-chrome
+2025-06-07 00:10:03,355 - INFO - Get LATEST chromedriver version for google-chrome
+2025-06-07 00:10:03,699 - INFO - WebDriver version 137.0.7151.68 selected
+2025-06-07 00:10:03,701 - INFO - Modern chrome version https://storage.googleapis.com/chrome-for-testing-public/137.0.7151.68/win32/chromedriver-win32.zip
+2025-06-07 00:10:03,702 - INFO - About to download new driver from https://storage.googleapis.com/chrome-for-testing-public/137.0.7151.68/win32/chromedriver-win32.zip
+2025-06-07 00:10:03,783 - INFO - Driver downloading response is 200
+2025-06-07 00:10:04,638 - INFO - Get LATEST chromedriver version for google-chrome
+2025-06-07 00:10:05,053 - INFO - Driver has been saved in cache [C:\Users\Basd9\.wdm\drivers\chromedriver\win64\137.0.7151.68]
+2025-06-07 00:10:06,439 - INFO - 
+Начинаем обработку месяца: may 2025
+2025-06-07 00:10:11,684 - INFO - Применение фильтров: 2025-05-01 - 2025-05-31
+2025-06-07 00:10:31,272 - INFO - Обработка страницы 1
+2025-06-07 00:10:33,327 - INFO - Добавлено 25 новых ссылок (Всего: 25)
+2025-06-07 00:10:33,327 - INFO - Обработка страницы 2
+2025-06-07 00:10:40,774 - INFO - Добавлено 25 новых ссылок (Всего: 50)
+2025-06-07 00:10:40,774 - INFO - Обработка страницы 3
+2025-06-07 00:10:47,714 - INFO - Добавлено 25 новых ссылок (Всего: 75)
+2025-06-07 00:10:47,714 - INFO - Обработка страницы 4
+2025-06-07 00:10:55,341 - INFO - Добавлено 25 новых ссылок (Всего: 100)
+2025-06-07 00:10:55,341 - INFO - Обработка страницы 5
+2025-06-07 00:10:58,938 - WARNING - Retrying (Retry(total=2, connect=None, read=None, redirect=None, status=None)) after connection broken by 'ConnectionResetError(10054, 'Удаленный хост принудительно разорвал существующее подключение', None, 10054, None)': /session/9dfd9b1c7034936179f5db5e27332894
