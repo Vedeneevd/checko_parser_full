@@ -11,6 +11,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.chrome.service import Service
+from selenium.webdriver.chrome.options import Options
 from webdriver_manager.chrome import ChromeDriverManager
 from bs4 import BeautifulSoup
 import logging
@@ -34,46 +35,43 @@ DELAY_BETWEEN_PAGES = 2  # Задержка между страницами в �
 API_KEY = os.getenv('API_KEY')  # API ключ для rucaptcha
 SMTPBZ_API_KEY = os.getenv('SMTPBZ_API_KEY')
 
-from selenium import webdriver
-from selenium.webdriver.chrome.service import Service
-from selenium.webdriver.chrome.options import Options
-from webdriver_manager.chrome import ChromeDriverManager
-
 
 def setup_driver():
     """Настройка веб-драйвера для работы на VPS"""
-    options = Options()
+    options = webdriver.ChromeOptions()
 
-    # Настройки для работы в headless-режиме
-    options.add_argument("--headless")  # Запуск без графического интерфейса
-    options.add_argument("--disable-gpu")  # Отключение GPU
-    options.add_argument("--no-sandbox")  # Отключение песочницы (для работы в контейнерах или VPS)
-    options.add_argument("--disable-dev-shm-usage")  # Отключение ограничений памяти
-    options.add_argument("start-maximized")  # Запуск в полноэкранном режиме (не обязательно)
+    # Основные аргументы
+    options.add_argument("--headless=new")
+    options.add_argument("--no-sandbox")
+    options.add_argument("--disable-dev-shm-usage")
+    options.add_argument("--remote-debugging-port=9222")
+    options.add_argument("--disable-gpu")
 
-    # Установка User-Agent для имитации обычного браузера
-    options.add_argument(
-        "user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
-    )
+    # Укажите явный путь к Chrome
+    options.binary_location = '/usr/bin/google-chrome'
 
-    # Для предотвращения блокировки автоматизации
+    # Дополнительные настройки
     options.add_argument("--disable-blink-features=AutomationControlled")
     options.add_experimental_option("excludeSwitches", ["enable-automation"])
     options.add_experimental_option("useAutomationExtension", False)
-
-    # Устанавливаем путь к браузеру (если нужно для нестандартных путей, например для Chromium)
+    options.add_argument(
+        "user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36")
+    options.add_argument("--window-size=1920,1080")
     options.binary_location = '/usr/bin/chromium-browser'
 
-    # Запуск веб-драйвера с использованием ChromeDriverManager для автоматической установки драйвера
-    service = Service(ChromeDriverManager().install())
-    driver = webdriver.Chrome(service=service, options=options)
+    try:
+        # Используйте явный путь к ChromeDriver
+        service = Service('/usr/bin/chromedriver')
+        driver = webdriver.Chrome(service=service, options=options)
 
-    # Для скрытия информации о WebDriver
-    driver.execute_cdp_cmd("Page.addScriptToEvaluateOnNewDocument", {
-        "source": "Object.defineProperty(navigator, 'webdriver', {get: () => undefined})"
-    })
+        driver.execute_cdp_cmd("Page.addScriptToEvaluateOnNewDocument", {
+            "source": "Object.defineProperty(navigator, 'webdriver', {get: () => undefined})"
+        })
 
-    return driver
+        return driver
+    except Exception as e:
+        logger.error(f"Ошибка при инициализации драйвера: {str(e)}")
+        raise
 
 
 def solve_recaptcha_v2(driver):
@@ -175,33 +173,46 @@ def solve_recaptcha_v2(driver):
 
 
 def handle_captcha(driver):
-    """Полная обработка капчи с улучшенной логикой"""
+    """Полная обработка капчи с повторными попытками до 50 раз и улучшенной логикой"""
+    max_retries = 50  # Максимальное количество попыток решения капчи
+    retries = 0  # Счетчик попыток
+
     print("Обнаружена капча, начинаем обработку...")
     debug_screenshot(driver, "captcha_detected")
 
     try:
-        # 1. Кликаем на чекбокс "Я не робот"
-        checkbox_frame = WebDriverWait(driver, 20).until(
-            EC.frame_to_be_available_and_switch_to_it((By.CSS_SELECTOR, "iframe[title*='reCAPTCHA']"))
-        )
-        checkbox = WebDriverWait(driver, 20).until(
-            EC.element_to_be_clickable((By.CLASS_NAME, "recaptcha-checkbox"))
-        )
-        checkbox.click()
-        print("Чекбокс 'Я не робот' нажат")
-        driver.switch_to.default_content()
-        debug_screenshot(driver, "after_checkbox_click")
-        time.sleep(3)
+        while retries < max_retries:
+            retries += 1
+            logger.info(f"Попытка решения капчи {retries}/{max_retries}")
 
-        # 2. Решаем капчу через API
-        if not solve_recaptcha_v2(driver):
-            return False
+            # Кликаем на чекбокс "Я не робот"
+            checkbox_frame = WebDriverWait(driver, 20).until(
+                EC.frame_to_be_available_and_switch_to_it((By.CSS_SELECTOR, "iframe[title*='reCAPTCHA']"))
+            )
+            checkbox = WebDriverWait(driver, 20).until(
+                EC.element_to_be_clickable((By.CLASS_NAME, "recaptcha-checkbox"))
+            )
+            checkbox.click()
+            logger.info("Чекбокс 'Я не робот' нажат")
 
-        return True
+            driver.switch_to.default_content()
+            debug_screenshot(driver, "after_checkbox_click")
+            time.sleep(3)
+
+            # Решаем капчу через API
+            if not solve_recaptcha_v2(driver):
+                logger.error("Ошибка при решении капчи, пытаемся снова...")
+                time.sleep(5)  # Ожидание перед повторной попыткой
+            else:
+                logger.info("Капча успешно решена!")
+                return True
+
+        logger.error(f"Не удалось решить капчу после {max_retries} попыток.")
+        return False  # Если не удалось решить капчу после всех попыток
 
     except Exception as e:
         debug_screenshot(driver, "captcha_handling_error")
-        print(f"Ошибка при обработке капчи: {str(e)}")
+        logger.error(f"Ошибка при обработке капчи: {str(e)}")
         return False
 
 
@@ -298,7 +309,7 @@ def get_all_company_links(driver):
     """Собираем ссылки на компании с учетом уже примененных фильтров"""
     all_links = []
     page_num = 1
-    max_pages = 1  # Максимальное количество страниц
+    max_pages = 999  # Максимальное количество страниц
     processed_pages = set()
 
     while page_num <= max_pages:
@@ -354,7 +365,6 @@ def get_all_company_links(driver):
 
     logger.info(f"Сбор завершен. Всего ссылок: {len(all_links)}")
     return all_links
-
 
 
 def get_person_info(soup, label):
@@ -431,7 +441,8 @@ def get_person_info(soup, label):
                                 # Извлекаем ИНН учредителя
                                 inn_div = columns[1].find_next('div')
                                 if inn_div and "ИНН" in inn_div.text:
-                                    founder_inn = inn_div.text.split()[-1]  # Получаем последний элемент, который будет ИНН
+                                    founder_inn = inn_div.text.split()[
+                                        -1]  # Получаем последний элемент, который будет ИНН
                             else:
                                 logger.error("Не удалось найти имя учредителя в таблице.")
                         else:
@@ -479,20 +490,20 @@ def get_first_okved(soup):
         x_section = soup.find('section', id='activity')
         if x_section:
             print('Секция найдена')
-        # Находим таблицу с видами деятельности
+            # Находим таблицу с видами деятельности
             activity_table = x_section.find('table', class_='table table-sm table-striped')
             if not activity_table:
                 logger.error("Таблица с видами деятельности не найдена.")
                 return None, None
 
-        # Находим все строки в таблице
+            # Находим все строки в таблице
             rows = activity_table.find_all('tr')
 
             if not rows:
                 logger.error("В таблице нет строк с ОКВЭД.")
                 return None, None
 
-        # Извлекаем первый вид деятельности (первую строку таблицы)
+            # Извлекаем первый вид деятельности (первую строку таблицы)
             first_row = rows[0]  # Первая строка таблицы
             columns = first_row.find_all('td')  # Получаем все столбцы в строке
 
@@ -716,7 +727,7 @@ def save_to_excel(data, filepath):
 
 
 def process_month(driver, start_date, end_date, existing_inns):
-    """Обработка одного месяца"""
+    """Обработка одного месяца с промежуточным сохранением данных о компаниях (по 10 компаний)"""
     month_name = start_date.strftime("%B %Y").lower()
     output_file = f"{month_name}.xlsx"
     all_data = []
@@ -746,12 +757,17 @@ def process_month(driver, start_date, end_date, existing_inns):
             all_data.append(company_data)
             existing_inns.add(company_data['ИНН'])
 
+        # После каждых 10 компаний сохраняем данные в файл
         if i % 10 == 0:
             logger.info(f"Обработано {i}/{len(company_links)} компаний за {month_name}")
+            save_to_excel(all_data, output_file)
+            logger.info(f"Сохранено {len(all_data)} компаний в файл {output_file}")
+            all_data = []  # Очистим данные для следующей порции компаний
 
+        # Задержка между запросами
         time.sleep(random.uniform(1, 3))
 
-    # Сохраняем данные
+    # Сохраняем остаток данных (если есть)
     if all_data:
         save_to_excel(all_data, output_file)
         logger.info(f"Сохранено {len(all_data)} компаний в файл {output_file}")
@@ -759,7 +775,6 @@ def process_month(driver, start_date, end_date, existing_inns):
         logger.info(f"Нет новых компаний для сохранения за {month_name}")
 
     return existing_inns, all_data
-
 
 
 def main():
@@ -770,9 +785,9 @@ def main():
     all_inns = set()
 
     try:
-        # Определяем месяцы для парсинга (с 1 января 2025 по 31 мая 2025)
-        current_date = datetime(2025, 1, 1)
-        end_date = datetime(2025, 5, 31)
+        # Определяем месяцы для парсинга (с мая 2025 по январь 2025)
+        current_date = datetime(2025, 5, 1)
+        end_date = datetime(2025, 1, 1)
 
         while current_date >= end_date:
             month_start = current_date.replace(day=1)
