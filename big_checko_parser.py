@@ -30,11 +30,63 @@ logger = logging.getLogger(__name__)
 # Конфигурация
 BASE_URL = "https://checko.ru/search/advanced"
 PAGE_LOAD_TIMEOUT = 30
-MAX_RETRIES = 3
+MAX_RETRIES = 10
 DELAY_BETWEEN_PAGES = 2  # Задержка между страницами в секундах
 API_KEY = os.getenv('API_KEY')  # API ключ для rucaptcha
 SMTPBZ_API_KEY = os.getenv('SMTPBZ_API_KEY')
+WORK_START_HOUR = 8  # Начало рабочего времени (8:00)
+WORK_END_HOUR = 1    # Конец рабочего времени (1:00 следующего дня)
+PROGRESS_FILE = "parser_progress.json"  # Файл для сохранения прогресса
 
+
+def load_progress():
+    """Загрузка прогресса из файла"""
+    if os.path.exists(PROGRESS_FILE):
+        try:
+            with open(PROGRESS_FILE, 'r') as f:
+                return json.load(f)
+        except Exception as e:
+            logger.error(f"Ошибка загрузки прогресса: {e}")
+    return {
+        'current_date': None,
+        'processed_inns': [],
+        'processed_companies': [],
+        'current_month_links': [],
+        'current_link_index': 0
+    }
+
+
+def save_progress(progress_data):
+    """Сохранение прогресса в файл"""
+    try:
+        with open(PROGRESS_FILE, 'w') as f:
+            json.dump(progress_data, f)
+    except Exception as e:
+        logger.error(f"Ошибка сохранения прогресса: {e}")
+
+
+def is_working_hours():
+    """Проверка, находится ли текущее время в рабочих часах"""
+    now = datetime.now()
+    current_hour = now.hour
+
+    # Если текущий час между 1:00 и 8:00 - не рабочее время
+    if WORK_END_HOUR <= current_hour < WORK_START_HOUR:
+        return False
+    return True
+
+
+def wait_for_working_hours():
+    """Ожидание наступления рабочих часов"""
+    while not is_working_hours():
+        now = datetime.now()
+        next_start = now.replace(hour=WORK_START_HOUR, minute=0, second=0, microsecond=0)
+        if now.hour >= WORK_END_HOUR:
+            next_start += timedelta(days=1)  # Если уже ночь, ждем до утра следующего дня
+
+        wait_seconds = (next_start - now).total_seconds()
+        logger.info(f"Вне рабочего времени. Ожидаем до {next_start} ({wait_seconds / 3600:.1f} часов)")
+        time.sleep(min(wait_seconds, 3600))  # Проверяем каждый час
 
 def setup_driver():
     """Настройка веб-драйвера для работы на VPS"""
@@ -173,8 +225,8 @@ def solve_recaptcha_v2(driver):
 
 
 def handle_captcha(driver):
-    """Полная обработка капчи с повторными попытками до 50 раз и улучшенной логикой"""
-    max_retries = 50  # Максимальное количество попыток решения капчи
+    """Полная обработка капчи с повторными попытками до 100 раз и улучшенной логикой"""
+    max_retries = 100  # Максимальное количество попыток решения капчи
     retries = 0  # Счетчик попыток
 
     print("Обнаружена капча, начинаем обработку...")
@@ -214,6 +266,27 @@ def handle_captcha(driver):
         debug_screenshot(driver, "captcha_handling_error")
         logger.error(f"Ошибка при обработке капчи: {str(e)}")
         return False
+
+
+def load_page_with_retry(driver, url, retries=3):
+    """Попытка загрузить страницу с ретраями"""
+    attempt = 0
+    while attempt < retries:
+        try:
+            attempt += 1
+            logger.info(f"Попытка загрузки страницы: {url}, попытка {attempt}/{retries}")
+            driver.get(url)
+            WebDriverWait(driver, PAGE_LOAD_TIMEOUT).until(
+                EC.presence_of_element_located((By.CSS_SELECTOR, "body"))
+            )
+            logger.info(f"Страница {url} успешно загружена")
+            return True
+        except Exception as e:
+            logger.error(f"Ошибка загрузки страницы {url}: {e}")
+            time.sleep(5)  # Задержка перед повторной попыткой
+    logger.error(f"Не удалось загрузить страницу {url} после {retries} попыток.")
+    return False
+
 
 
 def debug_screenshot(driver, name):
@@ -726,7 +799,7 @@ def save_to_excel(data, filepath):
         raise
 
 
-def process_month(driver, start_date, end_date, existing_inns):
+def process_month(driver, start_date, end_date, existing_inns, progress_data):
     """Обработка одного месяца с промежуточным сохранением данных о компаниях (по 10 компаний)"""
     month_name = start_date.strftime("%B %Y").lower()
     output_file = f"{month_name}.xlsx"
@@ -734,34 +807,62 @@ def process_month(driver, start_date, end_date, existing_inns):
 
     logger.info(f"\nНачинаем обработку месяца: {month_name}")
 
-    # Переходим на страницу поиска
-    driver.get(BASE_URL)
-    time.sleep(3)
+    # Проверяем, есть ли сохраненные ссылки для этого месяца
+    if progress_data['current_date'] == start_date.strftime("%Y-%m-%d"):
+        company_links = progress_data['current_month_links']
+        current_link_index = progress_data['current_link_index']
+        logger.info(f"Продолжаем обработку месяца с позиции {current_link_index + 1}/{len(company_links)}")
+    else:
+        # Переходим на страницу поиска
+        driver.get(BASE_URL)
+        time.sleep(3)
 
-    # Применяем фильтры
-    if not apply_date_filters(driver, start_date, end_date):
-        return existing_inns, []
+        # Применяем фильтры
+        if not apply_date_filters(driver, start_date, end_date):
+            return existing_inns, [], progress_data
 
-    # Собираем все ссылки на компании
-    company_links = get_all_company_links(driver)
+        # Собираем все ссылки на компании
+        company_links = get_all_company_links(driver)
+        current_link_index = 0
+        progress_data['current_month_links'] = company_links
+        progress_data['current_link_index'] = 0
+        progress_data['current_date'] = start_date.strftime("%Y-%m-%d")
+        save_progress(progress_data)
+
     logger.info(f"Найдено {len(company_links)} компаний за {month_name}")
 
     if not company_links:
         logger.info(f"Нет компаний за {month_name}, пропускаем")
-        return existing_inns, []
+        return existing_inns, [], progress_data
 
     # Парсим данные компаний
-    for i, link in enumerate(company_links, 1):
+    for i in range(current_link_index, len(company_links)):
+        link = company_links[i]
+
+        # Проверяем рабочее время перед каждой итерацией
+        if not is_working_hours():
+            logger.info("Рабочее время закончилось, сохраняем прогресс и завершаем работу")
+            progress_data['current_link_index'] = i
+            save_progress(progress_data)
+            wait_for_working_hours()
+            # После возобновления работы нужно переинициализировать драйвер
+            driver.quit()
+            driver = setup_driver()
+
         company_data = parse_company_page(driver, link, existing_inns)
         if company_data:
             all_data.append(company_data)
             existing_inns.add(company_data['ИНН'])
+            progress_data['processed_inns'] = list(existing_inns)
+            progress_data['processed_companies'].append(company_data['ИНН'])
 
-        # После каждых 10 компаний сохраняем данные в файл
+        # После каждых 10 компаний сохраняем данные в файл и прогресс
         if i % 10 == 0:
-            logger.info(f"Обработано {i}/{len(company_links)} компаний за {month_name}")
+            logger.info(f"Обработано {i + 1}/{len(company_links)} компаний за {month_name}")
             save_to_excel(all_data, output_file)
             logger.info(f"Сохранено {len(all_data)} компаний в файл {output_file}")
+            progress_data['current_link_index'] = i
+            save_progress(progress_data)
             all_data = []  # Очистим данные для следующей порции компаний
 
         # Задержка между запросами
@@ -771,41 +872,89 @@ def process_month(driver, start_date, end_date, existing_inns):
     if all_data:
         save_to_excel(all_data, output_file)
         logger.info(f"Сохранено {len(all_data)} компаний в файл {output_file}")
-    else:
-        logger.info(f"Нет новых компаний для сохранения за {month_name}")
 
-    return existing_inns, all_data
+    # Сбрасываем прогресс по месяцу после завершения
+    progress_data['current_date'] = None
+    progress_data['current_month_links'] = []
+    progress_data['current_link_index'] = 0
+    save_progress(progress_data)
+
+    return existing_inns, all_data, progress_data
 
 
 def main():
     """Основная функция парсера"""
-    driver = setup_driver()
+    # Загружаем прогресс
+    progress_data = load_progress()
     processed_count = 0
     emails_sent = 0
-    all_inns = set()
 
-    try:
-        # Определяем месяцы для парсинга (с мая 2025 по январь 2025)
-        current_date = datetime(2025, 5, 1)
-        end_date = datetime(2025, 1, 1)
+    # Загружаем уже обработанные ИНН
+    if progress_data['processed_inns']:
+        all_inns = set(progress_data['processed_inns'])
+    else:
+        all_inns = set()
 
-        while current_date >= end_date:
-            month_start = current_date.replace(day=1)
-            month_end = (month_start + timedelta(days=32)).replace(day=1) - timedelta(days=1)
+    # Основной цикл работы
+    while True:
+        try:
+            # Проверяем рабочее время
+            if not is_working_hours():
+                wait_for_working_hours()
 
-            # Обрабатываем месяц
-            all_inns, month_data = process_month(driver, month_start, month_end, all_inns)
-            processed_count += len(month_data)
-            emails_sent += sum(1 for item in month_data if item['EmailSent'])
+            # Инициализируем драйвер
+            driver = setup_driver()
 
-            # Переходим к предыдущему месяцу
-            current_date = month_start - timedelta(days=1)
+            # Определяем месяцы для парсинга (с мая 2025 по январь 2025)
+            current_date = datetime(2025, 4, 1)
+            end_date = datetime(2025, 1, 1)
 
-    finally:
-        driver.quit()
-        logger.info("Парсер завершил работу")
-        logger.info(f"Обработано компаний: {processed_count}")
-        logger.info(f"Отправлено писем: {emails_sent}")
+            # Если есть сохраненный прогресс по текущему месяцу, используем его
+            if progress_data['current_date']:
+                current_date = datetime.strptime(progress_data['current_date'], "%Y-%m-%d")
+                logger.info(f"Продолжаем работу с {current_date.strftime('%B %Y')}")
+            else:
+                logger.info("Начинаем новую сессию парсинга")
+
+            while current_date >= end_date:
+                month_start = current_date.replace(day=1)
+                month_end = (month_start + timedelta(days=32)).replace(day=1) - timedelta(days=1)
+
+                # Обрабатываем месяц
+                all_inns, month_data, progress_data = process_month(driver, month_start, month_end, all_inns,
+                                                                    progress_data)
+                processed_count += len(month_data)
+                emails_sent += sum(1 for item in month_data if item['EmailSent'])
+
+                # Переходим к предыдущему месяцу
+                current_date = month_start - timedelta(days=1)
+
+                # Сохраняем прогресс после каждого месяца
+                save_progress(progress_data)
+
+            # Если все месяцы обработаны, завершаем работу
+            logger.info("Все месяцы успешно обработаны!")
+            break
+
+        except Exception as e:
+            logger.error(f"Критическая ошибка: {str(e)}")
+            debug_screenshot(driver, "critical_error")
+
+            # Сохраняем прогресс перед выходом
+            save_progress(progress_data)
+
+            # Закрываем драйвер
+            if 'driver' in locals():
+                driver.quit()
+
+            # Ждем перед повторной попыткой
+            time.sleep(60)
+
+    # Завершаем работу
+    driver.quit()
+    logger.info("Парсер завершил работу")
+    logger.info(f"Обработано компаний: {processed_count}")
+    logger.info(f"Отправлено писем: {emails_sent}")
 
 
 if __name__ == "__main__":
