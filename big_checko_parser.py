@@ -11,8 +11,6 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.chrome.service import Service
-from selenium.webdriver.chrome.options import Options
-from webdriver_manager.chrome import ChromeDriverManager
 from bs4 import BeautifulSoup
 import logging
 
@@ -30,7 +28,7 @@ logger = logging.getLogger(__name__)
 # Конфигурация
 BASE_URL = "https://checko.ru/search/advanced"
 PAGE_LOAD_TIMEOUT = 30
-MAX_RETRIES = 3
+MAX_RETRIES = 10
 DELAY_BETWEEN_PAGES = 2  # Задержка между страницами в секундах
 API_KEY = os.getenv('API_KEY')  # API ключ для rucaptcha
 SMTPBZ_API_KEY = os.getenv('SMTPBZ_API_KEY')
@@ -60,7 +58,7 @@ def setup_driver():
 
     try:
         # Используйте явный путь к ChromeDriver
-        service = Service('/usr/local/bin/chromedriver')
+        service = Service('/usr/bin/chromedriver')
         driver = webdriver.Chrome(service=service, options=options)
 
         driver.execute_cdp_cmd("Page.addScriptToEvaluateOnNewDocument", {
@@ -73,16 +71,61 @@ def setup_driver():
         raise
 
 
+def handle_captcha(driver):
+    """Бесконечная обработка капчи с улучшенной логикой повторных попыток"""
+    retry_delay = 5  # Начальная задержка между попытками
+    max_retry_delay = 60  # Максимальная задержка между попытками
+    retry_count = 0  # Счетчик попыток (только для логирования)
+
+    logger.info("Обнаружена капча, начинаем бесконечную обработку...")
+    debug_screenshot(driver, "captcha_detected")
+
+    while True:  # Бесконечный цикл для решения капчи
+        retry_count += 1
+        try:
+            logger.info(f"Попытка решения капчи #{retry_count}")
+
+            # Кликаем на чекбокс "Я не робот"
+            checkbox_frame = WebDriverWait(driver, 20).until(
+                EC.frame_to_be_available_and_switch_to_it((By.CSS_SELECTOR, "iframe[title*='reCAPTCHA']"))
+            )
+            checkbox = WebDriverWait(driver, 20).until(
+                EC.element_to_be_clickable((By.CLASS_NAME, "recaptcha-checkbox"))
+            )
+            checkbox.click()
+            logger.info("Чекбокс 'Я не робот' нажат")
+            driver.switch_to.default_content()
+            debug_screenshot(driver, "after_checkbox_click")
+            time.sleep(3)
+
+            # Решаем капчу через API
+            if solve_recaptcha_v2(driver):
+                logger.info("Капча успешно решена!")
+                return True
+
+            # Если капча не решена, увеличиваем задержку
+            retry_delay = min(retry_delay * 1.5, max_retry_delay)
+            logger.warning(f"Капча не решена, следующая попытка через {retry_delay} сек...")
+            time.sleep(retry_delay)
+
+        except Exception as e:
+            debug_screenshot(driver, f"captcha_error_attempt_{retry_count}")
+            logger.error(f"Ошибка при обработке капчи (попытка #{retry_count}): {str(e)}")
+            retry_delay = min(retry_delay * 2, max_retry_delay)  # Увеличиваем задержку
+            logger.info(f"Повторная попытка через {retry_delay} секунд...")
+            time.sleep(retry_delay)
+
+
 def solve_recaptcha_v2(driver):
-    """Полное решение reCAPTCHA v2 с отладкой"""
-    print("Начинаем решение reCAPTCHA v2...")
+    """Решение reCAPTCHA v2 с бесконечными попытками"""
+    logger.info("Начинаем решение reCAPTCHA v2...")
     debug_screenshot(driver, "before_solving")
 
     try:
         # Получаем параметры капчи
         sitekey = driver.find_element(By.CSS_SELECTOR, 'div[data-sitekey]').get_attribute("data-sitekey")
         pageurl = driver.current_url
-        print(f"Sitekey: {sitekey}, URL: {pageurl}")
+        logger.info(f"Sitekey: {sitekey}, URL: {pageurl}")
 
         # 1. Создаем задачу в API
         payload = {
@@ -109,13 +152,12 @@ def solve_recaptcha_v2(driver):
             raise Exception(f"Ошибка API при создании задачи: {error}")
 
         task_id = result["taskId"]
-        print(f"Задача создана, ID: {task_id}")
+        logger.info(f"Задача создана, ID: {task_id}")
         debug_screenshot(driver, "task_created")
 
-        # 2. Ожидаем решения
-        start_time = time.time()
-        while time.time() - start_time < 300:  # 5 минут максимум
-            time.sleep(10)
+        # 2. Ожидаем решения (бесконечно, пока не получим ответ)
+        while True:
+            time.sleep(10)  # Проверяем каждые 10 секунд
 
             status_response = requests.post(
                 "https://api.rucaptcha.com/getTaskResult",
@@ -124,11 +166,11 @@ def solve_recaptcha_v2(driver):
                 timeout=30
             ).json()
 
-            print(f"Статус решения: {json.dumps(status_response, indent=2)}")
+            logger.info(f"Статус решения: {json.dumps(status_response, indent=2)}")
 
             if status_response.get("status") == "ready":
                 token = status_response["solution"]["gRecaptchaResponse"]
-                print("Капча успешно решена!")
+                logger.info("Капча успешно решена!")
 
                 # 3. Вводим токен
                 driver.execute_script(f"""
@@ -153,7 +195,7 @@ def solve_recaptcha_v2(driver):
                     EC.presence_of_element_located((By.CSS_SELECTOR, "button[type='submit']"))
                 )
                 driver.execute_script("arguments[0].click();", submit_btn)
-                print("Форма отправлена через JS")
+                logger.info("Форма отправлена через JS")
                 debug_screenshot(driver, "after_submit")
                 time.sleep(3)
 
@@ -161,45 +203,37 @@ def solve_recaptcha_v2(driver):
 
             elif status_response.get("errorId") != 0:
                 error = status_response.get("errorDescription", "Неизвестная ошибка API")
-                raise Exception(f"Ошибка API: {error}")
-
-        raise Exception("Превышено время ожидания решения (5 минут)")
+                logger.error(f"Ошибка API: {error}")
+                # Создаем новую задачу при ошибке
+                logger.info("Создаем новую задачу для капчи...")
+                return solve_recaptcha_v2(driver)  # Рекурсивный вызов
 
     except Exception as e:
         debug_screenshot(driver, "captcha_error")
-        print(f"Ошибка при решении капчи: {str(e)}")
-        return False
+        logger.error(f"Ошибка при решении капчи: {str(e)}")
+        logger.info("Повторяем попытку решения капчи...")
+        time.sleep(10)
+        return solve_recaptcha_v2(driver)  # Рекурсивный вызов при ошибке
 
+def load_page_with_retry(driver, url, retries=3):
+    """Попытка загрузить страницу с ретраями"""
+    attempt = 0
+    while attempt < retries:
+        try:
+            attempt += 1
+            logger.info(f"Попытка загрузки страницы: {url}, попытка {attempt}/{retries}")
+            driver.get(url)
+            WebDriverWait(driver, PAGE_LOAD_TIMEOUT).until(
+                EC.presence_of_element_located((By.CSS_SELECTOR, "body"))
+            )
+            logger.info(f"Страница {url} успешно загружена")
+            return True
+        except Exception as e:
+            logger.error(f"Ошибка загрузки страницы {url}: {e}")
+            time.sleep(5)  # Задержка перед повторной попыткой
+    logger.error(f"Не удалось загрузить страницу {url} после {retries} попыток.")
+    return False
 
-def handle_captcha(driver):
-    """Полная обработка капчи с улучшенной логикой"""
-    print("Обнаружена капча, начинаем обработку...")
-    debug_screenshot(driver, "captcha_detected")
-
-    try:
-        # 1. Кликаем на чекбокс "Я не робот"
-        checkbox_frame = WebDriverWait(driver, 20).until(
-            EC.frame_to_be_available_and_switch_to_it((By.CSS_SELECTOR, "iframe[title*='reCAPTCHA']"))
-        )
-        checkbox = WebDriverWait(driver, 20).until(
-            EC.element_to_be_clickable((By.CLASS_NAME, "recaptcha-checkbox"))
-        )
-        checkbox.click()
-        print("Чекбокс 'Я не робот' нажат")
-        driver.switch_to.default_content()
-        debug_screenshot(driver, "after_checkbox_click")
-        time.sleep(3)
-
-        # 2. Решаем капчу через API
-        if not solve_recaptcha_v2(driver):
-            return False
-
-        return True
-
-    except Exception as e:
-        debug_screenshot(driver, "captcha_handling_error")
-        print(f"Ошибка при обработке капчи: {str(e)}")
-        return False
 
 
 def debug_screenshot(driver, name):
@@ -304,25 +338,32 @@ def get_all_company_links(driver):
         try:
             # Применяем фильтры для текущей страницы
             if page_num > 1:
-                # В случае, если не первая страница, переходим на нужную страницу
-                driver.get(f"{BASE_URL}?page={page_num}")
-                time.sleep(2)
+                try:
+                    current_url = driver.current_url  # Сохраняем текущий URL
 
-                # Проверяем наличие капчи
-                if driver.find_elements(By.CSS_SELECTOR, "iframe[title*='reCAPTCHA']"):
-                    if not handle_captcha(driver):
-                        logger.error("Не удалось решить капчу при переходе на страницу")
-                        break
+                    # Пробуем перейти на новую страницу
+                    driver.get(f"{BASE_URL}?page={page_num}")
 
-            # Прокручиваем страницу до конца, чтобы кнопка "Далее" стала видимой
-            driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
-            time.sleep(2)
+                    # Ждем реальной загрузки новой страницы
+                    WebDriverWait(driver, 10).until(
+                        lambda d: d.current_url != current_url
+                    )
 
-            # Проверяем наличие капчи после прокрутки
-            if driver.find_elements(By.CSS_SELECTOR, "iframe[title*='reCAPTCHA']"):
-                if not handle_captcha(driver):
-                    logger.error("Не удалось решить капчу после прокрутки")
-                    break
+                    time.sleep(2)
+
+                    # Проверяем капчу
+                    if driver.find_elements(By.CSS_SELECTOR, "iframe[title*='reCAPTCHA']"):
+                        if not handle_captcha(driver):
+                            logger.error("Не удалось решить капчу")
+                            # Возвращаемся назад при ошибке
+                            driver.get(current_url)
+                            continue
+
+                except Exception as e:
+                    logger.error(f"Ошибка перехода на страницу {page_num}: {str(e)}")
+                    # Пробуем восстановить страницу
+                    driver.refresh()
+                    continue
 
             # Собираем все ссылки на компании на текущей странице
             soup = BeautifulSoup(driver.page_source, 'html.parser')
@@ -547,10 +588,46 @@ def get_founder_inn(soup):
         return None
 
 
+def is_driver_alive(driver):
+    """Проверяем, работает ли драйвер"""
+    try:
+        # Проверяем несколько свойств для надежности
+        _ = driver.current_url
+        _ = driver.title
+        _ = driver.window_handles
+        return True
+    except Exception as e:
+        logger.error(f"Драйвер не отвечает: {str(e)}")
+        return False
+
+def restart_driver(driver=None):
+    """Полностью перезапускаем драйвер с очисткой памяти"""
+    if driver is not None:
+        try:
+            driver.quit()
+            # Принудительно очищаем память
+            import gc
+            gc.collect()
+        except:
+            pass
+
+    logger.info("Перезапускаем драйвер...")
+    new_driver = setup_driver()
+
+    # Настраиваем таймауты
+    new_driver.set_page_load_timeout(PAGE_LOAD_TIMEOUT)
+    new_driver.set_script_timeout(30)
+
+    return new_driver
+
+
 def parse_company_page(driver, url, existing_inns):
     """Парсинг данных компании с проверкой дубликатов по ИНН"""
     print(f"\nОбрабатываем компанию: {url}")
     try:
+        if not is_driver_alive(driver):
+            driver = restart_driver(driver)
+
         driver.get(url)
         debug_screenshot(driver, f"company_page_{url.split('/')[-1]}")
 
@@ -636,7 +713,6 @@ def parse_company_page(driver, url, existing_inns):
         charter_capital = None
         capital_tag = soup.find('div', string="Уставный капитал")
         if capital_tag:
-            # Получаем следующий элемент, который содержит текст с уставным капиталом
             charter_capital = capital_tag.find_next('div').get_text(strip=True)
 
         # Проверяем обязательные поля
@@ -657,22 +733,25 @@ def parse_company_page(driver, url, existing_inns):
             'ИНН': inn,
             'Дата регистрации': date,
             'Ген. директор': director,
-            'ИНН директора': director_inn,  # Добавляем ИНН директора
+            'ИНН директора': director_inn,
             'Учредитель': founder,
-            'ИНН учредителя': founder_inn if founder_inn else '',  # Добавляем ИНН учредителя, если найден
+            'ИНН учредителя': founder_inn if founder_inn else '',
             'Телефон': phone,
             'Email': email,
-            'ОКВЭД': f"{okved_code} - {okved_description}",  # Добавляем ОКВЭД
-            'Юридический адрес': legal_address,  # Добавляем юридический адрес
-            'Уставной капитал': charter_capital,  # Добавляем уставной капитал
+            'ОКВЭД': f"{okved_code} - {okved_description}",
+            'Юридический адрес': legal_address,
+            'Уставной капитал': charter_capital,
             'URL': url,
             'Дата добавления': current_date,
-            'EmailSent': False  # Флаг отправки письма
+            'EmailSent': False
         }
 
     except Exception as e:
-        debug_screenshot(driver, f"parse_error_{url.split('/')[-1]}")
-        print(f"Ошибка при парсинге компании: {str(e)}")
+        try:
+            debug_screenshot(driver, f"parse_error_{url.split('/')[-1]}")
+        except:
+            logger.error("Не удалось сделать скриншот ошибки - драйвер не отвечает")
+        logger.error(f"Ошибка при парсинге компании: {str(e)}")
         return None
 
 
@@ -713,47 +792,67 @@ def save_to_excel(data, filepath):
 
 
 def process_month(driver, start_date, end_date, existing_inns):
-    """Обработка одного месяца"""
+    """Обработка одного месяца с промежуточным сохранением данных о компаниях"""
     month_name = start_date.strftime("%B %Y").lower()
     output_file = f"{month_name}.xlsx"
     all_data = []
 
     logger.info(f"\nНачинаем обработку месяца: {month_name}")
 
-    # Переходим на страницу поиска
-    driver.get(BASE_URL)
-    time.sleep(3)
+    try:
+        # Переходим на страницу поиска
+        if not is_driver_alive(driver):
+            driver = restart_driver(driver)
 
-    # Применяем фильтры
-    if not apply_date_filters(driver, start_date, end_date):
-        return existing_inns, []
+        driver.get(BASE_URL)
+        time.sleep(3)
 
-    # Собираем все ссылки на компании
-    company_links = get_all_company_links(driver)
-    logger.info(f"Найдено {len(company_links)} компаний за {month_name}")
+        # Применяем фильтры
+        if not apply_date_filters(driver, start_date, end_date):
+            return existing_inns, []
 
-    if not company_links:
-        logger.info(f"Нет компаний за {month_name}, пропускаем")
-        return existing_inns, []
+        # Собираем все ссылки на компании
+        company_links = get_all_company_links(driver)
+        logger.info(f"Найдено {len(company_links)} компаний за {month_name}")
 
-    # Парсим данные компаний
-    for i, link in enumerate(company_links, 1):
-        company_data = parse_company_page(driver, link, existing_inns)
-        if company_data:
-            all_data.append(company_data)
-            existing_inns.add(company_data['ИНН'])
+        if not company_links:
+            logger.info(f"Нет компаний за {month_name}, пропускаем")
+            return existing_inns, []
 
-        if i % 10 == 0:
-            logger.info(f"Обработано {i}/{len(company_links)} компаний за {month_name}")
+        # Парсим данные компаний
+        for i, link in enumerate(company_links, 1):
+            try:
+                if not is_driver_alive(driver):
+                    driver = restart_driver(driver)
 
-        time.sleep(random.uniform(1, 3))
+                company_data = parse_company_page(driver, link, existing_inns)
+                if company_data:
+                    all_data.append(company_data)
+                    existing_inns.add(company_data['ИНН'])
 
-    # Сохраняем данные
-    if all_data:
-        save_to_excel(all_data, output_file)
-        logger.info(f"Сохранено {len(all_data)} компаний в файл {output_file}")
-    else:
-        logger.info(f"Нет новых компаний для сохранения за {month_name}")
+                # После каждых 10 компаний сохраняем данные в файл
+                if i % 10 == 0:
+                    logger.info(f"Обработано {i}/{len(company_links)} компаний за {month_name}")
+                    save_to_excel(all_data, output_file)
+                    logger.info(f"Сохранено {len(all_data)} компаний в файл {output_file}")
+                    all_data = []
+
+                # Задержка между запросами
+                time.sleep(random.uniform(1, 3))
+
+            except Exception as e:
+                logger.error(f"Ошибка при обработке компании {link}: {str(e)}")
+                driver = restart_driver(driver)
+                continue
+
+        # Сохраняем остаток данных (если есть)
+        if all_data:
+            save_to_excel(all_data, output_file)
+            logger.info(f"Сохранено {len(all_data)} компаний в файл {output_file}")
+
+    except Exception as e:
+        logger.error(f"Критическая ошибка при обработке месяца {month_name}: {str(e)}")
+        driver = restart_driver(driver)
 
     return existing_inns, all_data
 
@@ -782,8 +881,14 @@ def main():
             # Переходим к предыдущему месяцу
             current_date = month_start - timedelta(days=1)
 
+    except Exception as e:
+        logger.error(f"Критическая ошибка в main: {str(e)}")
+
     finally:
-        driver.quit()
+        try:
+            driver.quit()
+        except:
+            pass
         logger.info("Парсер завершил работу")
         logger.info(f"Обработано компаний: {processed_count}")
         logger.info(f"Отправлено писем: {emails_sent}")
